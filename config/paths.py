@@ -19,4 +19,4 @@ SQLITE_DATABASE = DATA / "german.db"
 # Depth 3
 
 DATABASE_SOURCE_CODE = DATABASE / "database.py"
-DATABASE_SCHEM = DATABASE / "schema.sql"
+DATABASE_SCHEMA = DATABASE / "schema.sql"
