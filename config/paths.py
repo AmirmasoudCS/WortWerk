@@ -14,6 +14,7 @@ CONFIG = ROOT / "config"
 CHECKLIST = LOG / "checklist"
 DATABASE = SRC / "database"
 VOCABULARY = SRC / "vocabulary"
+SQLITE_DATABASE = DATA / "german.db"
 
 # Depth 3
 
