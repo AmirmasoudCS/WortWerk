@@ -1,19 +1,18 @@
 import sqlite3
 from pathlib import Path
-
-
-DATABASE_PATH = Path("data/german.db")
-SCHEMA_PATH = Path("src/database/schema.sql")
-
+from config.paths import (
+    DATABASE_SCHEMA,
+    SQLITE_DATABASE,
+)
 
 def get_connection():
-    return sqlite3.connect(DATABASE_PATH)
+    return sqlite3.connect(SQLITE_DATABASE)
 
 
 def initialize_database():
     connection = get_connection()
 
-    with open(SCHEMA_PATH, "r", encoding="utf-8") as file:
+    with open(DATABASE_SCHEMA, "r", encoding="utf-8") as file:
         schema = file.read()
 
     connection.executescript(schema)
