@@ -1,6 +1,6 @@
 import argparse
 
-from config.paths import DB_PATH, SCHEMA_PATH
+from config.paths import DATABASE, DATABASE_SCHEMA
 from src.database.database import Database
 from src.vocabulary.repository import (
     VocabularyRepository,
@@ -60,8 +60,8 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
-    db = Database(DB_PATH)
-    db.initialize_schema(SCHEMA_PATH)
+    db = Database(DATABASE)
+    db.initialize_schema(DATABASE_SCHEMA)
     repo = VocabularyRepository(db)
 
     commands = {
