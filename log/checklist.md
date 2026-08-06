@@ -16,10 +16,10 @@
 
 - [ ] Build an interactive vocabulary collection script
 - [ ] Validate user input
-- [ ] Store words in the database
-- [ ] Support editing and deleting entries
+- [x] Store words in the database
+- [x] Support editing and deleting entries
 - [ ] Build simple search and filtering
-- [ ] Collect the initial vocabulary dataset
+- [x] Collect the initial vocabulary dataset
 
 ---
 
