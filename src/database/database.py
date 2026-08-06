@@ -52,3 +52,10 @@ class Database:
     def fetch_one(self, query: str, params: tuple = ()) -> sqlite3.Row | None:
         conn = self.connect()
         return conn.execute(query, params).fetchone()
+    
+    def table_exists(self, table_name: str) -> bool:
+        row = self.fetch_one(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            (table_name,),
+        )
+        return row is not None
