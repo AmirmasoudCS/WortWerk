@@ -14,6 +14,7 @@ class Database:
     def connect(self) -> sqlite3.Connection:
         """Open a connection (and reuse it if already open)."""
         if self.connection is None:
+            self.db_path.parent.mkdir(parents=True, exist_ok=True)
             self.connection = sqlite3.connect(self.db_path)
             self.connection.row_factory = sqlite3.Row
             self.connection.execute("PRAGMA foreign_keys = ON")
