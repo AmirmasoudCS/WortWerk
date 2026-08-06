@@ -50,8 +50,6 @@ def handle_add(repo: VocabularyRepository, args) -> None:
     except (InvalidArticleError, DuplicateWordError) as e:
         print_error(str(e))
 
-
-
 def handle_list(repo: VocabularyRepository, args) -> None:
     rows = repo.list_words(article=args.article, level=args.level)
     if not rows:
