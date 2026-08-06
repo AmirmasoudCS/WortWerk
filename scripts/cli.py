@@ -1,6 +1,6 @@
 import argparse
 
-from config.paths import DATABASE, DATABASE_SCHEMA
+from config.paths import SQLITE_DATABASE
 from src.database.database import Database
 from src.vocabulary.repository import (
     VocabularyRepository,
@@ -69,7 +69,7 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
-    db = Database(DATABASE)
+    db = Database(SQLITE_DATABASE)
     repo = VocabularyRepository(db)
 
     if args.command != "init" and not db.table_exists("vocabulary"):

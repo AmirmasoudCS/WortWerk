@@ -1,13 +1,13 @@
 import sqlite3
 from pathlib import Path
 
-from config.paths import DATABASE, DATABASE_SCHEMA
+from config.paths import SQLITE_DATABASE, DATABASE_SCHEMA
 
 
 class Database:
     """Handles all raw SQLite operations for WortWerk."""
 
-    def __init__(self, db_path: Path = DATABASE):
+    def __init__(self, db_path: Path = SQLITE_DATABASE):
         self.db_path = db_path
         self.connection: sqlite3.Connection | None = None
 
