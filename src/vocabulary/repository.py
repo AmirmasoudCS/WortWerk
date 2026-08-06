@@ -62,3 +62,28 @@ class VocabularyRepository:
             return None
         value = value.strip()
         return value or None
+
+    def list_words(self, article: str | None = None, level: str | None = None):
+        """Return all vocabulary rows, optionally filtered by article and/or level."""
+        query = "SELECT * FROM vocabulary WHERE 1=1"
+        params: list = []
+
+        if article:
+            query += " AND article = ?"
+            params.append(article.strip().lower())
+        if level:
+            query += " AND level = ?"
+            params.append(level.strip())
+
+        query += " ORDER BY german"
+        return self.db.fetch_all(query, tuple(params))
+
+    def get_word(self, word_id: int):
+        return self.db.fetch_one("SELECT * FROM vocabulary WHERE id = ?", (word_id,))
+
+    def delete_word(self, word_id: int) -> bool:
+        """Delete a word by id. Returns True if a row was deleted, False if no such id."""
+        if self.get_word(word_id) is None:
+            return False
+        self.db.execute("DELETE FROM vocabulary WHERE id = ?", (word_id,))
+        return True
