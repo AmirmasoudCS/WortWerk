@@ -29,11 +29,18 @@ class VocabularyRepository:
         german = german.strip()
         english = english.strip()
         article = article.strip().lower()
+        plural = plural.strip() if plural else None
+        level = level.strip() if level else None
 
         if article not in VALID_ARTICLES:
             raise InvalidArticleError(
                 f"'{article}' is not a valid article. Must be one of: {', '.join(sorted(VALID_ARTICLES))}"
             )
+
+        if plural == "":
+            plural = None
+        if level == "":
+            level = None
 
         if self._word_exists(german):
             raise DuplicateWordError(f"'{german}' already exists in the vocabulary.")
