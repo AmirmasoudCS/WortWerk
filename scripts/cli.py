@@ -74,6 +74,11 @@ def main() -> None:
     db = Database(DATABASE)
     repo = VocabularyRepository(db)
 
+    if args.command != "init" and not db.table_exists("vocabulary"):
+        print_error("Database not initialized. Run 'wortwerk init' first.")
+        db.close()
+        return
+
     commands = {
         "init": handle_init,
         "add": handle_add,
