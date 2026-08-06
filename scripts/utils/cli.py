@@ -21,14 +21,23 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="wortwerk", description="WortWerk CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
+    subparsers.add_parser("init", help="Initialize the database")
     subparsers.add_parser("add", help="Add a new word to the vocabulary")
-    subparsers.add_parser("list", help="List words in the vocabulary")
-    subparsers.add_parser("delete", help="Delete a word from the vocabulary")
+
+    list_parser = subparsers.add_parser("list", help="List words in the vocabulary")
+    list_parser.add_argument("--article", choices=["der", "die", "das"], help="Filter by article")
+    list_parser.add_argument("--level", help="Filter by level")
+
+    delete_parser = subparsers.add_parser("delete", help="Delete a word by id")
+    delete_parser.add_argument("id", type=int, help="ID of the word to delete")
 
     return parser
 
+def handle_init(repo: VocabularyRepository) -> None:
+    repo.db.initialize_schema()
+    print_success("Database initialized.")
 
-def handle_add(repo: VocabularyRepository) -> None:
+def handle_add(repo: VocabularyRepository, args) -> None:
     german = prompt("German")
     english = prompt("English")
     article = prompt("Article (der/die/das)")
@@ -36,40 +45,42 @@ def handle_add(repo: VocabularyRepository) -> None:
     level = prompt("Level", required=False)
 
     try:
-        word_id = repo.add_word(
-            german=german,
-            english=english,
-            article=article,
-            plural=plural,
-            level=level,
-        )
+        word_id = repo.add_word(german=german, english=english, article=article, plural=plural, level=level)
         print_success(f"Added '{german}' (id={word_id})")
     except (InvalidArticleError, DuplicateWordError) as e:
         print_error(str(e))
 
 
-def handle_list(repo: VocabularyRepository) -> None:
-    print_info("Not implemented yet.")
 
+def handle_list(repo: VocabularyRepository, args) -> None:
+    rows = repo.list_words(article=args.article, level=args.level)
+    if not rows:
+        print_info("No words found.")
+        return
+    print(format_word_header())
+    for row in rows:
+        print(format_word_row(row))
 
-def handle_delete(repo: VocabularyRepository) -> None:
-    print_info("Not implemented yet.")
-
+def handle_delete(repo: VocabularyRepository, args) -> None:
+    if repo.delete_word(args.id):
+        print_success(f"Deleted word id={args.id}")
+    else:
+        print_error(f"No word found with id={args.id}")
 
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
     db = Database(DATABASE)
-    db.initialize_schema(DATABASE_SCHEMA)
     repo = VocabularyRepository(db)
 
     commands = {
+        "init": handle_init,
         "add": handle_add,
         "list": handle_list,
         "delete": handle_delete,
     }
-    commands[args.command](repo)
+    commands[args.command](repo, args)
 
     db.close()
 
