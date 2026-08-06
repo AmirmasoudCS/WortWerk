@@ -6,9 +6,9 @@
 
 ## Phase 1 - Foundation
 
-- [ ] Design the SQLite database schema
-- [ ] Create the initial database
-- [ ] Decide on the vocabulary data model
+- [x] Design the SQLite database schema
+- [X] Create the initial database
+- [X] Decide on the vocabulary data model
 
 ---
 
