@@ -33,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     return parser
 
-def handle_init(repo: VocabularyRepository) -> None:
+def handle_init(repo: VocabularyRepository, args) -> None:
     repo.db.initialize_schema()
     print_success("Database initialized.")
 
