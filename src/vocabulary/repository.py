@@ -29,18 +29,13 @@ class VocabularyRepository:
         german = german.strip()
         english = english.strip()
         article = article.strip().lower()
-        plural = plural.strip() if plural else None
-        level = level.strip() if level else None
+        plural = self._normalize(plural)
+        level = self._normalize(level)
 
         if article not in VALID_ARTICLES:
             raise InvalidArticleError(
                 f"'{article}' is not a valid article. Must be one of: {', '.join(sorted(VALID_ARTICLES))}"
             )
-
-        if plural == "":
-            plural = None
-        if level == "":
-            level = None
 
         if self._word_exists(german):
             raise DuplicateWordError(f"'{german}' already exists in the vocabulary.")
@@ -59,3 +54,11 @@ class VocabularyRepository:
             "SELECT 1 FROM vocabulary WHERE german = ?", (german,)
         )
         return row is not None
+
+    @staticmethod
+    def _normalize(value: str | None) -> str | None:
+        """Trim whitespace and convert empty/whitespace-only strings to None."""
+        if value is None:
+            return None
+        value = value.strip()
+        return value or None
