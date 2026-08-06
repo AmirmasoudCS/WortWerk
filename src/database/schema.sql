@@ -1,12 +1,10 @@
 CREATE TABLE IF NOT EXISTS vocabulary (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    german TEXT NOT NULL,
+    german TEXT NOT NULL UNIQUE,
     english TEXT NOT NULL,
 
-    word_type TEXT NOT NULL,
-
-    article TEXT,
+    article TEXT NOT NULL CHECK (article IN ('der', 'die', 'das')),
     plural TEXT,
 
     level TEXT,
