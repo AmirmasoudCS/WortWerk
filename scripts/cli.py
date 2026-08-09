@@ -168,6 +168,74 @@ def main() -> None:
 
     db.close()
 
+def edit_prompt(
+    label: str,
+    current_value: str | None,
+) -> str:
+    """Prompt for an edited value, keeping the current value if blank."""
+
+    display_value = current_value or "-"
+
+    value = input(
+        f"{label} [{display_value}]: "
+    ).strip()
+
+    if value:
+        return value
+
+    return current_value or ""
+
+def handle_edit(repo: VocabularyRepository, args) -> None:
+    word = repo.get_word(args.id)
+
+    if word is None:
+        print_error(f"No word found with id={args.id}")
+        return
+
+    print_info(f"Editing word id={args.id}")
+    print()
+
+    german = edit_prompt(
+        "German",
+        word["german"],
+    )
+
+    english = edit_prompt(
+        "English",
+        word["english"],
+    )
+
+    article = edit_prompt(
+        "Article (der/die/das)",
+        word["article"],
+    )
+
+    plural = edit_prompt(
+        "Plural",
+        word["plural"],
+    )
+
+    level = edit_prompt(
+        "Level",
+        word["level"],
+    )
+
+    try:
+        if repo.update_word(
+            word_id=args.id,
+            german=german,
+            english=english,
+            article=article,
+            plural=plural,
+            level=level,
+        ):
+            print_success(
+                f"Updated '{german}' (id={args.id})"
+            )
+
+    except (InvalidArticleError, DuplicateWordError) as e:
+        print_error(str(e))
+
 
 if __name__ == "__main__":
     main()
