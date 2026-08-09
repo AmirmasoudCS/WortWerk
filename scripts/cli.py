@@ -81,6 +81,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="ID of the word to delete",
     )
 
+    edit_parser = subparsers.add_parser(
+        "edit",
+        help="Edit a word by id",
+    )
+
+    edit_parser.add_argument(
+        "id",
+        type=int,
+        help="ID of the word to edit",
+    )
+
     return parser
 
 
