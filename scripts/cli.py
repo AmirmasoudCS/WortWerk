@@ -25,8 +25,26 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("add", help="Add a new word to the vocabulary")
 
     list_parser = subparsers.add_parser("list", help="List words in the vocabulary")
-    list_parser.add_argument("--article", choices=["der", "die", "das"], help="Filter by article")
-    list_parser.add_argument("--level", help="Filter by level")
+    list_parser.add_argument(
+        "--article",
+        choices=["der", "die", "das"],
+        help="Filter by article"
+    )
+    list_parser.add_argument(
+        "--level",
+        help="Filter by level"
+    )
+    list_parser.add_argument(
+        "--sort",
+        choices=["id", "alphabetical", "level"],
+        default="id",
+        help="Sort words by id, alphabetical order, or level"
+    )
+    list_parser.add_argument(
+        "--reverse",
+        action="store_true",
+        help="Reverse the sort order"
+    )
 
     delete_parser = subparsers.add_parser("delete", help="Delete a word by id")
     delete_parser.add_argument("id", type=int, help="ID of the word to delete")
@@ -51,11 +69,19 @@ def handle_add(repo: VocabularyRepository, args) -> None:
         print_error(str(e))
 
 def handle_list(repo: VocabularyRepository, args) -> None:
-    rows = repo.list_words(article=args.article, level=args.level)
+    rows = repo.list_words(
+        article=args.article,
+        level=args.level,
+        sort_by=args.sort,
+        reverse=args.reverse,
+    )
+
     if not rows:
         print_info("No words found.")
         return
+
     print(format_word_header())
+
     for row in rows:
         print(format_word_row(row))
 
