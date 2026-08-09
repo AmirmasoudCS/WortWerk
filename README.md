@@ -101,16 +101,7 @@ Practice results are not saved.
 
 WortWerk is a personal learning project, but contributions and suggestions are welcome.
 
-If you would like to contribute:
-
-1. Fork the repository.
-2. Create a new branch for your changes.
-3. Make your changes and test them locally.
-4. Commit your changes with a clear commit message.
-5. Push your branch to your fork.
-6. Open a Pull Request against the `main` branch.
-
-When submitting a Pull Request, please briefly explain what you changed and why. For larger changes or new features, opening an issue first to discuss the idea is recommended.
+If you would like to contribute please checkout the [contribiution](./CONTRIBUTING.md)
 
 ## 📄 License
 
