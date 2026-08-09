@@ -1,14 +1,17 @@
 from src.database.database import Database
-
-VALID_ARTICLES = {"der", "die", "das"}
+from config.constants import VALID_ARTICLES, VALID_LEVELS
 
 
 class DuplicateWordError(Exception):
-    """Raised when a german word already exists in the vocabulary table."""
+    """Raised when a German word already exists in the vocabulary table."""
 
 
 class InvalidArticleError(Exception):
     """Raised when an article is not one of der/die/das."""
+
+
+class InvalidLevelError(Exception):
+    """Raised when a CEFR level is invalid."""
 
 
 class VocabularyRepository:
@@ -25,43 +28,100 @@ class VocabularyRepository:
         plural: str | None = None,
         level: str | None = None,
     ) -> int:
-        """Insert a new noun into the vocabulary table. Returns the new row id."""
+        """Insert a new noun into the vocabulary table."""
+
         german = german.strip()
         english = english.strip()
         article = article.strip().lower()
         plural = self._normalize(plural)
-        level = self._normalize(level)
+        level = self._normalize_level(level)
 
-        if article not in VALID_ARTICLES:
-            raise InvalidArticleError(
-                f"'{article}' is not a valid article. Must be one of: {', '.join(sorted(VALID_ARTICLES))}"
-            )
+        self._validate_article(article)
+        self._validate_level(level)
 
         if self._word_exists(german):
-            raise DuplicateWordError(f"'{german}' already exists in the vocabulary.")
+            raise DuplicateWordError(
+                f"'{german}' already exists in the vocabulary."
+            )
 
         cursor = self.db.execute(
             """
-            INSERT INTO vocabulary (german, english, article, plural, level)
+            INSERT INTO vocabulary (
+                german,
+                english,
+                article,
+                plural,
+                level
+            )
             VALUES (?, ?, ?, ?, ?)
             """,
-            (german, english, article, plural, level),
+            (
+                german,
+                english,
+                article,
+                plural,
+                level,
+            ),
         )
+
         return cursor.lastrowid
 
     def _word_exists(self, german: str) -> bool:
+        """Check whether a German word already exists."""
+
         row = self.db.fetch_one(
-            "SELECT 1 FROM vocabulary WHERE german = ?", (german,)
+            "SELECT 1 FROM vocabulary WHERE german = ?",
+            (german,),
         )
+
         return row is not None
 
     @staticmethod
     def _normalize(value: str | None) -> str | None:
-        """Trim whitespace and convert empty/whitespace-only strings to None."""
+        """Trim whitespace and convert empty values to None."""
+
         if value is None:
             return None
+
         value = value.strip()
+
         return value or None
+
+    @staticmethod
+    def _normalize_level(level: str | None) -> str | None:
+        """Normalize a CEFR level to uppercase."""
+
+        level = VocabularyRepository._normalize(level)
+
+        if level is None:
+            return None
+
+        return level.upper()
+
+    @staticmethod
+    def _validate_article(article: str) -> None:
+        """Validate a German article."""
+
+        if article not in VALID_ARTICLES:
+            raise InvalidArticleError(
+                f"'{article}' is not a valid article. "
+                f"Must be one of: "
+                f"{', '.join(sorted(VALID_ARTICLES))}"
+            )
+
+    @staticmethod
+    def _validate_level(level: str | None) -> None:
+        """Validate a CEFR level."""
+
+        if level is None:
+            return
+
+        if level not in VALID_LEVELS:
+            raise InvalidLevelError(
+                f"'{level}' is not a valid CEFR level. "
+                f"Must be one of: "
+                f"{', '.join(sorted(VALID_LEVELS))}"
+            )
 
     def list_words(
         self,
@@ -71,16 +131,23 @@ class VocabularyRepository:
         reverse: bool = False,
     ):
         """Return vocabulary rows, optionally filtered and sorted."""
+
         query = "SELECT * FROM vocabulary WHERE 1=1"
         params: list = []
 
         if article:
+            article = article.strip().lower()
+            self._validate_article(article)
+
             query += " AND article = ?"
-            params.append(article.strip().lower())
+            params.append(article)
 
         if level:
+            level = self._normalize_level(level)
+            self._validate_level(level)
+
             query += " AND level = ?"
-            params.append(level.strip())
+            params.append(level)
 
         sort_columns = {
             "id": "id",
@@ -99,23 +166,47 @@ class VocabularyRepository:
         }
 
         if sort_by not in sort_columns:
-            raise ValueError(f"Invalid sort option: {sort_by}")
+            raise ValueError(
+                f"Invalid sort option: {sort_by}"
+            )
 
         direction = "DESC" if reverse else "ASC"
 
-        query += f" ORDER BY {sort_columns[sort_by]} {direction}"
+        query += (
+            f" ORDER BY {sort_columns[sort_by]} "
+            f"{direction}"
+        )
 
-        return self.db.fetch_all(query, tuple(params))
+        return self.db.fetch_all(
+            query,
+            tuple(params),
+        )
 
     def get_word(self, word_id: int):
-        return self.db.fetch_one("SELECT * FROM vocabulary WHERE id = ?", (word_id,))
+        """Return a vocabulary word by its ID."""
+
+        return self.db.fetch_one(
+            "SELECT * FROM vocabulary WHERE id = ?",
+            (word_id,),
+        )
 
     def delete_word(self, word_id: int) -> bool:
-        """Delete a word by id. Returns True if a row was deleted, False if no such id."""
+        """Delete a word by ID.
+
+        Returns True if a row was deleted,
+        False if no such ID exists.
+        """
+
         if self.get_word(word_id) is None:
             return False
-        self.db.execute("DELETE FROM vocabulary WHERE id = ?", (word_id,))
+
+        self.db.execute(
+            "DELETE FROM vocabulary WHERE id = ?",
+            (word_id,),
+        )
+
         return True
+
     def get_practice_words(
         self,
         levels: list[str] | None = None,
@@ -126,11 +217,27 @@ class VocabularyRepository:
         params: list = []
 
         if levels:
-            placeholders = ", ".join("?" for _ in levels)
-            query += f" AND level IN ({placeholders})"
-            params.extend(levels)
+            normalized_levels = []
 
-        return self.db.fetch_all(query, tuple(params))
+            for level in levels:
+                normalized_level = self._normalize_level(level)
+                self._validate_level(normalized_level)
+                normalized_levels.append(normalized_level)
+
+            placeholders = ", ".join(
+                "?" for _ in normalized_levels
+            )
+
+            query += (
+                f" AND level IN ({placeholders})"
+            )
+
+            params.extend(normalized_levels)
+
+        return self.db.fetch_all(
+            query,
+            tuple(params),
+        )
 
     def update_word(
         self,
@@ -143,20 +250,18 @@ class VocabularyRepository:
     ) -> bool:
         """Update an existing vocabulary word.
 
-        Returns True if the word was updated, False if the ID does not exist.
+        Returns True if the word was updated,
+        False if the ID does not exist.
         """
 
         german = german.strip()
         english = english.strip()
         article = article.strip().lower()
         plural = self._normalize(plural)
-        level = self._normalize(level)
+        level = self._normalize_level(level)
 
-        if article not in VALID_ARTICLES:
-            raise InvalidArticleError(
-                f"'{article}' is not a valid article. "
-                f"Must be one of: {', '.join(sorted(VALID_ARTICLES))}"
-            )
+        self._validate_article(article)
+        self._validate_level(level)
 
         existing_word = self.get_word(word_id)
 
@@ -170,7 +275,10 @@ class VocabularyRepository:
             WHERE german = ?
             AND id != ?
             """,
-            (german, word_id),
+            (
+                german,
+                word_id,
+            ),
         )
 
         if duplicate is not None:
