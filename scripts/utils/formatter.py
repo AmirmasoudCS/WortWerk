@@ -1,3 +1,14 @@
+from config.colors import (
+    RESET,
+    BOLD,
+    RED,
+    GREEN,
+    YELLOW,
+    BLUE,
+    MAGENTA,
+    CYAN,
+)
+
 def print_success(message: str) -> None:
     print(f"[OK] {message}")
 
