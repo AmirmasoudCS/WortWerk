@@ -8,23 +8,30 @@ from config.colors import (
     MAGENTA,
     CYAN,
 )
+def colorize(text: str, color: str) -> str:
+    """Apply a color to text."""
+    return f"{color}{text}{RESET}"
+
 
 def print_success(message: str) -> None:
-    print(f"[OK] {message}")
+    """Print a success message in green."""
+    print(f"{GREEN}[OK]{RESET} {message}")
 
 
 def print_error(message: str) -> None:
-    print(f"[ERROR] {message}")
+    """Print an error message in red."""
+    print(f"{RED}[ERROR]{RESET} {message}")
 
 
 def print_info(message: str) -> None:
-    print(f"[INFO] {message}")
+    """Print an informational message in yellow."""
+    print(f"{YELLOW}[INFO]{RESET} {message}")
 
 
 def prompt(label: str, required: bool = True) -> str:
     """Prompt the user for input. Re-prompts if required and left blank."""
     while True:
-        value = input(f"{label}: ").strip()
+        value = input(f"{CYAN}{label}{RESET}: ").strip()
 
         if value or not required:
             return value
@@ -32,10 +39,41 @@ def prompt(label: str, required: bool = True) -> str:
         print_error(f"{label} cannot be empty.")
 
 
-def format_word_table(rows) -> str:
-    """Format vocabulary rows as a table."""
+def format_article(article: str) -> str:
+    """Apply a color based on the German article."""
+    article_colors = {
+        "der": BLUE,
+        "die": MAGENTA,
+        "das": GREEN,
+    }
 
-    headers = ["ID", "ART", "GERMAN", "ENGLISH", "PLURAL", "LEVEL"]
+    color = article_colors.get(article.lower())
+
+    if color is None:
+        return article
+
+    return colorize(article, color)
+
+
+def format_level(level: str) -> str:
+    """Format a CEFR level in yellow."""
+    if level == "-":
+        return level
+
+    return colorize(level, YELLOW)
+
+
+def format_word_table(rows) -> str:
+    """Format vocabulary rows as a colored table."""
+
+    headers = [
+        "ID",
+        "ART",
+        "GERMAN",
+        "ENGLISH",
+        "PLURAL",
+        "LEVEL",
+    ]
 
     data = []
 
@@ -58,15 +96,33 @@ def format_word_table(rows) -> str:
         )
         widths.append(column_width)
 
+    def format_cell(value: str, column_index: int) -> str:
+        """Format and color an individual table cell."""
+
+        if column_index == 1:
+            value = format_article(value)
+
+        elif column_index == 2:
+            value = colorize(value, BOLD)
+
+        elif column_index == 5:
+            value = format_level(value)
+
+        return value
+
     def format_row(row) -> str:
-        return (
-            "│ "
-            + " │ ".join(
-                f"{value:<{width}}"
-                for value, width in zip(row, widths)
+        """Format a single table row."""
+
+        cells = []
+
+        for index, (value, width) in enumerate(zip(row, widths)):
+            formatted_value = format_cell(value, index)
+
+            cells.append(
+                f"{formatted_value:<{width}}"
             )
-            + " │"
-        )
+
+        return "│ " + " │ ".join(cells) + " │"
 
     top = (
         "┌─"
@@ -86,15 +142,24 @@ def format_word_table(rows) -> str:
         + "─┘"
     )
 
-    header = format_row(headers)
-    table_rows = [format_row(row) for row in data]
-
-    return "\n".join(
-        [
-            top,
-            header,
-            separator,
-            *table_rows,
-            bottom,
-        ]
+    header = (
+        "│ "
+        + " │ ".join(
+            f"{colorize(header, CYAN + BOLD):<{width}}"
+            for header, width in zip(headers, widths)
+        )
+        + " │"
     )
+
+    table_rows = [
+        format_row(row)
+        for row in data
+    ]
+
+    return "\n".join([
+        top,
+        header,
+        separator,
+        *table_rows,
+        bottom,
+    ])
