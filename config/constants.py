@@ -5,18 +5,13 @@ SUPPORTED_LANGUAGES = [
 
 DEFAULT_LANGUAGE = SUPPORTED_LANGUAGES[0]
 
-SUPPORTED_LEVELS = (
+VALID_ARTICLES = {"der", "die", "das"}
+
+VALID_LEVELS = {
     "A1",
     "A2",
     "B1",
     "B2",
     "C1",
     "C2",
-)
-
-WORD_TYPES = (
-    "Noun",
-    "Verb",
-    "Adjective",
-    "Phrase"
-)
+}
