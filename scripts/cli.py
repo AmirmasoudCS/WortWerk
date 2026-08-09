@@ -44,17 +44,20 @@ def build_parser() -> argparse.ArgumentParser:
 
     list_parser.add_argument(
         "--article",
+        "-art",
         choices=["der", "die", "das"],
         help="Filter by article",
     )
 
     list_parser.add_argument(
         "--level",
+        "-lev",
         help="Filter by level",
     )
 
     list_parser.add_argument(
         "--sort",
+        "-s",
         choices=["id", "alphabetical", "level"],
         default="id",
         help="Sort words by id, alphabetical order, or level",
@@ -62,6 +65,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     list_parser.add_argument(
         "--reverse",
+        "-rev",
         action="store_true",
         help="Reverse the sort order",
     )
