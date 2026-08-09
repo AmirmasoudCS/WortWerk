@@ -1,6 +1,7 @@
 import random
 import time
 
+from config.constants import VALID_LEVELS
 from config.paths import SQLITE_DATABASE
 from src.database.database import Database
 from src.vocabulary.repository import VocabularyRepository
@@ -15,9 +16,6 @@ from scripts.utils.formatter import (
     prompt_article,
 )
 from scripts.utils.helper import clear_screen
-
-
-VALID_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
 
 
 def ask_word_count() -> int | None:
@@ -50,7 +48,7 @@ def ask_levels() -> list[str] | None:
 
     print()
     print("Available levels:")
-    print("A1  A2  B1  B2  C1  C2")
+    print("  ".join(sorted(VALID_LEVELS)))
     print()
 
     while True:
@@ -77,7 +75,7 @@ def ask_levels() -> list[str] | None:
         if invalid_levels:
             print_error(
                 f"Invalid level(s): {', '.join(invalid_levels)}. "
-                f"Choose from: {', '.join(VALID_LEVELS)}."
+                f"Choose from: {', '.join(sorted(VALID_LEVELS))}."
             )
             continue
 
@@ -176,27 +174,28 @@ def main() -> None:
     db = Database(SQLITE_DATABASE)
     repo = VocabularyRepository(db)
 
-    if not db.table_exists("vocabulary"):
-        print_error(
-            "Database not initialized. "
-            "Run 'wortwerk init' first."
+    try:
+        if not db.table_exists("vocabulary"):
+            print_error(
+                "Database not initialized. "
+                "Run 'wortwerk init' first."
+            )
+            return
+
+        print_practice_header()
+        print()
+
+        word_count = ask_word_count()
+        levels = ask_levels()
+
+        practice(
+            repo=repo,
+            levels=levels,
+            word_count=word_count,
         )
+
+    finally:
         db.close()
-        return
-
-    print_practice_header()
-    print()
-
-    word_count = ask_word_count()
-    levels = ask_levels()
-
-    practice(
-        repo=repo,
-        levels=levels,
-        word_count=word_count,
-    )
-
-    db.close()
 
 
 if __name__ == "__main__":
