@@ -8,6 +8,7 @@ from config.colors import (
     CYAN,
     BRIGHT_RED,
 )
+from scripts.utils.helper import clear_screen
 
 
 def colorize(text: str, color: str) -> str:
@@ -190,3 +191,117 @@ def format_word_table(rows) -> str:
         *table_rows,
         bottom,
     ])
+
+def prompt_article() -> str | None:
+    """Prompt the user for an article answer.
+
+    Accepts either the article itself or its corresponding number.
+    Returns None when the user chooses to quit.
+    """
+
+    article_choices = {
+        "1": "der",
+        "2": "die",
+        "3": "das",
+        "der": "der",
+        "die": "die",
+        "das": "das",
+    }
+
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(1-3, der/die/das, or q to quit){RESET}: "
+        ).strip().lower()
+
+        if value == "q":
+            return None
+
+        if value in article_choices:
+            return article_choices[value]
+
+        print_error(
+            "Please enter 1, 2, 3, der, die, das, or q."
+        )
+
+
+def print_practice_header() -> None:
+    """Print the WortWerk practice header."""
+
+    print()
+    print("╭──────────────────────────────╮")
+    print("│       WortWerk Practice      │")
+    print("╰──────────────────────────────╯")
+
+
+def print_question(
+    german: str,
+    question_number: int,
+    total_questions: int,
+) -> None:
+    """Print a practice question."""
+
+    print(f"{CYAN}Question {question_number}/{total_questions}{RESET}")
+    print()
+    print(f"{BOLD}                    {german}{RESET}")
+    print()
+    print("What is the correct article?")
+    print()
+    print(f"  {BLUE}1. der{RESET}")
+    print(f"  {BRIGHT_RED}2. die{RESET}")
+    print(f"  {GREEN}3. das{RESET}")
+    print()
+
+
+def print_correct_answer(
+    article: str,
+    german: str,
+) -> None:
+    """Print feedback for a correct answer."""
+
+    print()
+    print_success("Correct!")
+    print()
+    print(
+        f"    {format_article(article)} "
+        f"{BOLD}{german}{RESET}"
+    )
+
+
+def print_wrong_answer(
+    article: str,
+    german: str,
+) -> None:
+    """Print feedback for an incorrect answer."""
+
+    print()
+    print_error("Incorrect!")
+    print()
+    print("The correct form is:")
+    print()
+    print(
+        f"    {format_article(article)} "
+        f"{BOLD}{german}{RESET}"
+    )
+    print()
+
+
+def print_practice_summary(
+    total_questions: int,
+    correct: int,
+    incorrect: int,
+) -> None:
+    """Print the practice session summary."""
+
+    clear_screen()
+
+    print("╭──────────────────────────────╮")
+    print("│      Practice Complete       │")
+    print("├──────────────────────────────┤")
+    print(f"│ Questions: {total_questions:<17} │")
+    print(f"│ Correct:   {correct:<17} │")
+    print(f"│ Incorrect: {incorrect:<17} │")
+    print("╰──────────────────────────────╯")
+    print()
+
+    input("Press Enter to exit...")
