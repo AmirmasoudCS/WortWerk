@@ -4,7 +4,7 @@ A small CLI tool for practicing German vocabulary and articles.
 
 WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.
 
-## Features
+## ✨ Features
 
 * Vocabulary management
 * Vocabulary filtering and sorting
@@ -13,14 +13,14 @@ WortWerk is a personal project I'm building alongside my journey of learning Ger
 * CEFR level-based practice
 * Colored CLI interface
 
-## Requirements
+## 🛠️ Requirements
 
 * Python 3.10+
 * SQLite
 
 No external database server is required.
 
-## Installation
+## 📦 Installation
 
 Clone the repository and install the project dependencies:
 
@@ -35,13 +35,27 @@ Create a virtual environment:
 python -m venv .venv
 ```
 
+Activate the virtual environment.
+
+### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+source .venv/bin/activate
+```
+
 Install the requirements:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
 To see the available commands and options:
 
@@ -71,7 +85,7 @@ For example:
 python -m scripts.cli list --sort alphabetical
 ```
 
-## Practice
+## 📝 Practice
 
 Start a practice session with:
 
@@ -83,6 +97,29 @@ Practice sessions allow you to select the number of words and CEFR levels to pra
 
 Practice results are not saved.
 
-## Project Status
+## 🤝 Contributing
+
+WortWerk is a personal learning project, but contributions and suggestions are welcome.
+
+If you would like to contribute:
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes and test them locally.
+4. Commit your changes with a clear commit message.
+5. Push your branch to your fork.
+6. Open a Pull Request against the `main` branch.
+
+When submitting a Pull Request, please briefly explain what you changed and why. For larger changes or new features, opening an issue first to discuss the idea is recommended.
+
+## 📄 License
+
+WortWerk is licensed under the MIT License.
+
+See the [LICENSE](LICENSE) file for the full license text.
+
+## 📌 Project Status
 
 WortWerk is an ongoing personal project that will evolve alongside my German-learning journey.
+
+[Future Ideas](./features.md)
