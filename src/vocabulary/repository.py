@@ -131,3 +131,71 @@ class VocabularyRepository:
             params.extend(levels)
 
         return self.db.fetch_all(query, tuple(params))
+
+    def update_word(
+        self,
+        word_id: int,
+        german: str,
+        english: str,
+        article: str,
+        plural: str | None = None,
+        level: str | None = None,
+    ) -> bool:
+        """Update an existing vocabulary word.
+
+        Returns True if the word was updated, False if the ID does not exist.
+        """
+
+        german = german.strip()
+        english = english.strip()
+        article = article.strip().lower()
+        plural = self._normalize(plural)
+        level = self._normalize(level)
+
+        if article not in VALID_ARTICLES:
+            raise InvalidArticleError(
+                f"'{article}' is not a valid article. "
+                f"Must be one of: {', '.join(sorted(VALID_ARTICLES))}"
+            )
+
+        existing_word = self.get_word(word_id)
+
+        if existing_word is None:
+            return False
+
+        duplicate = self.db.fetch_one(
+            """
+            SELECT 1
+            FROM vocabulary
+            WHERE german = ?
+            AND id != ?
+            """,
+            (german, word_id),
+        )
+
+        if duplicate is not None:
+            raise DuplicateWordError(
+                f"'{german}' already exists in the vocabulary."
+            )
+
+        self.db.execute(
+            """
+            UPDATE vocabulary
+            SET german = ?,
+                english = ?,
+                article = ?,
+                plural = ?,
+                level = ?
+            WHERE id = ?
+            """,
+            (
+                german,
+                english,
+                article,
+                plural,
+                level,
+                word_id,
+            ),
+        )
+
+        return True
