@@ -7,7 +7,12 @@ from src.vocabulary.repository import VocabularyRepository
 from scripts.utils.formatter import (
     print_error,
     print_info,
-    print_success,
+    print_practice_header,
+    print_question,
+    print_correct_answer,
+    print_wrong_answer,
+    print_practice_summary,
+    prompt_article,
 )
 from scripts.utils.helper import clear_screen
 
@@ -79,23 +84,6 @@ def ask_levels() -> list[str] | None:
         return list(dict.fromkeys(levels))
 
 
-def ask_article() -> str | None:
-    """Ask the user for an article answer."""
-
-    while True:
-        value = input(
-            "Your answer (der/die/das, or 'q' to quit): "
-        ).strip().lower()
-
-        if value == "q":
-            return None
-
-        if value in {"der", "die", "das"}:
-            return value
-
-        print_error("Please enter der, die, das, or q.")
-
-
 def show_question(
     row,
     question_number: int,
@@ -105,41 +93,13 @@ def show_question(
 
     clear_screen()
 
-    print(f"Question {question_number}/{total_questions}")
-    print()
-    print(f"                    {row['german']}")
-    print()
-    print("What is the correct article?")
-    print()
-    print("  1. der")
-    print("  2. die")
-    print("  3. das")
-    print()
+    print_question(
+        german=row["german"],
+        question_number=question_number,
+        total_questions=total_questions,
+    )
 
-    return ask_article()
-
-
-def show_correct_answer(row) -> None:
-    """Display feedback for a correct answer."""
-
-    print()
-    print_success("Correct!")
-    print()
-    print(f"    {row['article']} {row['german']}")
-
-
-def show_wrong_answer(row) -> None:
-    """Display feedback for an incorrect answer."""
-
-    print()
-    print_error("Incorrect!")
-    print()
-    print("The correct form is:")
-    print()
-    print(f"    {row['article']} {row['german']}")
-    print()
-
-    input("Press Enter to continue...")
+    return prompt_article()
 
 
 def practice(
@@ -170,6 +130,7 @@ def practice(
         f"Starting practice with {total_questions} word(s)."
     )
     print()
+
     input("Press Enter to begin...")
 
     for question_number, row in enumerate(rows, start=1):
@@ -187,41 +148,28 @@ def practice(
         if answer == row["article"]:
             correct += 1
 
-            show_correct_answer(row)
+            print_correct_answer(
+                article=row["article"],
+                german=row["german"],
+            )
 
             time.sleep(2)
 
         else:
             incorrect += 1
 
-            show_wrong_answer(row)
+            print_wrong_answer(
+                article=row["article"],
+                german=row["german"],
+            )
 
-    show_summary(
-        total_questions,
-        correct,
-        incorrect,
+            input("Press Enter to continue...")
+
+    print_practice_summary(
+        total_questions=total_questions,
+        correct=correct,
+        incorrect=incorrect,
     )
-
-
-def show_summary(
-    total_questions: int,
-    correct: int,
-    incorrect: int,
-) -> None:
-    """Display the practice session summary."""
-
-    clear_screen()
-
-    print("╭──────────────────────────────╮")
-    print("│      Practice Complete       │")
-    print("├──────────────────────────────┤")
-    print(f"│ Questions: {total_questions:<17} │")
-    print(f"│ Correct:   {correct:<17} │")
-    print(f"│ Incorrect: {incorrect:<17} │")
-    print("╰──────────────────────────────╯")
-    print()
-
-    input("Press Enter to exit...")
 
 
 def main() -> None:
@@ -236,9 +184,7 @@ def main() -> None:
         db.close()
         return
 
-    print("╭──────────────────────────────╮")
-    print("│       WortWerk Practice      │")
-    print("╰──────────────────────────────╯")
+    print_practice_header()
     print()
 
     word_count = ask_word_count()
