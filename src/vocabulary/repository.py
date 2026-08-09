@@ -116,3 +116,18 @@ class VocabularyRepository:
             return False
         self.db.execute("DELETE FROM vocabulary WHERE id = ?", (word_id,))
         return True
+    def get_practice_words(
+        self,
+        levels: list[str] | None = None,
+    ) -> list:
+        """Return vocabulary words available for practice."""
+
+        query = "SELECT * FROM vocabulary WHERE 1=1"
+        params: list = []
+
+        if levels:
+            placeholders = ", ".join("?" for _ in levels)
+            query += f" AND level IN ({placeholders})"
+            params.extend(levels)
+
+        return self.db.fetch_all(query, tuple(params))
