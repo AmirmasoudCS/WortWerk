@@ -54,16 +54,16 @@ python -m scripts.cli -h
 | Command                    | Alias                 | Functionality                            |
 | :------------------------- | :-------------------- | :--------------------------------------- |
 | `--help`                   | `-h`                  | Show help messages                       |
-| `init`                     | —                     | Initialize the database                  |
-| `add`                      | —                     | Add a new word                           |
-| `list`                     | —                     | List vocabulary                          |
+| `init`                     | -                     | Initialize the database                  |
+| `add`                      | -                     | Add a new word                           |
+| `list`                     | -                     | List vocabulary                          |
 | `list --help`              | `list -h`             | Show help for the list command           |
 | `list --article <article>` | `list -art <article>` | Filter by article                        |
 | `list --level <level>`     | `list -lev <level>`   | Filter by level                          |
 | `list --sort <method>`     | `list -s <method>`    | Sort by ID, alphabetical order, or level |
 | `list --reverse`           | `list -rev`           | Reverse the sort order                   |
-| `delete <id>`              | —                     | Delete a word by ID                      |
-| `edit <id>`                | —                     | Edit a word by ID                        |
+| `delete <id>`              | -                     | Delete a word by ID                      |
+| `edit <id>`                | -                     | Edit a word by ID                        |
 
 For example:
 
