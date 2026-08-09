@@ -8,9 +8,16 @@ from config.colors import (
     MAGENTA,
     CYAN,
 )
+
+
 def colorize(text: str, color: str) -> str:
     """Apply a color to text."""
     return f"{color}{text}{RESET}"
+
+
+def colorize_padded(text: str, color: str, width: int) -> str:
+    """Apply a color while preserving the requested visible width."""
+    return f"{color}{text:<{width}}{RESET}"
 
 
 def print_success(message: str) -> None:
@@ -100,13 +107,13 @@ def format_word_table(rows) -> str:
         """Format and color an individual table cell."""
 
         if column_index == 1:
-            value = format_article(value)
+            return format_article(value)
 
-        elif column_index == 2:
-            value = colorize(value, BOLD)
+        if column_index == 2:
+            return colorize(value, BOLD)
 
-        elif column_index == 5:
-            value = format_level(value)
+        if column_index == 5:
+            return format_level(value)
 
         return value
 
@@ -118,9 +125,25 @@ def format_word_table(rows) -> str:
         for index, (value, width) in enumerate(zip(row, widths)):
             formatted_value = format_cell(value, index)
 
-            cells.append(
-                f"{formatted_value:<{width}}"
-            )
+            if index == 1:
+                formatted_value = (
+                    formatted_value
+                    + " " * (width - len(value))
+                )
+            elif index == 2:
+                formatted_value = (
+                    formatted_value
+                    + " " * (width - len(value))
+                )
+            elif index == 5:
+                formatted_value = (
+                    formatted_value
+                    + " " * (width - len(value))
+                )
+            else:
+                formatted_value = f"{value:<{width}}"
+
+            cells.append(formatted_value)
 
         return "│ " + " │ ".join(cells) + " │"
 
@@ -145,7 +168,11 @@ def format_word_table(rows) -> str:
     header = (
         "│ "
         + " │ ".join(
-            f"{colorize(header, CYAN + BOLD):<{width}}"
+            colorize_padded(
+                header,
+                f"{CYAN}{BOLD}",
+                width,
+            )
             for header, width in zip(headers, widths)
         )
         + " │"
