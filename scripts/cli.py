@@ -1,11 +1,16 @@
 import argparse
 
+from config.constants import (
+    VALID_ARTICLES,
+    VALID_LEVELS,
+)
 from config.paths import SQLITE_DATABASE
 from src.database.database import Database
 from src.vocabulary.repository import (
     VocabularyRepository,
     DuplicateWordError,
     InvalidArticleError,
+    InvalidLevelError,
 )
 from scripts.utils.formatter import (
     print_success,
@@ -14,6 +19,7 @@ from scripts.utils.formatter import (
     prompt,
     format_word_table,
 )
+from scripts.utils.helper import clear_screen
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -45,13 +51,14 @@ def build_parser() -> argparse.ArgumentParser:
     list_parser.add_argument(
         "--article",
         "-art",
-        choices=["der", "die", "das"],
+        choices=sorted(VALID_ARTICLES),
         help="Filter by article",
     )
 
     list_parser.add_argument(
         "--level",
         "-lev",
+        choices=sorted(VALID_LEVELS),
         help="Filter by level",
     )
 
@@ -95,12 +102,18 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def handle_init(repo: VocabularyRepository, args) -> None:
+def handle_init(
+    repo: VocabularyRepository,
+    args,
+) -> None:
     repo.db.initialize_schema()
     print_success("Database initialized.")
 
 
-def handle_add(repo: VocabularyRepository, args) -> None:
+def handle_add(
+    repo: VocabularyRepository,
+    args,
+) -> None:
     german = prompt("German")
     english = prompt("English")
     article = prompt("Article (der/die/das)")
@@ -116,13 +129,22 @@ def handle_add(repo: VocabularyRepository, args) -> None:
             level=level,
         )
 
-        print_success(f"Added '{german}' (id={word_id})")
+        print_success(
+            f"Added '{german}' (id={word_id})"
+        )
 
-    except (InvalidArticleError, DuplicateWordError) as e:
+    except (
+        InvalidArticleError,
+        InvalidLevelError,
+        DuplicateWordError,
+    ) as e:
         print_error(str(e))
 
 
-def handle_list(repo: VocabularyRepository, args) -> None:
+def handle_list(
+    repo: VocabularyRepository,
+    args,
+) -> None:
     rows = repo.list_words(
         article=args.article,
         level=args.level,
@@ -136,38 +158,20 @@ def handle_list(repo: VocabularyRepository, args) -> None:
 
     print(format_word_table(rows))
 
-def handle_delete(repo: VocabularyRepository, args) -> None:
+
+def handle_delete(
+    repo: VocabularyRepository,
+    args,
+) -> None:
     if repo.delete_word(args.id):
-        print_success(f"Deleted word id={args.id}")
-    else:
-        print_error(f"No word found with id={args.id}")
-
-
-def main() -> None:
-    parser = build_parser()
-    args = parser.parse_args()
-
-    db = Database(SQLITE_DATABASE)
-    repo = VocabularyRepository(db)
-
-    if args.command != "init" and not db.table_exists("vocabulary"):
-        print_error(
-            "Database not initialized. Run 'wortwerk init' first."
+        print_success(
+            f"Deleted word id={args.id}"
         )
-        db.close()
-        return
+    else:
+        print_error(
+            f"No word found with id={args.id}"
+        )
 
-    commands = {
-        "init": handle_init,
-        "add": handle_add,
-        "edit": handle_edit,
-        "list": handle_list,
-        "delete": handle_delete,
-    }
-
-    commands[args.command](repo, args)
-
-    db.close()
 
 def edit_prompt(
     label: str,
@@ -186,14 +190,22 @@ def edit_prompt(
 
     return current_value or ""
 
-def handle_edit(repo: VocabularyRepository, args) -> None:
+
+def handle_edit(
+    repo: VocabularyRepository,
+    args,
+) -> None:
     word = repo.get_word(args.id)
 
     if word is None:
-        print_error(f"No word found with id={args.id}")
+        print_error(
+            f"No word found with id={args.id}"
+        )
         return
 
-    print_info(f"Editing word id={args.id}")
+    print_info(
+        f"Editing word id={args.id}"
+    )
     print()
 
     german = edit_prompt(
@@ -222,20 +234,58 @@ def handle_edit(repo: VocabularyRepository, args) -> None:
     )
 
     try:
-        if repo.update_word(
+        updated = repo.update_word(
             word_id=args.id,
             german=german,
             english=english,
             article=article,
             plural=plural,
             level=level,
-        ):
+        )
+
+        if updated:
             print_success(
                 f"Updated '{german}' (id={args.id})"
             )
 
-    except (InvalidArticleError, DuplicateWordError) as e:
+    except (
+        InvalidArticleError,
+        InvalidLevelError,
+        DuplicateWordError,
+    ) as e:
         print_error(str(e))
+
+
+def main() -> None:
+    parser = build_parser()
+    args = parser.parse_args()
+
+    db = Database(SQLITE_DATABASE)
+    repo = VocabularyRepository(db)
+
+    try:
+        if (
+            args.command != "init"
+            and not db.table_exists("vocabulary")
+        ):
+            print_error(
+                "Database not initialized. "
+                "Run 'wortwerk init' first."
+            )
+            return
+
+        commands = {
+            "init": handle_init,
+            "add": handle_add,
+            "edit": handle_edit,
+            "list": handle_list,
+            "delete": handle_delete,
+        }
+
+        commands[args.command](repo, args)
+
+    finally:
+        db.close()
 
 
 if __name__ == "__main__":
