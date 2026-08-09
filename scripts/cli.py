@@ -12,8 +12,7 @@ from scripts.utils.formatter import (
     print_error,
     print_info,
     prompt,
-    format_word_row,
-    format_word_header,
+    format_word_table,
 )
 
 
@@ -120,11 +119,7 @@ def handle_list(repo: VocabularyRepository, args) -> None:
         print_info("No words found.")
         return
 
-    print(format_word_header())
-
-    for row in rows:
-        print(format_word_row(row))
-
+    print(format_word_table(rows))
 
 def handle_delete(repo: VocabularyRepository, args) -> None:
     if repo.delete_word(args.id):
