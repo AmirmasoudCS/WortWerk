@@ -14,28 +14,28 @@
 
 ## Phase 2 - Dataset Collection
 
-- [ ] Build an interactive vocabulary collection script
-- [ ] Validate user input
+- [x] Build an interactive vocabulary collection script
+- [x] Validate user input
 - [x] Store words in the database
 - [x] Support editing and deleting entries
-- [ ] Build simple search and filtering
+- [x] Build simple search and filtering
 - [x] Collect the initial vocabulary dataset
 
 ---
 
 ## Phase 3 - Practice
 
-- [ ] Article practice
+- [x] Article practice
 - [ ] Vocabulary meaning practice
 - [ ] Reverse vocabulary practice (English -> German)
-- [ ] Practice filtering (Level, Lesson, Word Type, etc.)
+- [x] Practice filtering (Level, Lesson, Word Type, etc.)
 - [ ] Track correct and incorrect answers
 
 ---
 
 ## Phase 4 - Statistics
 
-- [ ] Practice history
+- [x] Practice history
 - [ ] Word statistics
 - [ ] Overall learning statistics
 - [ ] Difficult words list
