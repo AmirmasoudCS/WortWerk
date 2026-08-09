@@ -7,6 +7,7 @@ from config.colors import (
     BLUE,
     MAGENTA,
     CYAN,
+    BRIGHT_MAGENTA,
 )
 
 
@@ -50,7 +51,7 @@ def format_article(article: str) -> str:
     """Apply a color based on the German article."""
     article_colors = {
         "der": BLUE,
-        "die": MAGENTA,
+        "die": BRIGHT_MAGENTA,
         "das": GREEN,
     }
 
