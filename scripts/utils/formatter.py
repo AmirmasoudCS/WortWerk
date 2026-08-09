@@ -298,9 +298,40 @@ def print_practice_summary(
     print("╭──────────────────────────────╮")
     print("│      Practice Complete       │")
     print("├──────────────────────────────┤")
-    print(f"│ Questions: {total_questions:<17} │")
-    print(f"│ Correct:   {correct:<17} │")
-    print(f"│ Incorrect: {incorrect:<17} │")
+
+    questions_label = colorize_padded(
+        "Questions:",
+        CYAN,
+        10,
+    )
+
+    correct_label = colorize_padded(
+        "Correct:",
+        GREEN,
+        10,
+    )
+
+    incorrect_label = colorize_padded(
+        "Incorrect:",
+        BRIGHT_RED,
+        10,
+    )
+
+    print(
+        f"│ {questions_label} "
+        f"{total_questions:<17} │"
+    )
+
+    print(
+        f"│ {correct_label} "
+        f"{correct:<17} │"
+    )
+
+    print(
+        f"│ {incorrect_label} "
+        f"{incorrect:<17} │"
+    )
+
     print("╰──────────────────────────────╯")
     print()
 
