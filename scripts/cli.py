@@ -160,6 +160,7 @@ def main() -> None:
     commands = {
         "init": handle_init,
         "add": handle_add,
+        "edit": handle_edit,
         "list": handle_list,
         "delete": handle_delete,
     }
