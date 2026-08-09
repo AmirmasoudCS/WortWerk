@@ -63,19 +63,48 @@ class VocabularyRepository:
         value = value.strip()
         return value or None
 
-    def list_words(self, article: str | None = None, level: str | None = None):
-        """Return all vocabulary rows, optionally filtered by article and/or level."""
+    def list_words(
+        self,
+        article: str | None = None,
+        level: str | None = None,
+        sort_by: str = "id",
+        reverse: bool = False,
+    ):
+        """Return vocabulary rows, optionally filtered and sorted."""
         query = "SELECT * FROM vocabulary WHERE 1=1"
         params: list = []
 
         if article:
             query += " AND article = ?"
             params.append(article.strip().lower())
+
         if level:
             query += " AND level = ?"
             params.append(level.strip())
 
-        query += " ORDER BY german"
+        sort_columns = {
+            "id": "id",
+            "alphabetical": "german COLLATE NOCASE",
+            "level": """
+                CASE level
+                    WHEN 'A1' THEN 1
+                    WHEN 'A2' THEN 2
+                    WHEN 'B1' THEN 3
+                    WHEN 'B2' THEN 4
+                    WHEN 'C1' THEN 5
+                    WHEN 'C2' THEN 6
+                    ELSE 99
+                END
+            """,
+        }
+
+        if sort_by not in sort_columns:
+            raise ValueError(f"Invalid sort option: {sort_by}")
+
+        direction = "DESC" if reverse else "ASC"
+
+        query += f" ORDER BY {sort_columns[sort_by]} {direction}"
+
         return self.db.fetch_all(query, tuple(params))
 
     def get_word(self, word_id: int):
