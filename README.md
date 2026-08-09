@@ -93,7 +93,7 @@ Start a practice session with:
 python scripts/practice.py
 ```
 
-Practice sessions allow you to select the number of words and CEFR levels to practice. Words are shuffled for each session, and you can answer article questions using either the article itself or its corresponding number.
+Practice sessions allow you to select the number of words and CEFR levels to practice. Words are shuffled for each session, and article questions can be answered using either the article itself or its corresponding number.
 
 Practice results are not saved.
 
@@ -101,16 +101,16 @@ Practice results are not saved.
 
 WortWerk is a personal learning project, but contributions and suggestions are welcome.
 
-If you would like to contribute please checkout the [contribiution](./CONTRIBUTING.md)
+If you would like to contribute, please see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
 
 ## 📄 License
 
 WortWerk is licensed under the MIT License.
 
-See the [LICENSE](LICENSE) file for the full license text.
+See the [LICENSE](./LICENSE) file for the full license text.
 
 ## 📌 Project Status
 
 WortWerk is an ongoing personal project that will evolve alongside my German-learning journey.
 
-[Future Ideas](./features.md)
+[🚧 Future Ideas](./features.md)
