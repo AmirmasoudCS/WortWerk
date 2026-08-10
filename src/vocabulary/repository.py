@@ -182,6 +182,33 @@ class VocabularyRepository:
             tuple(params),
         )
 
+    def search_words(
+        self,
+        query: str,
+    ):
+        """Search vocabulary by German word or English translation."""
+
+        query = query.strip()
+
+        if not query:
+            return []
+
+        search_pattern = f"%{query}%"
+
+        return self.db.fetch_all(
+            """
+            SELECT *
+            FROM vocabulary
+            WHERE german LIKE ?
+               OR english LIKE ?
+            ORDER BY german COLLATE NOCASE ASC
+            """,
+            (
+                search_pattern,
+                search_pattern,
+            ),
+        )
+
     def get_statistics(self):
         """Return vocabulary counts grouped by article and CEFR level."""
 
