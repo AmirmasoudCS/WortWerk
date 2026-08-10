@@ -430,9 +430,10 @@ def print_practice_summary(
         10,
     )
 
-    accuracy_value = colorize(
+    accuracy_value = colorize_padded(
         f"{accuracy:.1f}%",
         accuracy_color,
+        17,
     )
 
     print(
@@ -456,7 +457,7 @@ def print_practice_summary(
 
     print(
         f"│ {accuracy_label} "
-        f"{accuracy_value:<17} │"
+        f"{accuracy_value} │"
     )
 
     print(
