@@ -4,6 +4,20 @@ A small CLI tool for practicing German vocabulary and articles.
 
 WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.
 
+## 📊 Current Vocabulary
+
+The current WortWerk vocabulary dataset is organized by German article and CEFR level:
+
+| Article | A1 | A2 | B1 | B2 | C1 | C2 | Total |
+| :------ | --: | --: | --: | --: | --: | --: | ----: |
+| der     | 24 | 0 | 0 | 0 | 0 | 0 | 24 |
+| die     | 30 | 0 | 0 | 0 | 0 | 0 | 30 |
+| das     | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
+| **Total** | **83** | **0** | **0** | **0** | **0** | **0** | **83** |
+
+> **Dataset snapshot:** August 2026  
+> The vocabulary dataset is continuously growing alongside my German-learning journey. Run `python -m scripts.cli stats` to view the current statistics.
+
 ## ✨ Features
 
 * Vocabulary management
