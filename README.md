@@ -93,6 +93,7 @@ python -m scripts.cli -h
 | `delete <id>`              | -                     | Delete a word by ID                      |
 | `edit <id>`                | -                     | Edit a word by ID                        |
 | `stats`                    | -                     | Show vocabulary statistics               |
+| `search <query>`           | -                     | Search for a word or translation         |
 
 For example:
 
