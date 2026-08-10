@@ -78,7 +78,7 @@ python -m scripts.cli -h
 | `list --reverse`           | `list -rev`           | Reverse the sort order                   |
 | `delete <id>`              | -                     | Delete a word by ID                      |
 | `edit <id>`                | -                     | Edit a word by ID                        |
-| `stats`                    | -                     | Show vocabulary statis                   |
+| `stats`                    | -                     | Show vocabulary statistics               |
 
 For example:
 
