@@ -381,6 +381,7 @@ def print_practice_summary(
     total_questions: int,
     correct: int,
     incorrect: int,
+    accuracy: float,
 ) -> None:
     """Print the practice session summary."""
 
@@ -416,6 +417,24 @@ def print_practice_summary(
         10,
     )
 
+    if accuracy >= 80:
+        accuracy_color = GREEN
+    elif accuracy >= 50:
+        accuracy_color = YELLOW
+    else:
+        accuracy_color = BRIGHT_RED
+
+    accuracy_label = colorize_padded(
+        "Accuracy:",
+        accuracy_color,
+        10,
+    )
+
+    accuracy_value = colorize(
+        f"{accuracy:.1f}%",
+        accuracy_color,
+    )
+
     print(
         f"│ {questions_label} "
         f"{total_questions:<17} │"
@@ -429,6 +448,15 @@ def print_practice_summary(
     print(
         f"│ {incorrect_label} "
         f"{incorrect:<17} │"
+    )
+
+    print(
+        "├──────────────────────────────┤"
+    )
+
+    print(
+        f"│ {accuracy_label} "
+        f"{accuracy_value:<17} │"
     )
 
     print(
