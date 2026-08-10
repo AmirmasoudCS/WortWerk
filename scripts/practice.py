@@ -86,8 +86,8 @@ def show_question(
     row,
     question_number: int,
     total_questions: int,
-) -> str | None:
-    """Display a practice question and return the user's answer."""
+) -> tuple[str | None, float]:
+    """Display a practice question and return the answer and response time."""
 
     clear_screen()
 
@@ -97,7 +97,15 @@ def show_question(
         total_questions=total_questions,
     )
 
-    return prompt_article()
+    # Start timing immediately before the user starts answering.
+    start_time = time.perf_counter()
+
+    answer = prompt_article()
+
+    # Stop timing immediately after the user submits the answer.
+    elapsed_time = time.perf_counter() - start_time
+
+    return answer, elapsed_time
 
 
 def practice(
@@ -121,6 +129,7 @@ def practice(
     total_questions = len(rows)
     correct = 0
     incorrect = 0
+    total_answer_time = 0.0
 
     clear_screen()
 
@@ -131,14 +140,14 @@ def practice(
 
     input("Press Enter to begin...")
 
-    start_time = time.perf_counter()
-
     for question_number, row in enumerate(rows, start=1):
-        answer = show_question(
+        answer, answer_time = show_question(
             row,
             question_number,
             total_questions,
         )
+
+        total_answer_time += answer_time
 
         if answer is None:
             clear_screen()
@@ -165,8 +174,6 @@ def practice(
 
             input("Press Enter to continue...")
 
-    elapsed_time = time.perf_counter() - start_time
-
     accuracy = (correct / total_questions) * 100
 
     print_practice_summary(
@@ -174,7 +181,7 @@ def practice(
         correct=correct,
         incorrect=incorrect,
         accuracy=accuracy,
-        elapsed_time=elapsed_time,
+        elapsed_time=total_answer_time,
     )
 
 
