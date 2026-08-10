@@ -90,4 +90,4 @@ Ideas and planned features for future versions of WortWerk.
 
 ---
 
-> WortWerk is a personal learning project, so features will be added gradually as they become useful for my German-learning journey and as I learn more about software development.
+> WortWerk is a personal learning project, so features will be added gradually.
