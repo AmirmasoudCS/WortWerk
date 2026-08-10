@@ -49,6 +49,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Show vocabulary statistics",
     )
 
+    search_parser = subparsers.add_parser(
+        "search",
+        help="Search vocabulary",
+    )
+
+    search_parser.add_argument(
+        "query",
+        help="Search for a word or translation",
+    )
+
     list_parser = subparsers.add_parser(
         "list",
         help="List words in the vocabulary",
@@ -171,6 +181,31 @@ def handle_stats(
     )
 
     print()
+
+
+def handle_search(
+    repo: VocabularyRepository,
+    args,
+) -> None:
+    rows = repo.search_words(
+        args.query
+    )
+
+    if not rows:
+        print_info(
+            f"No words found for '{args.query}'."
+        )
+        return
+
+    print()
+    print_info(
+        f"Search results for '{args.query}'"
+    )
+    print()
+
+    print(
+        format_word_table(rows)
+    )
 
 
 def handle_list(
@@ -312,6 +347,7 @@ def main() -> None:
             "init": handle_init,
             "add": handle_add,
             "stats": handle_stats,
+            "search": handle_search,
             "edit": handle_edit,
             "list": handle_list,
             "delete": handle_delete,
