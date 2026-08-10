@@ -5,10 +5,10 @@ Ideas and planned features for future versions of WortWerk.
 ## 📊 Statistics
 
 * [x] Add practice accuracy percentage
-* [ ] Show vocabulary statistics
-* [ ] Show word distribution by CEFR level
-* [ ] Show word distribution by article
-* [ ] Add a `stats` command
+* [x] Show vocabulary statistics
+* [x] Show word distribution by CEFR level
+* [x] Show word distribution by article
+* [x] Add a `stats` command
 * [x] Add a timer to practice stats
 
 ## 🧠 Quiz Modes
@@ -23,10 +23,10 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 🔎 Search
 
-* [ ] Search German vocabulary
-* [ ] Search English translations
-* [ ] Search by partial word
-* [ ] Add a `search` command
+* [x] Search German vocabulary
+* [x] Search English translations
+* [x] Search by partial word
+* [x] Add a `search` command
 
 ## 🔥 Weak-Word Practice
 
