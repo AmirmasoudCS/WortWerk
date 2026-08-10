@@ -469,3 +469,16 @@ def print_practice_summary(
     input(
         "Press Enter to exit..."
     )
+
+def format_duration(seconds: float) -> str:
+    """Format elapsed seconds as HH:MM:SS or MM:SS."""
+
+    total_seconds = int(seconds)
+
+    hours, remainder = divmod(total_seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    if hours > 0:
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+
+    return f"{minutes:02d}:{seconds:02d}"
