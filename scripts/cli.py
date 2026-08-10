@@ -18,6 +18,7 @@ from scripts.utils.formatter import (
     print_info,
     prompt,
     format_word_table,
+    format_stats_table,
 )
 from scripts.utils.helper import clear_screen
 
@@ -41,6 +42,11 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "add",
         help="Add a new word to the vocabulary",
+    )
+
+    subparsers.add_parser(
+        "stats",
+        help="Show vocabulary statistics",
     )
 
     list_parser = subparsers.add_parser(
@@ -107,7 +113,10 @@ def handle_init(
     args,
 ) -> None:
     repo.db.initialize_schema()
-    print_success("Database initialized.")
+
+    print_success(
+        "Database initialized."
+    )
 
 
 def handle_add(
@@ -117,8 +126,14 @@ def handle_add(
     german = prompt("German")
     english = prompt("English")
     article = prompt("Article (der/die/das)")
-    plural = prompt("Plural", required=False)
-    level = prompt("Level", required=False)
+    plural = prompt(
+        "Plural",
+        required=False,
+    )
+    level = prompt(
+        "Level",
+        required=False,
+    )
 
     try:
         word_id = repo.add_word(
@@ -141,6 +156,23 @@ def handle_add(
         print_error(str(e))
 
 
+def handle_stats(
+    repo: VocabularyRepository,
+    args,
+) -> None:
+    statistics = repo.get_statistics()
+
+    print()
+    print_info("Vocabulary Statistics")
+    print()
+
+    print(
+        format_stats_table(statistics)
+    )
+
+    print()
+
+
 def handle_list(
     repo: VocabularyRepository,
     args,
@@ -156,7 +188,9 @@ def handle_list(
         print_info("No words found.")
         return
 
-    print(format_word_table(rows))
+    print(
+        format_word_table(rows)
+    )
 
 
 def handle_delete(
@@ -277,6 +311,7 @@ def main() -> None:
         commands = {
             "init": handle_init,
             "add": handle_add,
+            "stats": handle_stats,
             "edit": handle_edit,
             "list": handle_list,
             "delete": handle_delete,
