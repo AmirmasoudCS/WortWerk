@@ -4,11 +4,12 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 📊 Statistics
 
-* [ ] Add practice accuracy percentage
+* [x] Add practice accuracy percentage
 * [ ] Show vocabulary statistics
 * [ ] Show word distribution by CEFR level
 * [ ] Show word distribution by article
 * [ ] Add a `stats` command
+* [ ] Add a timer to practice stats
 
 ## 🧠 Quiz Modes
 
