@@ -163,10 +163,13 @@ def practice(
 
             input("Press Enter to continue...")
 
+    accuracy = (correct / total_questions) * 100
+
     print_practice_summary(
         total_questions=total_questions,
         correct=correct,
         incorrect=incorrect,
+        accuracy=accuracy,
     )
 
 
