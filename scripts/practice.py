@@ -131,6 +131,8 @@ def practice(
 
     input("Press Enter to begin...")
 
+    start_time = time.perf_counter()
+
     for question_number, row in enumerate(rows, start=1):
         answer = show_question(
             row,
@@ -163,6 +165,8 @@ def practice(
 
             input("Press Enter to continue...")
 
+    elapsed_time = time.perf_counter() - start_time
+
     accuracy = (correct / total_questions) * 100
 
     print_practice_summary(
@@ -170,6 +174,7 @@ def practice(
         correct=correct,
         incorrect=incorrect,
         accuracy=accuracy,
+        elapsed_time=elapsed_time,
     )
 
 
