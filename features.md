@@ -9,7 +9,7 @@ Ideas and planned features for future versions of WortWerk.
 * [ ] Show word distribution by CEFR level
 * [ ] Show word distribution by article
 * [ ] Add a `stats` command
-* [ ] Add a timer to practice stats
+* [x] Add a timer to practice stats
 
 ## 🧠 Quiz Modes
 
