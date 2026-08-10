@@ -382,6 +382,7 @@ def print_practice_summary(
     correct: int,
     incorrect: int,
     accuracy: float,
+    elapsed_time: float,
 ) -> None:
     """Print the practice session summary."""
 
@@ -415,6 +416,16 @@ def print_practice_summary(
         "Incorrect:",
         BRIGHT_RED,
         10,
+    )
+
+    time_label = colorize_padded(
+        "Time:",
+        CYAN,
+        10,
+    )
+
+    formatted_time = format_duration(
+        elapsed_time
     )
 
     if accuracy >= 80:
@@ -461,6 +472,11 @@ def print_practice_summary(
     )
 
     print(
+        f"│ {time_label} "
+        f"{formatted_time:<17} │"
+    )
+
+    print(
         "╰──────────────────────────────╯"
     )
 
@@ -469,7 +485,7 @@ def print_practice_summary(
     input(
         "Press Enter to exit..."
     )
-
+    
 def format_duration(seconds: float) -> str:
     """Format elapsed seconds as HH:MM:SS or MM:SS."""
 
