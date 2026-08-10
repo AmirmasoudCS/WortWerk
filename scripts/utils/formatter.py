@@ -485,7 +485,7 @@ def print_practice_summary(
     input(
         "Press Enter to exit..."
     )
-    
+
 def format_duration(seconds: float) -> str:
     """Format elapsed seconds as HH:MM:SS or MM:SS."""
 
@@ -498,3 +498,193 @@ def format_duration(seconds: float) -> str:
         return f"{hours}:{minutes:02d}:{seconds:02d}"
 
     return f"{minutes:02d}:{seconds:02d}"
+
+def format_stats_table(statistics) -> str:
+    """Format vocabulary statistics as a colored table."""
+
+    articles = list(statistics.keys())
+
+    levels = []
+
+    for article in articles:
+        for level in statistics[article]:
+            if level not in levels:
+                levels.append(level)
+
+    headers = ["ARTICLE", *levels, "TOTAL"]
+
+    data = []
+
+    for article in articles:
+        row = [article]
+
+        for level in levels:
+            row.append(
+                str(statistics[article].get(level, 0))
+            )
+
+        row.append(
+            str(
+                sum(
+                    statistics[article].get(level, 0)
+                    for level in levels
+                )
+            )
+        )
+
+        data.append(row)
+
+    total_row = ["TOTAL"]
+
+    for level in levels:
+        total_row.append(
+            str(
+                sum(
+                    statistics[article].get(level, 0)
+                    for article in articles
+                )
+            )
+        )
+
+    grand_total = sum(
+        int(row[-1])
+        for row in data
+    )
+
+    total_row.append(str(grand_total))
+
+    widths = []
+
+    for index, header in enumerate(headers):
+        column_width = max(
+            len(header),
+            max(
+                len(row[index])
+                for row in data + [total_row]
+            ),
+        )
+
+        widths.append(column_width)
+
+    def format_cell(
+        value: str,
+        column_index: int,
+        is_total: bool = False,
+    ) -> str:
+        """Format and color an individual statistics cell."""
+
+        if column_index == 0:
+            if is_total:
+                return colorize(
+                    value,
+                    f"{CYAN}{BOLD}",
+                )
+
+            return format_article(value)
+
+        if is_total:
+            return colorize(
+                value,
+                BOLD,
+            )
+
+        return value
+
+    def format_row(
+        row,
+        is_total: bool = False,
+    ) -> str:
+        """Format a single statistics row."""
+
+        cells = []
+
+        for index, (value, width) in enumerate(
+            zip(row, widths)
+        ):
+            formatted_value = format_cell(
+                value,
+                index,
+                is_total,
+            )
+
+            if index == 0:
+                formatted_value += (
+                    " " * (width - len(value))
+                )
+            else:
+                formatted_value = (
+                    f"{value:>{width}}"
+                )
+
+            cells.append(formatted_value)
+
+        return (
+            "│ "
+            + " │ ".join(cells)
+            + " │"
+        )
+
+    top = (
+        "┌─"
+        + "─┬─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┐"
+    )
+
+    separator = (
+        "├─"
+        + "─┼─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┤"
+    )
+
+    bottom = (
+        "└─"
+        + "─┴─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┘"
+    )
+
+    header = (
+        "│ "
+        + " │ ".join(
+            colorize_padded(
+                header,
+                f"{CYAN}{BOLD}",
+                width,
+            )
+            for header, width in zip(
+                headers,
+                widths,
+            )
+        )
+        + " │"
+    )
+
+    article_rows = [
+        format_row(row)
+        for row in data
+    ]
+
+    total_row = format_row(
+        total_row,
+        is_total=True,
+    )
+
+    return "\n".join(
+        [
+            top,
+            header,
+            separator,
+            *article_rows,
+            separator,
+            total_row,
+            bottom,
+        ]
+    )
