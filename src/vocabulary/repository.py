@@ -182,6 +182,37 @@ class VocabularyRepository:
             tuple(params),
         )
 
+    def get_statistics(self):
+        """Return vocabulary counts grouped by article and CEFR level."""
+
+        rows = self.db.fetch_all(
+            """
+            SELECT article, level, COUNT(*) AS count
+            FROM vocabulary
+            GROUP BY article, level
+            """
+        )
+
+        statistics = {
+            article: {
+                level: 0
+                for level in sorted(VALID_LEVELS)
+            }
+            for article in sorted(VALID_ARTICLES)
+        }
+
+        for row in rows:
+            article = row["article"]
+            level = row["level"]
+
+            if (
+                article in statistics
+                and level in statistics[article]
+            ):
+                statistics[article][level] = row["count"]
+
+        return statistics
+
     def get_word(self, word_id: int):
         """Return a vocabulary word by its ID."""
 
