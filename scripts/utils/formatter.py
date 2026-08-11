@@ -818,3 +818,27 @@ def format_stats_table(statistics) -> str:
             bottom,
         ]
     )
+
+def print_german_question(
+    english: str,
+    question_number: int,
+    total_questions: int,
+) -> None:
+    """Print an English-to-German practice question."""
+
+    print(
+        f"{CYAN}Question "
+        f"{question_number}/{total_questions}{RESET}"
+    )
+
+    print()
+
+    print(
+        f"{BOLD}"
+        f"                    {english}"
+        f"{RESET}"
+    )
+
+    print()
+    print("What is the German word?")
+    print()
