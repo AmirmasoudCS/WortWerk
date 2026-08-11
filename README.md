@@ -25,17 +25,17 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 | **Total** | **83** | **0** | **0** | **0** | **0** | **0** | **83** |
 
 > **Dataset snapshot:** August 2026  
-> The vocabulary dataset is continuously growing alongside my German-learning journey. Run `python -m scripts.cli stats` to view the current statistics.
+> The vocabulary dataset is continuously growing alongside my German-learning journey. Run `python -m scripts.wortwerk stats` to view the current statistics.
 
 ## ✨ Features
 
-* Vocabulary management
-* Vocabulary filtering and sorting
-* German → Article practice
-* German → English practice
-* Interactive practice sessions
-* CEFR level-based practice
-* Colored CLI interface
+- Vocabulary management
+- Vocabulary filtering and sorting
+- German → Article practice
+- German → English practice
+- CEFR level-based practice
+- Colored CLI interface
+
 
 ## 🛠️ Requirements
 
@@ -84,7 +84,7 @@ pip install -r requirements.txt
 To see the available commands and options:
 
 ```bash
-python -m scripts.cli -h
+python -m scripts.worwerk -h
 ```
 
 ### Vocabulary Management
@@ -108,7 +108,7 @@ python -m scripts.cli -h
 For example:
 
 ```bash
-python -m scripts.cli list --sort alphabetical
+python -m scripts.wortwerk list --sort alphabetical
 ```
 
 ## 📝 Practice
@@ -116,7 +116,7 @@ python -m scripts.cli list --sort alphabetical
 Start a practice session with:
 
 ```bash
-python scripts/practice.py
+python -m scripts.practice_mode
 ```
 
 Practice sessions allow you to select the number of words and CEFR levels to practice. Words are shuffled for each session, and article questions can be answered using either the article itself or its corresponding number.
