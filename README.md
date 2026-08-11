@@ -6,14 +6,12 @@
 
 **A small CLI tool for practicing German vocabulary, articles, and translations.**
 
+
+*WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.*
+
 </div>
-
----
-
 </br>
 
-
-WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.
 
 ## 📊 Current Vocabulary
 
