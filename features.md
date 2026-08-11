@@ -11,7 +11,7 @@ Ideas and planned features for future versions of WortWerk.
 * [x] Add a `stats` command
 * [x] Add a timer to practice stats
 
-## 🧠 Quiz Modes
+## 🧠 Modes
 
 * [x] German word → Article
 * [x] German → English
@@ -19,6 +19,10 @@ Ideas and planned features for future versions of WortWerk.
 * [ ] Mixed quiz mode
 * [ ] Plural exercises
 * [ ] Fill-in-the-blank exercises
+
+## 🧪 Quiz
+
+* [ ] Implement all the features in the practice mode to the quiz mode with saving the history of sessions that were practiced
 
 ## 🔎 Search
 
