@@ -13,9 +13,8 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 🧠 Quiz Modes
 
-* [ ] Article → German word
-* [ ] German word → Article
-* [ ] German → English
+* [x] German word → Article
+* [x] German → English
 * [ ] English → German
 * [ ] Mixed quiz mode
 * [ ] Plural exercises
