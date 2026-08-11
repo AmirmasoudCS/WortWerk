@@ -1,6 +1,6 @@
 <div align="center">
 
-![WortWerk German Flag](./assets/images/german_flag/german1.jpg)
+![WortWerk German Flag](./assets/images/german_flag/german2.jpg)
 
 # WortWerk
 
