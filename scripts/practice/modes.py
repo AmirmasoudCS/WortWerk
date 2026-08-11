@@ -75,6 +75,7 @@ def show_correct_answer(
 
     if mode == "german":
         print_correct_german_answer(
+            english=row["english"],
             article=row["article"],
             german=row["german"],
         )
@@ -108,6 +109,7 @@ def show_wrong_answer(
 
     if mode == "german":
         print_wrong_german_answer(
+            english=row["english"],
             article=row["article"],
             german=row["german"],
         )
