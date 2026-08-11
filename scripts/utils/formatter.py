@@ -330,7 +330,7 @@ def print_practice_mode_menu() -> None:
     print("What would you like to practice?")
     print()
 
-    print("  1. Article → German")
+    print("  1. German → Article")
     print("  2. German → English")
     print()
 
@@ -378,6 +378,7 @@ def print_question(
 
 def print_english_question(
     german: str,
+    article: str,
     question_number: int,
     total_questions: int,
 ) -> None:
@@ -392,9 +393,9 @@ def print_english_question(
     print()
 
     print(
-        f"{BOLD}"
-        f"                    {german}"
-        f"{RESET}"
+        f"                    "
+        f"{format_article(article)} "
+        f"{BOLD}{german}{RESET}"
     )
 
     print()
@@ -441,6 +442,7 @@ def print_wrong_answer(
 
 
 def print_correct_english_answer(
+    article: str,
     german: str,
     english: str,
 ) -> None:
@@ -451,13 +453,15 @@ def print_correct_english_answer(
     print()
 
     print(
-        f"    {BOLD}{german}{RESET}"
+        f"    {format_article(article)} "
+        f"{BOLD}{german}{RESET}"
         f" → "
         f"{english}"
     )
 
 
 def print_wrong_english_answer(
+    article: str,
     german: str,
     english: str,
 ) -> None:
@@ -471,7 +475,8 @@ def print_wrong_english_answer(
     print()
 
     print(
-        f"    {BOLD}{german}{RESET}"
+        f"    {format_article(article)} "
+        f"{BOLD}{german}{RESET}"
         f" → "
         f"{english}"
     )
