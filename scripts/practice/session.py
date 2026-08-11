@@ -20,6 +20,15 @@ from scripts.utils.formatter import (
 from scripts.utils.helper import clear_screen
 
 
+def get_question_function(mode: str):
+    """Return the question function for the selected practice mode."""
+
+    if mode == "article":
+        return show_article_question
+
+    return show_english_question
+
+
 def practice(
     repo: VocabularyRepository,
     levels: list[str] | None,
@@ -47,6 +56,7 @@ def practice(
     total_answer_time = 0.0
 
     practice_name = get_practice_name(mode)
+    question_function = get_question_function(mode)
 
     clear_screen()
 
@@ -62,18 +72,11 @@ def practice(
         rows,
         start=1,
     ):
-        if mode == "article":
-            answer, answer_time = show_article_question(
-                row,
-                question_number,
-                total_questions,
-            )
-        else:
-            answer, answer_time = show_english_question(
-                row,
-                question_number,
-                total_questions,
-            )
+        answer, answer_time = question_function(
+            row,
+            question_number,
+            total_questions,
+        )
 
         total_answer_time += answer_time
 
