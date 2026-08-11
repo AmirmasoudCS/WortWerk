@@ -85,7 +85,7 @@ def ask_practice_mode() -> str | None:
         print_practice_mode_menu()
 
         value = input(
-            "Choose a practice mode (1-2, or q to quit): "
+            "Choose a practice mode (1-3, or q to quit): "
         ).strip().lower()
 
         if value == "q":
@@ -97,8 +97,11 @@ def ask_practice_mode() -> str | None:
         if value == "2":
             return "english"
 
+        if value == "3":
+            return "german"
+
         print_error(
-            "Please choose 1, 2, or q."
+            "Please choose 1, 2, 3, or q."
         )
 
 def prompt_article() -> str | None:
