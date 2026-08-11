@@ -285,6 +285,30 @@ def prompt_article() -> str | None:
         )
 
 
+def prompt_english() -> str | None:
+    """Prompt the user for an English translation.
+
+    Returns None when the user chooses to quit.
+    """
+
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(or q to quit)"
+            f"{RESET}: "
+        ).strip()
+
+        if value.lower() == "q":
+            return None
+
+        if value:
+            return value
+
+        print_error(
+            "Please enter an answer or q to quit."
+        )
+
+
 def print_practice_header() -> None:
     """Print the WortWerk practice header."""
 
@@ -300,12 +324,23 @@ def print_practice_header() -> None:
     )
 
 
+def print_practice_mode_menu() -> None:
+    """Print the available practice modes."""
+
+    print("What would you like to practice?")
+    print()
+
+    print("  1. Article → German")
+    print("  2. German → English")
+    print()
+
+
 def print_question(
     german: str,
     question_number: int,
     total_questions: int,
 ) -> None:
-    """Print a practice question."""
+    """Print an article practice question."""
 
     print(
         f"{CYAN}Question "
@@ -322,6 +357,7 @@ def print_question(
     )
 
     print()
+
     print("What is the correct article?")
     print()
 
@@ -340,11 +376,38 @@ def print_question(
     print()
 
 
+def print_english_question(
+    german: str,
+    question_number: int,
+    total_questions: int,
+) -> None:
+    """Print a German to English practice question."""
+
+    print(
+        f"{CYAN}Question "
+        f"{question_number}/{total_questions}"
+        f"{RESET}"
+    )
+
+    print()
+
+    print(
+        f"{BOLD}"
+        f"                    {german}"
+        f"{RESET}"
+    )
+
+    print()
+
+    print("What does this word mean in English?")
+    print()
+
+
 def print_correct_answer(
     article: str,
     german: str,
 ) -> None:
-    """Print feedback for a correct answer."""
+    """Print feedback for a correct article answer."""
 
     print()
     print_success("Correct!")
@@ -360,7 +423,7 @@ def print_wrong_answer(
     article: str,
     german: str,
 ) -> None:
-    """Print feedback for an incorrect answer."""
+    """Print feedback for an incorrect article answer."""
 
     print()
     print_error("Incorrect!")
@@ -372,6 +435,45 @@ def print_wrong_answer(
     print(
         f"    {format_article(article)} "
         f"{BOLD}{german}{RESET}"
+    )
+
+    print()
+
+
+def print_correct_english_answer(
+    german: str,
+    english: str,
+) -> None:
+    """Print feedback for a correct English answer."""
+
+    print()
+    print_success("Correct!")
+    print()
+
+    print(
+        f"    {BOLD}{german}{RESET}"
+        f" → "
+        f"{english}"
+    )
+
+
+def print_wrong_english_answer(
+    german: str,
+    english: str,
+) -> None:
+    """Print feedback for an incorrect English answer."""
+
+    print()
+    print_error("Incorrect!")
+    print()
+
+    print("The correct translation is:")
+    print()
+
+    print(
+        f"    {BOLD}{german}{RESET}"
+        f" → "
+        f"{english}"
     )
 
     print()
@@ -486,18 +588,27 @@ def print_practice_summary(
         "Press Enter to exit..."
     )
 
+
 def format_duration(seconds: float) -> str:
     """Format elapsed seconds as HH:MM:SS or MM:SS."""
 
     total_seconds = int(seconds)
 
-    hours, remainder = divmod(total_seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
+    hours, remainder = divmod(
+        total_seconds,
+        3600,
+    )
+
+    minutes, seconds = divmod(
+        remainder,
+        60,
+    )
 
     if hours > 0:
         return f"{hours}:{minutes:02d}:{seconds:02d}"
 
     return f"{minutes:02d}:{seconds:02d}"
+
 
 def format_stats_table(statistics) -> str:
     """Format vocabulary statistics as a colored table."""
@@ -520,13 +631,21 @@ def format_stats_table(statistics) -> str:
 
         for level in levels:
             row.append(
-                str(statistics[article].get(level, 0))
+                str(
+                    statistics[article].get(
+                        level,
+                        0,
+                    )
+                )
             )
 
         row.append(
             str(
                 sum(
-                    statistics[article].get(level, 0)
+                    statistics[article].get(
+                        level,
+                        0,
+                    )
                     for level in levels
                 )
             )
@@ -540,7 +659,10 @@ def format_stats_table(statistics) -> str:
         total_row.append(
             str(
                 sum(
-                    statistics[article].get(level, 0)
+                    statistics[article].get(
+                        level,
+                        0,
+                    )
                     for article in articles
                 )
             )
@@ -551,7 +673,9 @@ def format_stats_table(statistics) -> str:
         for row in data
     )
 
-    total_row.append(str(grand_total))
+    total_row.append(
+        str(grand_total)
+    )
 
     widths = []
 
