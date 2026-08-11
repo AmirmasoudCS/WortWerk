@@ -21,7 +21,9 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 🧪 Quiz
 
-* [ ] Implement all the features in the practice mode to the quiz mode with saving the history of sessions that were practiced
+- [ ] Implement quiz mode
+- [ ] Add quiz history
+- [ ] Support all practice question types
 
 ## 🔎 Search
 
