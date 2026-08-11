@@ -1,4 +1,4 @@
-# WortWerk 🇩🇪
+# WortWerk :de:
 
 A small CLI tool for practicing German vocabulary, articles, and translations.
 
