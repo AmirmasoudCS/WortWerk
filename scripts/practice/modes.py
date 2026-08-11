@@ -15,6 +15,9 @@ def get_practice_name(mode: str) -> str:
     if mode == "english":
         return "German → English"
 
+    if mode == "german":
+        return "English → German"
+
     raise ValueError(
         f"Invalid practice mode: {mode}"
     )
@@ -34,6 +37,12 @@ def check_answer(
         return (
             answer.strip().lower()
             == row["english"].strip().lower()
+        )
+
+    if mode == "german":
+        return (
+            answer.strip().lower()
+            == row["german"].strip().lower()
         )
 
     raise ValueError(
@@ -62,6 +71,14 @@ def show_correct_answer(
         )
         return
 
+    if mode == "german":
+        print_correct_english_answer(
+            article=row["article"],
+            german=row["german"],
+            english=row["english"],
+        )
+        return
+
     raise ValueError(
         f"Invalid practice mode: {mode}"
     )
@@ -81,6 +98,14 @@ def show_wrong_answer(
         return
 
     if mode == "english":
+        print_wrong_english_answer(
+            article=row["article"],
+            german=row["german"],
+            english=row["english"],
+        )
+        return
+
+    if mode == "german":
         print_wrong_english_answer(
             article=row["article"],
             german=row["german"],
