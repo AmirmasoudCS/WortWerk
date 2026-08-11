@@ -845,6 +845,7 @@ def print_german_question(
 
 def print_correct_german_answer(
     english: str,
+    article: str,
     german: str,
 ) -> None:
     """Print feedback for a correct German answer."""
@@ -856,12 +857,14 @@ def print_correct_german_answer(
     print(
         f"    {english}"
         f" → "
+        f"{format_article(article)} "
         f"{BOLD}{german}{RESET}"
     )
 
 
 def print_wrong_german_answer(
     english: str,
+    article: str,
     german: str,
 ) -> None:
     """Print feedback for an incorrect German answer."""
@@ -876,6 +879,7 @@ def print_wrong_german_answer(
     print(
         f"    {english}"
         f" → "
+        f"{format_article(article)} "
         f"{BOLD}{german}{RESET}"
     )
 
