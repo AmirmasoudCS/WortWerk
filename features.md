@@ -16,7 +16,6 @@ Ideas and planned features for future versions of WortWerk.
 * [x] German word → Article
 * [x] German → English
 * [ ] English → German
-* [ ] Mixed quiz mode
 * [ ] Plural exercises
 * [ ] Fill-in-the-blank exercises
 
