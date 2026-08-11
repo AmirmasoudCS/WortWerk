@@ -1,4 +1,5 @@
 from config.constants import VALID_LEVELS
+from config.colors import CYAN, RESET
 from scripts.utils.formatter import (
     print_error,
     print_practice_mode_menu,
@@ -99,3 +100,59 @@ def ask_practice_mode() -> str | None:
         print_error(
             "Please choose 1, 2, or q."
         )
+
+def prompt_article() -> str | None:
+    """Prompt the user for a German article."""
+
+    article_choices = {
+        "1": "der",
+        "2": "die",
+        "3": "das",
+        "der": "der",
+        "die": "die",
+        "das": "das",
+    }
+
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(1-3, der/die/das, or q to quit){RESET}: "
+        ).strip().lower()
+
+        if value == "q":
+            return None
+
+        if value in article_choices:
+            return article_choices[value]
+
+        print_error(
+            "Please enter 1, 2, 3, der, die, das, or q."
+        )
+
+
+def prompt_english() -> str | None:
+    """Prompt the user for an English translation."""
+
+    value = input(
+        f"{CYAN}Your answer "
+        f"(or q to quit){RESET}: "
+    ).strip()
+
+    if value.lower() == "q":
+        return None
+
+    return value
+
+
+def prompt_german() -> str | None:
+    """Prompt the user for a German translation."""
+
+    value = input(
+        f"{CYAN}Your answer "
+        f"(or q to quit){RESET}: "
+    ).strip()
+
+    if value.lower() == "q":
+        return None
+
+    return value
