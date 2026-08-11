@@ -2,21 +2,26 @@ import random
 import time
 
 from src.vocabulary.repository import VocabularyRepository
+
 from scripts.practice.modes import (
     check_answer,
     get_practice_name,
     show_correct_answer,
     show_wrong_answer,
 )
+
 from scripts.practice.questions import (
     show_article_question,
     show_english_question,
+    show_german_question,
 )
+
 from scripts.utils.formatter import (
     print_error,
     print_info,
     print_practice_summary,
 )
+
 from scripts.utils.helper import clear_screen
 
 
@@ -26,7 +31,15 @@ def get_question_function(mode: str):
     if mode == "article":
         return show_article_question
 
-    return show_english_question
+    if mode == "english":
+        return show_english_question
+
+    if mode == "german":
+        return show_german_question
+
+    raise ValueError(
+        f"Invalid practice mode: {mode}"
+    )
 
 
 def practice(
