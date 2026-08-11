@@ -3,6 +3,8 @@ from scripts.utils.formatter import (
     print_wrong_answer,
     print_correct_english_answer,
     print_wrong_english_answer,
+    print_correct_german_answer,
+    print_wrong_german_answer,
 )
 
 
@@ -72,10 +74,9 @@ def show_correct_answer(
         return
 
     if mode == "german":
-        print_correct_english_answer(
+        print_correct_german_answer(
             article=row["article"],
             german=row["german"],
-            english=row["english"],
         )
         return
 
@@ -106,10 +107,9 @@ def show_wrong_answer(
         return
 
     if mode == "german":
-        print_wrong_english_answer(
+        print_wrong_german_answer(
             article=row["article"],
             german=row["german"],
-            english=row["english"],
         )
         return
 
