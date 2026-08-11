@@ -158,6 +158,7 @@ def show_english_question(
 
     print_english_question(
         german=row["german"],
+        article=row["article"],
         question_number=question_number,
         total_questions=total_questions,
     )
@@ -202,7 +203,7 @@ def practice(
     clear_screen()
 
     if mode == "article":
-        practice_name = "Article → German"
+        practice_name = "German → Article"
     else:
         practice_name = "German → English"
 
@@ -260,6 +261,7 @@ def practice(
                 )
             else:
                 print_correct_english_answer(
+                    article=row["article"],
                     german=row["german"],
                     english=row["english"],
                 )
@@ -276,6 +278,7 @@ def practice(
                 )
             else:
                 print_wrong_english_answer(
+                    article=row["article"],
                     german=row["german"],
                     english=row["english"],
                 )
