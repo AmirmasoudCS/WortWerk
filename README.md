@@ -1,6 +1,12 @@
+<div align="center">
+
+![WortWerk German Flag](./assets/images/german_flag/german1.jpg)
+
 # WortWerk :de:
 
 A small CLI tool for practicing German vocabulary, articles, and translations.
+
+</div>
 
 WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.
 
