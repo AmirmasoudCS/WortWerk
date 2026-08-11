@@ -842,3 +842,41 @@ def print_german_question(
     print()
     print("What is the German word?")
     print()
+
+def print_correct_german_answer(
+    english: str,
+    german: str,
+) -> None:
+    """Print feedback for a correct German answer."""
+
+    print()
+    print_success("Correct!")
+    print()
+
+    print(
+        f"    {english}"
+        f" → "
+        f"{BOLD}{german}{RESET}"
+    )
+
+
+def print_wrong_german_answer(
+    english: str,
+    german: str,
+) -> None:
+    """Print feedback for an incorrect German answer."""
+
+    print()
+    print_error("Incorrect!")
+    print()
+
+    print("The correct German word is:")
+    print()
+
+    print(
+        f"    {english}"
+        f" → "
+        f"{BOLD}{german}{RESET}"
+    )
+
+    print()
