@@ -1,6 +1,6 @@
 # WortWerk 🇩🇪
 
-A small CLI tool for practicing German vocabulary and articles.
+A small CLI tool for practicing German vocabulary, articles, and translations.
 
 WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.
 
@@ -22,8 +22,9 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 
 * Vocabulary management
 * Vocabulary filtering and sorting
-* German article practice
-* Interactive quizzes
+* German → Article practice
+* German → English practice
+* Interactive practice sessions
 * CEFR level-based practice
 * Colored CLI interface
 
@@ -129,4 +130,4 @@ See the [LICENSE](./LICENSE) file for the full license text.
 
 WortWerk is an ongoing personal project that will evolve alongside my German-learning journey.
 
-[🚧 Future Ideas](./features.md)
+[🛣️ Roadmap](./features.md)
