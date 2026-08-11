@@ -9,11 +9,16 @@ from scripts.utils.formatter import (
     print_error,
     print_info,
     print_practice_header,
+    print_practice_mode_menu,
     print_question,
+    print_english_question,
     print_correct_answer,
     print_wrong_answer,
+    print_correct_english_answer,
+    print_wrong_english_answer,
     print_practice_summary,
     prompt_article,
+    prompt_english,
 )
 from scripts.utils.helper import clear_screen
 
@@ -34,13 +39,17 @@ def ask_word_count() -> int | None:
             count = int(value)
 
             if count <= 0:
-                print_error("Please enter a positive number.")
+                print_error(
+                    "Please enter a positive number."
+                )
                 continue
 
             return count
 
         except ValueError:
-            print_error("Please enter a number or 'all'.")
+            print_error(
+                "Please enter a number or 'all'."
+            )
 
 
 def ask_levels() -> list[str] | None:
@@ -63,7 +72,9 @@ def ask_levels() -> list[str] | None:
         levels = value.split()
 
         if not levels:
-            print_error("Please enter at least one level.")
+            print_error(
+                "Please enter at least one level."
+            )
             continue
 
         invalid_levels = [
@@ -74,20 +85,48 @@ def ask_levels() -> list[str] | None:
 
         if invalid_levels:
             print_error(
-                f"Invalid level(s): {', '.join(invalid_levels)}. "
-                f"Choose from: {', '.join(sorted(VALID_LEVELS))}."
+                f"Invalid level(s): "
+                f"{', '.join(invalid_levels)}. "
+                f"Choose from: "
+                f"{', '.join(sorted(VALID_LEVELS))}."
             )
             continue
 
-        return list(dict.fromkeys(levels))
+        return list(
+            dict.fromkeys(levels)
+        )
 
 
-def show_question(
+def ask_practice_mode() -> str | None:
+    """Ask which type of practice the user wants."""
+
+    while True:
+        print_practice_mode_menu()
+
+        value = input(
+            "Choose a practice mode (1-2, or q to quit): "
+        ).strip().lower()
+
+        if value == "q":
+            return None
+
+        if value == "1":
+            return "article"
+
+        if value == "2":
+            return "english"
+
+        print_error(
+            "Please choose 1, 2, or q."
+        )
+
+
+def show_article_question(
     row,
     question_number: int,
     total_questions: int,
 ) -> tuple[str | None, float]:
-    """Display a practice question and return the answer and response time."""
+    """Display an article question and return the answer and response time."""
 
     clear_screen()
 
@@ -108,17 +147,46 @@ def show_question(
     return answer, elapsed_time
 
 
+def show_english_question(
+    row,
+    question_number: int,
+    total_questions: int,
+) -> tuple[str | None, float]:
+    """Display a German to English question and return the answer and response time."""
+
+    clear_screen()
+
+    print_english_question(
+        german=row["german"],
+        question_number=question_number,
+        total_questions=total_questions,
+    )
+
+    # Start timing immediately before the user starts answering.
+    start_time = time.perf_counter()
+
+    answer = prompt_english()
+
+    # Stop timing immediately after the user submits the answer.
+    elapsed_time = time.perf_counter() - start_time
+
+    return answer, elapsed_time
+
+
 def practice(
     repo: VocabularyRepository,
     levels: list[str] | None,
     word_count: int | None,
+    mode: str,
 ) -> None:
     """Run a practice session."""
 
     rows = repo.get_practice_words(levels)
 
     if not rows:
-        print_error("No words found for the selected levels.")
+        print_error(
+            "No words found for the selected levels."
+        )
         return
 
     random.shuffle(rows)
@@ -133,48 +201,92 @@ def practice(
 
     clear_screen()
 
+    if mode == "article":
+        practice_name = "Article → German"
+    else:
+        practice_name = "German → English"
+
     print_info(
-        f"Starting practice with {total_questions} word(s)."
+        f"Starting {practice_name} practice "
+        f"with {total_questions} word(s)."
     )
     print()
 
     input("Press Enter to begin...")
 
-    for question_number, row in enumerate(rows, start=1):
-        answer, answer_time = show_question(
-            row,
-            question_number,
-            total_questions,
-        )
+    for question_number, row in enumerate(
+        rows,
+        start=1,
+    ):
+        if mode == "article":
+            answer, answer_time = show_article_question(
+                row,
+                question_number,
+                total_questions,
+            )
+        else:
+            answer, answer_time = show_english_question(
+                row,
+                question_number,
+                total_questions,
+            )
 
         total_answer_time += answer_time
 
         if answer is None:
             clear_screen()
-            print_info("Practice session ended.")
+            print_info(
+                "Practice session ended."
+            )
             return
 
-        if answer == row["article"]:
+        if mode == "article":
+            is_correct = (
+                answer == row["article"]
+            )
+        else:
+            is_correct = (
+                answer.strip().lower()
+                == row["english"].strip().lower()
+            )
+
+        if is_correct:
             correct += 1
 
-            print_correct_answer(
-                article=row["article"],
-                german=row["german"],
-            )
+            if mode == "article":
+                print_correct_answer(
+                    article=row["article"],
+                    german=row["german"],
+                )
+            else:
+                print_correct_english_answer(
+                    german=row["german"],
+                    english=row["english"],
+                )
 
             time.sleep(2)
 
         else:
             incorrect += 1
 
-            print_wrong_answer(
-                article=row["article"],
-                german=row["german"],
+            if mode == "article":
+                print_wrong_answer(
+                    article=row["article"],
+                    german=row["german"],
+                )
+            else:
+                print_wrong_english_answer(
+                    german=row["german"],
+                    english=row["english"],
+                )
+
+            input(
+                "Press Enter to continue..."
             )
 
-            input("Press Enter to continue...")
-
-    accuracy = (correct / total_questions) * 100
+    accuracy = (
+        correct / total_questions
+    ) * 100
 
     print_practice_summary(
         total_questions=total_questions,
@@ -200,6 +312,16 @@ def main() -> None:
         print_practice_header()
         print()
 
+        mode = ask_practice_mode()
+
+        if mode is None:
+            print_info(
+                "Practice session cancelled."
+            )
+            return
+
+        print()
+
         word_count = ask_word_count()
         levels = ask_levels()
 
@@ -207,6 +329,7 @@ def main() -> None:
             repo=repo,
             levels=levels,
             word_count=word_count,
+            mode=mode,
         )
 
     finally:
