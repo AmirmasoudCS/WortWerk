@@ -92,9 +92,7 @@ def ask_levels() -> list[str] | None:
             )
             continue
 
-        return list(
-            dict.fromkeys(levels)
-        )
+        return list(dict.fromkeys(levels))
 
 
 def ask_practice_mode() -> str | None:
@@ -121,57 +119,105 @@ def ask_practice_mode() -> str | None:
         )
 
 
-def show_article_question(
+def show_question(
     row,
     question_number: int,
     total_questions: int,
+    mode: str,
 ) -> tuple[str | None, float]:
-    """Display an article question and return the answer and response time."""
+    """Display a question and return the answer and response time."""
 
     clear_screen()
 
-    print_question(
-        german=row["german"],
-        question_number=question_number,
-        total_questions=total_questions,
-    )
+    if mode == "article":
+        print_question(
+            german=row["german"],
+            question_number=question_number,
+            total_questions=total_questions,
+        )
 
-    # Start timing immediately before the user starts answering.
-    start_time = time.perf_counter()
+        start_time = time.perf_counter()
 
-    answer = prompt_article()
+        answer = prompt_article()
 
-    # Stop timing immediately after the user submits the answer.
+    else:
+        print_english_question(
+            german=row["german"],
+            article=row["article"],
+            question_number=question_number,
+            total_questions=total_questions,
+        )
+
+        start_time = time.perf_counter()
+
+        answer = prompt_english()
+
     elapsed_time = time.perf_counter() - start_time
 
     return answer, elapsed_time
 
 
-def show_english_question(
+def check_answer(
+    answer: str,
     row,
-    question_number: int,
-    total_questions: int,
-) -> tuple[str | None, float]:
-    """Display a German to English question and return the answer and response time."""
+    mode: str,
+) -> bool:
+    """Check whether the user's answer is correct."""
 
-    clear_screen()
+    if mode == "article":
+        return answer == row["article"]
 
-    print_english_question(
-        german=row["german"],
-        article=row["article"],
-        question_number=question_number,
-        total_questions=total_questions,
+    return (
+        answer.strip().lower()
+        == row["english"].strip().lower()
     )
 
-    # Start timing immediately before the user starts answering.
-    start_time = time.perf_counter()
 
-    answer = prompt_english()
+def show_correct_feedback(
+    row,
+    mode: str,
+) -> None:
+    """Display feedback for a correct answer."""
 
-    # Stop timing immediately after the user submits the answer.
-    elapsed_time = time.perf_counter() - start_time
+    if mode == "article":
+        print_correct_answer(
+            article=row["article"],
+            german=row["german"],
+        )
+    else:
+        print_correct_english_answer(
+            article=row["article"],
+            german=row["german"],
+            english=row["english"],
+        )
 
-    return answer, elapsed_time
+
+def show_wrong_feedback(
+    row,
+    mode: str,
+) -> None:
+    """Display feedback for an incorrect answer."""
+
+    if mode == "article":
+        print_wrong_answer(
+            article=row["article"],
+            german=row["german"],
+        )
+    else:
+        print_wrong_english_answer(
+            article=row["article"],
+            german=row["german"],
+            english=row["english"],
+        )
+
+
+def get_practice_name(mode: str) -> str:
+    """Return the display name for a practice mode."""
+
+    if mode == "article":
+        return "German → Article"
+
+    return "German → English"
 
 
 def practice(
@@ -192,7 +238,7 @@ def practice(
 
     random.shuffle(rows)
 
-    if word_count is not None and word_count < len(rows):
+    if word_count is not None:
         rows = rows[:word_count]
 
     total_questions = len(rows)
@@ -202,10 +248,7 @@ def practice(
 
     clear_screen()
 
-    if mode == "article":
-        practice_name = "German → Article"
-    else:
-        practice_name = "German → English"
+    practice_name = get_practice_name(mode)
 
     print_info(
         f"Starting {practice_name} practice "
@@ -219,18 +262,12 @@ def practice(
         rows,
         start=1,
     ):
-        if mode == "article":
-            answer, answer_time = show_article_question(
-                row,
-                question_number,
-                total_questions,
-            )
-        else:
-            answer, answer_time = show_english_question(
-                row,
-                question_number,
-                total_questions,
-            )
+        answer, answer_time = show_question(
+            row=row,
+            question_number=question_number,
+            total_questions=total_questions,
+            mode=mode,
+        )
 
         total_answer_time += answer_time
 
@@ -241,47 +278,27 @@ def practice(
             )
             return
 
-        if mode == "article":
-            is_correct = (
-                answer == row["article"]
-            )
-        else:
-            is_correct = (
-                answer.strip().lower()
-                == row["english"].strip().lower()
-            )
-
-        if is_correct:
+        if check_answer(
+            answer=answer,
+            row=row,
+            mode=mode,
+        ):
             correct += 1
 
-            if mode == "article":
-                print_correct_answer(
-                    article=row["article"],
-                    german=row["german"],
-                )
-            else:
-                print_correct_english_answer(
-                    article=row["article"],
-                    german=row["german"],
-                    english=row["english"],
-                )
+            show_correct_feedback(
+                row=row,
+                mode=mode,
+            )
 
             time.sleep(2)
 
         else:
             incorrect += 1
 
-            if mode == "article":
-                print_wrong_answer(
-                    article=row["article"],
-                    german=row["german"],
-                )
-            else:
-                print_wrong_english_answer(
-                    article=row["article"],
-                    german=row["german"],
-                    english=row["english"],
-                )
+            show_wrong_feedback(
+                row=row,
+                mode=mode,
+            )
 
             input(
                 "Press Enter to continue..."
