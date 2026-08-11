@@ -7,9 +7,9 @@ from scripts.practice.prompts import (
 from scripts.utils.formatter import (
     print_question,
     print_english_question,
+    print_german_question,
     prompt_article,
     prompt_english,
-    print_german_question,
 )
 from scripts.utils.helper import clear_screen
 
@@ -43,7 +43,7 @@ def show_english_question(
     question_number: int,
     total_questions: int,
 ) -> tuple[str | None, float]:
-    """Display an English translation question and return the answer and response time."""
+    """Display a German-to-English question and return the answer and response time."""
 
     clear_screen()
 
@@ -62,12 +62,13 @@ def show_english_question(
 
     return answer, elapsed_time
 
+
 def show_german_question(
     row,
     question_number: int,
     total_questions: int,
 ) -> tuple[str | None, float]:
-    """Display an English-to-German question."""
+    """Display an English-to-German question and return the answer and response time."""
 
     clear_screen()
 
