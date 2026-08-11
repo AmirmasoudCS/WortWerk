@@ -120,7 +120,7 @@ WortWerk is a personal learning project, but contributions and suggestions are w
 
 If you would like to contribute, please see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
 
-## 📄 License
+## ⚖️ License
 
 WortWerk is licensed under the MIT License.
 
