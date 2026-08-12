@@ -9,14 +9,7 @@ from scripts.utils.formatter import (
     print_wrong_plural_answer,
 )
 
-
-PRACTICE_MODE_NAMES = {
-    "article": "German → Article",
-    "english": "German → English",
-    "german": "English → German",
-    "plural": "German → Plural",
-}
-
+from config.constants import PRACTICE_MODE_NAMES
 
 def get_practice_name(mode: str) -> str:
     """Return the display name for a practice mode."""
