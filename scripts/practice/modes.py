@@ -25,6 +25,31 @@ def get_practice_name(mode: str) -> str:
     )
 
 
+def check_german_answer(
+    row,
+    answer: str,
+) -> bool:
+    """Check an English-to-German answer.
+
+    Accepts either the German word alone or the
+    German word together with its article.
+
+    Examples:
+        Tisch
+        der Tisch
+    """
+
+    user_answer = answer.strip().lower()
+
+    german = row["german"].strip().lower()
+    article = row["article"].strip().lower()
+
+    if user_answer == german:
+        return True
+
+    return user_answer == f"{article} {german}"
+
+
 def check_answer(
     row,
     answer: str,
@@ -42,9 +67,9 @@ def check_answer(
         )
 
     if mode == "german":
-        return (
-            answer.strip().lower()
-            == row["german"].strip().lower()
+        return check_german_answer(
+            row,
+            answer,
         )
 
     raise ValueError(
