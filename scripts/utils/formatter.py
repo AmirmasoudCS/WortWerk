@@ -939,3 +939,26 @@ def print_correct_plural_answer(
         f" → "
         f"{BOLD}{plural}{RESET}"
     )
+
+def print_wrong_plural_answer(
+    article: str,
+    german: str,
+    plural: str,
+) -> None:
+    """Print feedback for an incorrect plural answer."""
+
+    print()
+    print_error("Incorrect!")
+    print()
+
+    print("The correct plural is:")
+    print()
+
+    print(
+        f"    {format_article(article)} "
+        f"{BOLD}{german}{RESET}"
+        f" → "
+        f"{BOLD}{plural}{RESET}"
+    )
+
+    print()
