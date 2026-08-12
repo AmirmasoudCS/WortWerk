@@ -27,3 +27,26 @@ VALID_PRACTICE_MODES = {
     "german",
     "plural",
 }
+
+# Quiz questions templates
+
+QUIZ_TEMPLATE_QUESTION_COUNTS = {
+    "short": {
+        "article": 3,
+        "english": 3,
+        "german": 3,
+        "plural": 3,
+    },
+    "medium": {
+        "article": 5,
+        "english": 5,
+        "german": 5,
+        "plural": 5,
+    },
+    "long": {
+        "article": 10,
+        "english": 10,
+        "german": 10,
+        "plural": 10,
+    },
+}
