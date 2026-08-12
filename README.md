@@ -31,9 +31,17 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 
 - Vocabulary management
 - Vocabulary filtering and sorting
+- Vocabulary search
 - German → Article practice
 - German → English practice
+- English → German practice
+- German → Plural practice
 - CEFR level-based practice
+- Practice accuracy tracking
+- Practice session history
+- Per-word practice history
+- Completed and unfinished session tracking
+- Practice session timer
 - Colored CLI interface
 
 
