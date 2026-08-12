@@ -1,3 +1,5 @@
+import argparse
+
 from config.paths import SQLITE_DATABASE
 
 from src.database.database import Database
@@ -18,8 +20,29 @@ from scripts.utils.formatter import (
 )
 
 
+def build_parser() -> argparse.ArgumentParser:
+    """Build the practice CLI argument parser."""
+
+    parser = argparse.ArgumentParser(
+        prog="python -m scripts.practice_mode",
+        description="WortWerk German vocabulary practice",
+    )
+
+    parser.add_argument(
+        "-q",
+        "--quiz",
+        action="store_true",
+        help="Launch quiz mode",
+    )
+
+    return parser
+
+
 def main() -> None:
     """Start the WortWerk practice CLI."""
+
+    parser = build_parser()
+    args = parser.parse_args()
 
     db = Database(SQLITE_DATABASE)
     repo = VocabularyRepository(db)
@@ -29,6 +52,12 @@ def main() -> None:
             print_error(
                 "Database not initialized. "
                 "Run 'wortwerk init' first."
+            )
+            return
+
+        if args.quiz:
+            print_info(
+                "Quiz mode is not implemented yet."
             )
             return
 
