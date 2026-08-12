@@ -38,5 +38,19 @@
         "accuracy": 0.0,
         "time": 4.274857500000508,
         "completed": true
+    },
+    "20260812221250194790": {
+        "date": "2026-08-12T22:12:50",
+        "session_type": "practice",
+        "mode": "plural",
+        "levels": [
+            "A1"
+        ],
+        "questions": 1,
+        "correct": 0,
+        "incorrect": 1,
+        "accuracy": 0.0,
+        "time": 5.809058799999548,
+        "completed": true
     }
 }
