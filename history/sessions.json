@@ -10,5 +10,17 @@
         "accuracy": 0.0,
         "time": 1.6306110999994416,
         "completed": true
+    },
+    "20260812191604911417": {
+        "date": "2026-08-12T19:16:04",
+        "session_type": "practice",
+        "mode": "english",
+        "levels": null,
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 3.6094691000007515,
+        "completed": true
     }
 }
