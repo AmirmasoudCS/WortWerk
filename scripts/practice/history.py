@@ -17,6 +17,14 @@ from config.constants import (
 )
 
 
+HISTORY_PATHS = {
+    "article": ARTICLE_HISTORY,
+    "english": ENGLISH_HISTORY,
+    "german": GERMAN_HISTORY,
+    "plural": PLURAL_HISTORY,
+}
+
+
 def initialize_history() -> None:
     """Create the history directory and history files."""
 
@@ -77,6 +85,23 @@ def _save_json(
         )
 
 
+def _migrate_word_history(
+    word_history: dict,
+) -> dict:
+    """Convert the legacy word history format to the new format."""
+
+    if "attempts" not in word_history:
+        return word_history
+
+    return {
+        "practice": {
+            "attempts": word_history["attempts"],
+            "correct": word_history["correct"],
+            "incorrect": word_history["incorrect"],
+        }
+    }
+
+
 def save_session(
     session_type: str,
     mode: str,
@@ -93,6 +118,11 @@ def save_session(
     if session_type not in VALID_SESSION_TYPES:
         raise ValueError(
             f"Invalid session type: {session_type}"
+        )
+
+    if mode not in VALID_PRACTICE_MODES:
+        raise ValueError(
+            f"Invalid practice mode: {mode}"
         )
 
     history = _load_json(
@@ -144,14 +174,7 @@ def record_word_result(
             f"Invalid session type: {session_type}"
         )
 
-    history_paths = {
-        "article": ARTICLE_HISTORY,
-        "english": ENGLISH_HISTORY,
-        "german": GERMAN_HISTORY,
-        "plural": PLURAL_HISTORY,
-    }
-
-    path = history_paths[mode]
+    path = HISTORY_PATHS[mode]
 
     history = _load_json(path)
 
@@ -160,16 +183,9 @@ def record_word_result(
     if word_id not in history:
         history[word_id] = {}
 
-    if "attempts" in history[word_id]:
-        old_result = history[word_id]
-
-        history[word_id] = {
-            "practice": {
-                "attempts": old_result["attempts"],
-                "correct": old_result["correct"],
-                "incorrect": old_result["incorrect"],
-            }
-        }
+    history[word_id] = _migrate_word_history(
+        history[word_id]
+    )
 
     if session_type not in history[word_id]:
         history[word_id][session_type] = {
