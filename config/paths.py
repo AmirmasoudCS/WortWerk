@@ -8,6 +8,7 @@ DATA = ROOT / "data"
 LOG = ROOT / "log"
 SRC = ROOT / "src"
 CONFIG = ROOT / "config"
+HISTORY = ROOT / "history"
 
 # Depth 2
 
