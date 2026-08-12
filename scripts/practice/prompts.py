@@ -128,7 +128,13 @@ def ask_require_article() -> bool:
 
 
 def prompt_article() -> str | None:
-    """Prompt the user for a German article."""
+    """Prompt the user for a German article.
+
+    Accepts either the article itself or its
+    corresponding number.
+
+    Returns None when the user chooses to quit.
+    """
 
     article_choices = {
         "1": "der",
@@ -158,7 +164,10 @@ def prompt_article() -> str | None:
 
 
 def prompt_english() -> str | None:
-    """Prompt the user for an English translation."""
+    """Prompt the user for an English translation.
+
+    Returns None when the user chooses to quit.
+    """
 
     while True:
         value = input(
@@ -187,6 +196,8 @@ def prompt_german() -> str | None:
     Examples:
         Tisch
         der Tisch
+
+    Returns None when the user chooses to quit.
     """
 
     while True:
@@ -208,7 +219,10 @@ def prompt_german() -> str | None:
 
 
 def prompt_plural() -> str | None:
-    """Prompt the user for a German plural."""
+    """Prompt the user for a German plural.
+
+    Returns None when the user chooses to quit.
+    """
 
     while True:
         value = input(
