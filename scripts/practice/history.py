@@ -84,8 +84,8 @@ def save_session(
         SESSIONS_HISTORY
     )
 
-    session_id = str(
-        len(history) + 1
+    session_id = datetime.now().strftime(
+        "%Y%m%d%H%M%S%f"
     )
 
     history[session_id] = {
