@@ -45,19 +45,23 @@ class QuizTemplate:
 
 SHORT_QUIZ = QuizTemplate(
     name="Short",
-    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS["short"],
+    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS[
+        "short"
+    ].copy(),
 )
-
 
 MEDIUM_QUIZ = QuizTemplate(
     name="Medium",
-    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS["medium"],
+    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS[
+        "medium"
+    ].copy(),
 )
-
 
 LONG_QUIZ = QuizTemplate(
     name="Long",
-    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS["long"],
+    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS[
+        "long"
+    ].copy(),
 )
 
 
