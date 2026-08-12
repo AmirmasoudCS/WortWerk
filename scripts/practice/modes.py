@@ -39,7 +39,9 @@ def check_german_answer(
         der Tisch
     """
 
-    user_answer = answer.strip().lower()
+    user_answer = " ".join(
+        answer.strip().lower().split()
+    )
 
     german = row["german"].strip().lower()
     article = row["article"].strip().lower()
