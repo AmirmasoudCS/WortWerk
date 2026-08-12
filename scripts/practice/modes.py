@@ -63,22 +63,33 @@ def check_plural_answer(
     row,
     answer: str,
 ) -> bool:
-    """Check a German-to-plural answer."""
+    """Check a German-to-Plural answer."""
+
+    if not row["plural"]:
+        return False
 
     user_answer = " ".join(
         answer.strip().lower().split()
     )
 
-    plural = row["plural"]
+    plural = row["plural"].strip().lower()
 
-    if not plural:
-        return False
+    articles = {
+        "der",
+        "die",
+        "das",
+    }
 
-    correct_plural = " ".join(
-        plural.strip().lower().split()
-    )
+    parts = user_answer.split(maxsplit=1)
 
-    return user_answer == correct_plural
+    if parts and parts[0] in articles:
+        user_answer = (
+            parts[1]
+            if len(parts) > 1
+            else ""
+        )
+
+    return user_answer == plural
 
 
 def check_answer(
