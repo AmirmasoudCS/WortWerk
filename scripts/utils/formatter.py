@@ -823,6 +823,7 @@ def print_german_question(
     english: str,
     question_number: int,
     total_questions: int,
+    require_article: bool = False,
 ) -> None:
     """Print an English-to-German practice question."""
 
@@ -840,7 +841,15 @@ def print_german_question(
     )
 
     print()
-    print("What is the German word?")
+
+    if require_article:
+        print(
+            "What is the German word "
+            "including its article?"
+        )
+    else:
+        print("What is the German word?")
+
     print()
 
 def print_correct_german_answer(
