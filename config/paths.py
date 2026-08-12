@@ -16,6 +16,11 @@ CHECKLIST = LOG / "checklist"
 DATABASE = SRC / "database"
 VOCABULARY = SRC / "vocabulary"
 SQLITE_DATABASE = DATA / "german.db"
+SESSIONS_HISTORY = HISTORY / "sessions.json"
+ARTICLE_HISTORY = HISTORY / "article_practice_history.json"
+ENGLISH_HISTORY = HISTORY / "english_practice_history.json"
+GERMAN_HISTORY = HISTORY / "german_practice_history.json"
+PLURAL_HISTORY = HISTORY / "plural_practice_history.json"
 
 # Depth 3
 
