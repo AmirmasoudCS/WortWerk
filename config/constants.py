@@ -10,6 +10,12 @@ VALID_ARTICLES = {"der", "die", "das"}
 PRACTICE_SESSION_TYPE = "practice"
 QUIZ_SESSION_TYPE = "quiz"
 
+PRACTICE_MODE_NAMES = {
+    "article": "German → Article",
+    "english": "German → English",
+    "german": "English → German",
+    "plural": "German → Plural",
+}
 
 VALID_LEVELS = {
     "A1",
