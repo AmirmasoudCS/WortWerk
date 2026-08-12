@@ -333,6 +333,7 @@ def print_practice_mode_menu() -> None:
     print("  1. German → Article")
     print("  2. German → English")
     print("  3. English → German")
+    print("  4. German → Plural")
     print()
 
 
