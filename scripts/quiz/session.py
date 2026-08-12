@@ -1,0 +1,275 @@
+import random
+import time
+
+from config.constants import QUIZ_SESSION_TYPE
+
+from src.vocabulary.repository import VocabularyRepository
+
+from scripts.practice.history import (
+    record_word_result,
+    save_session,
+)
+
+from scripts.practice.modes import (
+    check_answer,
+    show_correct_answer,
+    show_wrong_answer,
+)
+
+from scripts.practice.questions import (
+    show_article_question,
+    show_english_question,
+    show_german_question,
+    show_plural_question,
+)
+
+from scripts.quiz.templates import QuizTemplate
+
+from scripts.utils.formatter import (
+    print_error,
+    print_info,
+    print_practice_summary,
+)
+
+from scripts.utils.helper import clear_screen
+
+
+def get_question_function(mode: str):
+    """Return the question function for the selected quiz mode."""
+
+    question_functions = {
+        "article": show_article_question,
+        "english": show_english_question,
+        "german": show_german_question,
+        "plural": show_plural_question,
+    }
+
+    if mode not in question_functions:
+        raise ValueError(
+            f"Invalid quiz mode: {mode}"
+        )
+
+    return question_functions[mode]
+
+
+def calculate_accuracy(
+    correct: int,
+    attempted: int,
+) -> float:
+    """Calculate accuracy as a percentage."""
+
+    if attempted == 0:
+        return 0.0
+
+    return (
+        correct / attempted
+    ) * 100
+
+
+def save_quiz_session(
+    template: QuizTemplate,
+    levels: list[str] | None,
+    questions: int,
+    correct: int,
+    incorrect: int,
+    elapsed_time: float,
+    completed: bool,
+) -> None:
+    """Save the results of a quiz session."""
+
+    accuracy = calculate_accuracy(
+        correct,
+        questions,
+    )
+
+    save_session(
+        session_type=QUIZ_SESSION_TYPE,
+        mode=template.name.lower(),
+        levels=levels,
+        questions=questions,
+        correct=correct,
+        incorrect=incorrect,
+        accuracy=accuracy,
+        elapsed_time=elapsed_time,
+        completed=completed,
+    )
+
+
+def build_question_list(
+    rows: list,
+    template: QuizTemplate,
+) -> list[tuple[str, dict]]:
+    """Build and shuffle the questions for a quiz."""
+
+    questions = []
+
+    for mode, count in template.question_counts.items():
+        if count <= 0:
+            continue
+
+        available_rows = rows.copy()
+        random.shuffle(available_rows)
+
+        selected_rows = available_rows[:count]
+
+        for row in selected_rows:
+            questions.append(
+                (mode, row)
+            )
+
+    random.shuffle(questions)
+
+    return questions
+
+
+def quiz(
+    repo: VocabularyRepository,
+    template: QuizTemplate,
+    levels: list[str] | None,
+    require_article: bool = False,
+) -> None:
+    """Run a vocabulary quiz session."""
+
+    template.validate()
+
+    rows = repo.get_practice_words(
+        levels
+    )
+
+    if not rows:
+        print_error(
+            "No words found for the selected levels."
+        )
+        return
+
+    questions = build_question_list(
+        rows,
+        template,
+    )
+
+    if not questions:
+        print_error(
+            "Unable to create quiz questions."
+        )
+        return
+
+    total_questions = len(questions)
+    attempted_questions = 0
+    correct = 0
+    incorrect = 0
+    total_answer_time = 0.0
+
+    clear_screen()
+
+    print_info(
+        f"Starting {template.name} quiz "
+        f"with {total_questions} question(s)."
+    )
+
+    print()
+
+    input("Press Enter to begin...")
+
+    for question_number, (mode, row) in enumerate(
+        questions,
+        start=1,
+    ):
+        question_function = get_question_function(
+            mode
+        )
+
+        if mode == "german":
+            answer, answer_time = question_function(
+                row,
+                question_number,
+                total_questions,
+                require_article=require_article,
+            )
+        else:
+            answer, answer_time = question_function(
+                row,
+                question_number,
+                total_questions,
+            )
+
+        total_answer_time += answer_time
+
+        if answer is None:
+            save_quiz_session(
+                template=template,
+                levels=levels,
+                questions=attempted_questions,
+                correct=correct,
+                incorrect=incorrect,
+                elapsed_time=total_answer_time,
+                completed=False,
+            )
+
+            clear_screen()
+
+            print_info(
+                "Quiz session ended."
+            )
+
+            return
+
+        attempted_questions += 1
+
+        is_correct = check_answer(
+            row,
+            answer,
+            mode,
+            require_article=require_article,
+        )
+
+        record_word_result(
+            word_id=row["id"],
+            mode=mode,
+            session_type=QUIZ_SESSION_TYPE,
+            correct=is_correct,
+        )
+
+        if is_correct:
+            correct += 1
+
+            show_correct_answer(
+                row,
+                mode,
+            )
+
+            time.sleep(2)
+
+        else:
+            incorrect += 1
+
+            show_wrong_answer(
+                row,
+                mode,
+            )
+
+            input(
+                "Press Enter to continue..."
+            )
+
+    save_quiz_session(
+        template=template,
+        levels=levels,
+        questions=attempted_questions,
+        correct=correct,
+        incorrect=incorrect,
+        elapsed_time=total_answer_time,
+        completed=True,
+    )
+
+    accuracy = calculate_accuracy(
+        correct,
+        attempted_questions,
+    )
+
+    print_practice_summary(
+        total_questions=attempted_questions,
+        correct=correct,
+        incorrect=incorrect,
+        accuracy=accuracy,
+        elapsed_time=total_answer_time,
+    )
