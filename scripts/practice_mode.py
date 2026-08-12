@@ -38,6 +38,45 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def run_practice(
+    repo: VocabularyRepository,
+) -> None:
+    """Launch a standard practice session."""
+
+    print_practice_header()
+    print()
+
+    mode = ask_practice_mode()
+
+    if mode is None:
+        print_info(
+            "Practice session cancelled."
+        )
+        return
+
+    print()
+
+    word_count = ask_word_count()
+    levels = ask_levels()
+
+    practice(
+        repo=repo,
+        levels=levels,
+        word_count=word_count,
+        mode=mode,
+    )
+
+
+def run_quiz(
+    repo: VocabularyRepository,
+) -> None:
+    """Launch quiz mode."""
+
+    print_info(
+        "Quiz mode is not implemented yet."
+    )
+
+
 def main() -> None:
     """Start the WortWerk practice CLI."""
 
@@ -56,33 +95,9 @@ def main() -> None:
             return
 
         if args.quiz:
-            print_info(
-                "Quiz mode is not implemented yet."
-            )
-            return
-
-        print_practice_header()
-        print()
-
-        mode = ask_practice_mode()
-
-        if mode is None:
-            print_info(
-                "Practice session cancelled."
-            )
-            return
-
-        print()
-
-        word_count = ask_word_count()
-        levels = ask_levels()
-
-        practice(
-            repo=repo,
-            levels=levels,
-            word_count=word_count,
-            mode=mode,
-        )
+            run_quiz(repo)
+        else:
+            run_practice(repo)
 
     finally:
         db.close()
