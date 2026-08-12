@@ -239,3 +239,13 @@ def handle_edit(
         DuplicateWordError,
     ) as e:
         print_error(str(e))
+
+COMMAND_HANDLERS = {
+    "init": handle_init,
+    "add": handle_add,
+    "stats": handle_stats,
+    "search": handle_search,
+    "list": handle_list,
+    "delete": handle_delete,
+    "edit": handle_edit,
+}
