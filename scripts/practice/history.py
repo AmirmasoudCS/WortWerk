@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 
 from config.paths import (
-    HISTORY_DIR,
+    HISTORY,
     SESSIONS_HISTORY,
     ARTICLE_HISTORY,
     ENGLISH_HISTORY,
@@ -12,41 +12,10 @@ from config.paths import (
 )
 
 
-def _load_json(path: Path):
-    """Load JSON data from a file."""
-
-    if not path.exists():
-        return {}
-
-    with path.open(
-        "r",
-        encoding="utf-8",
-    ) as file:
-        return json.load(file)
-
-
-def _save_json(
-    path: Path,
-    data,
-) -> None:
-    """Save data to a JSON file."""
-
-    with path.open(
-        "w",
-        encoding="utf-8",
-    ) as file:
-        json.dump(
-            data,
-            file,
-            indent=4,
-            ensure_ascii=False,
-        )
-
-
 def initialize_history() -> None:
-    """Create the history directory and files."""
+    """Create the history directory and history files."""
 
-    HISTORY_DIR.mkdir(
+    HISTORY.mkdir(
         parents=True,
         exist_ok=True,
     )
@@ -67,10 +36,35 @@ def initialize_history() -> None:
             )
 
 
-def load_history(path: Path):
-    """Load a history file."""
+def _load_json(path: Path) -> dict:
+    """Load JSON data from a history file."""
 
-    return _load_json(path)
+    if not path.exists():
+        return {}
+
+    with path.open(
+        "r",
+        encoding="utf-8",
+    ) as file:
+        return json.load(file)
+
+
+def _save_json(
+    path: Path,
+    data: dict,
+) -> None:
+    """Save JSON data to a history file."""
+
+    with path.open(
+        "w",
+        encoding="utf-8",
+    ) as file:
+        json.dump(
+            data,
+            file,
+            indent=4,
+            ensure_ascii=False,
+        )
 
 
 def save_session(
@@ -119,7 +113,6 @@ def record_word_result(
     word_id: int,
     mode: str,
     correct: bool,
-    session_type: str,
 ) -> None:
     """Record the result of an individual vocabulary attempt."""
 
