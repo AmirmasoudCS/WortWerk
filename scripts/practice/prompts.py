@@ -105,6 +105,25 @@ def ask_practice_mode() -> str | None:
         )
 
 
+def ask_require_article() -> bool:
+    """Ask whether the article is required in German answers."""
+
+    while True:
+        value = input(
+            "Require the article? (y/n): "
+        ).strip().lower()
+
+        if value in {"y", "yes"}:
+            return True
+
+        if value in {"n", "no"}:
+            return False
+
+        print_error(
+            "Please enter y or n."
+        )
+
+
 def prompt_article() -> str | None:
     """Prompt the user for a German article."""
 
