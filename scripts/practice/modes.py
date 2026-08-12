@@ -10,24 +10,23 @@ from scripts.utils.formatter import (
 )
 
 
+PRACTICE_MODE_NAMES = {
+    "article": "German → Article",
+    "english": "German → English",
+    "german": "English → German",
+    "plural": "German → Plural",
+}
+
+
 def get_practice_name(mode: str) -> str:
     """Return the display name for a practice mode."""
 
-    if mode == "article":
-        return "German → Article"
+    if mode not in PRACTICE_MODE_NAMES:
+        raise ValueError(
+            f"Invalid practice mode: {mode}"
+        )
 
-    if mode == "english":
-        return "German → English"
-
-    if mode == "german":
-        return "English → German"
-
-    if mode == "plural":
-        return "German → Plural"
-
-    raise ValueError(
-        f"Invalid practice mode: {mode}"
-    )
+    return PRACTICE_MODE_NAMES[mode]
 
 
 def check_german_answer(
@@ -53,10 +52,10 @@ def check_german_answer(
     if require_article:
         return user_answer == f"{article} {german}"
 
-    if user_answer == german:
-        return True
-
-    return user_answer == f"{article} {german}"
+    return user_answer in {
+        german,
+        f"{article} {german}",
+    }
 
 
 def check_plural_answer(
@@ -80,7 +79,9 @@ def check_plural_answer(
         "das",
     }
 
-    parts = user_answer.split(maxsplit=1)
+    parts = user_answer.split(
+        maxsplit=1
+    )
 
     if parts and parts[0] in articles:
         user_answer = (
