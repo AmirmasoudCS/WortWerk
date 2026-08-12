@@ -268,6 +268,7 @@ class VocabularyRepository:
     def get_practice_words(
         self,
         levels: list[str] | None = None,
+        require_plural: bool = False,
     ) -> list:
         """Return vocabulary words available for practice."""
 
@@ -291,6 +292,12 @@ class VocabularyRepository:
             )
 
             params.extend(normalized_levels)
+
+        if require_plural:
+            query += (
+                " AND plural IS NOT NULL"
+                " AND TRIM(plural) != ''"
+            )
 
         return self.db.fetch_all(
             query,
