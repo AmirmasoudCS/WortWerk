@@ -30,8 +30,7 @@ from scripts.utils.formatter import (
 
 from scripts.utils.helper import clear_screen
 
-
-PRACTICE_SESSION_TYPE = "practice"
+from config.constants import PRACTICE_SESSION_TYPE
 
 
 def get_question_function(mode: str):
