@@ -3,6 +3,11 @@ import time
 
 from src.vocabulary.repository import VocabularyRepository
 
+from scripts.practice.history import (
+    record_word_result,
+    save_session,
+)
+
 from scripts.practice.modes import (
     check_answer,
     get_practice_name,
@@ -54,6 +59,8 @@ def practice(
     require_article: bool = False,
 ) -> None:
     """Run a practice session."""
+
+    session_type = "practice"
 
     rows = repo.get_practice_words(levels)
 
@@ -108,17 +115,27 @@ def practice(
 
         if answer is None:
             clear_screen()
+
             print_info(
                 "Practice session ended."
             )
+
             return
 
-        if check_answer(
+        is_correct = check_answer(
             row,
             answer,
             mode,
             require_article=require_article,
-        ):
+        )
+
+        record_word_result(
+            word_id=row["id"],
+            mode=mode,
+            correct=is_correct,
+        )
+
+        if is_correct:
             correct += 1
 
             show_correct_answer(
@@ -143,6 +160,17 @@ def practice(
     accuracy = (
         correct / total_questions
     ) * 100
+
+    save_session(
+        session_type=session_type,
+        mode=mode,
+        levels=levels,
+        questions=total_questions,
+        correct=correct,
+        incorrect=incorrect,
+        accuracy=accuracy,
+        elapsed_time=total_answer_time,
+    )
 
     print_practice_summary(
         total_questions=total_questions,
