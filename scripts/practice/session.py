@@ -47,6 +47,7 @@ def practice(
     levels: list[str] | None,
     word_count: int | None,
     mode: str,
+    require_article: bool = False,
 ) -> None:
     """Run a practice session."""
 
@@ -85,11 +86,19 @@ def practice(
         rows,
         start=1,
     ):
-        answer, answer_time = question_function(
-            row,
-            question_number,
-            total_questions,
-        )
+        if mode == "german":
+            answer, answer_time = question_function(
+                row,
+                question_number,
+                total_questions,
+                require_article=require_article,
+            )
+        else:
+            answer, answer_time = question_function(
+                row,
+                question_number,
+                total_questions,
+            )
 
         total_answer_time += answer_time
 
@@ -104,6 +113,7 @@ def practice(
             row,
             answer,
             mode,
+            require_article=require_article,
         ):
             correct += 1
 
