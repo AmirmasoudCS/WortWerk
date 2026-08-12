@@ -2,12 +2,14 @@ import time
 
 from scripts.practice.prompts import (
     prompt_german,
+    prompt_plural,
 )
 
 from scripts.utils.formatter import (
     print_question,
     print_english_question,
     print_german_question,
+    print_plural_question,
     prompt_article,
     prompt_english,
 )
@@ -83,6 +85,31 @@ def show_german_question(
     start_time = time.perf_counter()
 
     answer = prompt_german()
+
+    elapsed_time = time.perf_counter() - start_time
+
+    return answer, elapsed_time
+
+
+def show_plural_question(
+    row,
+    question_number: int,
+    total_questions: int,
+) -> tuple[str | None, float]:
+    """Display a German-to-Plural question and return the answer and response time."""
+
+    clear_screen()
+
+    print_plural_question(
+        german=row["german"],
+        article=row["article"],
+        question_number=question_number,
+        total_questions=total_questions,
+    )
+
+    start_time = time.perf_counter()
+
+    answer = prompt_plural()
 
     elapsed_time = time.perf_counter() - start_time
 
