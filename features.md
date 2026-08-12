@@ -46,6 +46,8 @@ Ideas and planned features for future versions of WortWerk.
 * [ ] Track accuracy over time
 * [ ] Show previous practice sessions
 * [ ] Show improvement over time
+* [ ] Store per-word practice results
+* [ ] Track performance by practice mode
 
 ## 🎯 Daily Practice
 
