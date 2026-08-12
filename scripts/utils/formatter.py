@@ -894,3 +894,30 @@ def print_wrong_german_answer(
     )
 
     print()
+
+def print_plural_question(
+    german: str,
+    article: str,
+    question_number: int,
+    total_questions: int,
+) -> None:
+    """Print a German-to-Plural practice question."""
+
+    print(
+        f"{CYAN}Question "
+        f"{question_number}/{total_questions}"
+        f"{RESET}"
+    )
+
+    print()
+
+    print(
+        f"                    "
+        f"{format_article(article)} "
+        f"{BOLD}{german}{RESET}"
+    )
+
+    print()
+
+    print("What is the plural?")
+    print()
