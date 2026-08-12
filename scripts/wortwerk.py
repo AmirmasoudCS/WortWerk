@@ -1,14 +1,21 @@
 from config.paths import SQLITE_DATABASE
+
 from src.database.database import Database
 from src.vocabulary.repository import VocabularyRepository
+
 from scripts.cli.parser import build_parser
 from scripts.cli.handlers import COMMAND_HANDLERS
+
+from scripts.practice.history import initialize_history
+
 from scripts.utils.formatter import print_error
 
 
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
+
+    initialize_history()
 
     db = Database(SQLITE_DATABASE)
     repo = VocabularyRepository(db)
