@@ -76,6 +76,7 @@ def practice(
         rows = rows[:word_count]
 
     total_questions = len(rows)
+    attempted_questions = 0
     correct = 0
     incorrect = 0
     total_answer_time = 0.0
@@ -114,6 +115,25 @@ def practice(
         total_answer_time += answer_time
 
         if answer is None:
+            if attempted_questions > 0:
+                accuracy = (
+                    correct / attempted_questions
+                ) * 100
+            else:
+                accuracy = 0.0
+
+            save_session(
+                session_type=session_type,
+                mode=mode,
+                levels=levels,
+                questions=attempted_questions,
+                correct=correct,
+                incorrect=incorrect,
+                accuracy=accuracy,
+                elapsed_time=total_answer_time,
+                completed=False,
+            )
+
             clear_screen()
 
             print_info(
@@ -121,6 +141,8 @@ def practice(
             )
 
             return
+
+        attempted_questions += 1
 
         is_correct = check_answer(
             row,
@@ -158,22 +180,23 @@ def practice(
             )
 
     accuracy = (
-        correct / total_questions
+        correct / attempted_questions
     ) * 100
 
     save_session(
         session_type=session_type,
         mode=mode,
         levels=levels,
-        questions=total_questions,
+        questions=attempted_questions,
         correct=correct,
         incorrect=incorrect,
         accuracy=accuracy,
         elapsed_time=total_answer_time,
+        completed=True,
     )
 
     print_practice_summary(
-        total_questions=total_questions,
+        total_questions=attempted_questions,
         correct=correct,
         incorrect=incorrect,
         accuracy=accuracy,
