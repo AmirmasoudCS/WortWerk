@@ -63,7 +63,7 @@ def check_plural_answer(
     row,
     answer: str,
 ) -> bool:
-    """Check a German-to-Plural answer."""
+    """Check a German-to-plural answer."""
 
     user_answer = " ".join(
         answer.strip().lower().split()
@@ -74,7 +74,9 @@ def check_plural_answer(
     if not plural:
         return False
 
-    correct_plural = plural.strip().lower()
+    correct_plural = " ".join(
+        plural.strip().lower().split()
+    )
 
     return user_answer == correct_plural
 
