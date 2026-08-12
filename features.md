@@ -22,7 +22,7 @@ Ideas and planned features for future versions of WortWerk.
 ## 🧪 Quiz
 
 - [ ] Implement quiz mode
-- [ ] Add quiz history
+- [x] Add quiz history
 - [ ] Support all practice question types
 
 ## 🔎 Search
@@ -34,20 +34,20 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 🔥 Weak-Word Practice
 
-* [ ] Track incorrectly answered words
+* [x] Track incorrectly answered words
 * [ ] Add a weak-word practice mode
 * [ ] Prioritize frequently missed words
 * [ ] Add a `--weak` practice option
 
 ## 📈 Practice History
 
-* [ ] Store practice session results
-* [ ] Track correct and incorrect answers
-* [ ] Track accuracy over time
+* [x] Store practice session results
+* [x] Track correct and incorrect answers
+* [x] Track accuracy over time
 * [ ] Show previous practice sessions
 * [ ] Show improvement over time
-* [ ] Store per-word practice results
-* [ ] Track performance by practice mode
+* [x] Store per-word practice results
+* [x] Track performance by practice mode
 
 ## 🎯 Daily Practice
 
