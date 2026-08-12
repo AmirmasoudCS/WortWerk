@@ -1,4 +1,5 @@
 from config.paths import SQLITE_DATABASE
+
 from src.database.database import Database
 from src.vocabulary.repository import VocabularyRepository
 
@@ -7,7 +8,9 @@ from scripts.practice.prompts import (
     ask_word_count,
     ask_levels,
 )
+
 from scripts.practice.session import practice
+
 from scripts.utils.formatter import (
     print_error,
     print_info,
