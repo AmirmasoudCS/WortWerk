@@ -1,6 +1,8 @@
 import random
 import time
 
+from config.constants import PRACTICE_SESSION_TYPE
+
 from src.vocabulary.repository import VocabularyRepository
 
 from scripts.practice.history import (
@@ -29,8 +31,6 @@ from scripts.utils.formatter import (
 )
 
 from scripts.utils.helper import clear_screen
-
-from config.constants import PRACTICE_SESSION_TYPE
 
 
 def get_question_function(mode: str):
