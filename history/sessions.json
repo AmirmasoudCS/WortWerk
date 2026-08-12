@@ -22,5 +22,17 @@
         "accuracy": 100.0,
         "time": 3.6094691000007515,
         "completed": true
+    },
+    "20260812191635682437": {
+        "date": "2026-08-12T19:16:35",
+        "session_type": "practice",
+        "mode": "german",
+        "levels": null,
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 6.076400299999477,
+        "completed": true
     }
 }
