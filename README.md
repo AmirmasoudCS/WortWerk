@@ -127,9 +127,43 @@ Start a practice session with:
 python -m scripts.practice_mode
 ```
 
-Practice sessions allow you to select the number of words and CEFR levels to practice. Words are shuffled for each session, and article questions can be answered using either the article itself or its corresponding number.
+WortWerk currently supports four practice modes:
 
-Practice results are not saved.
+1. German -> Article
+2. German -> English
+3. English -> German
+4. German -> Plural
+
+Before starting a session, you can choose:
+
+- The number of words to practice
+- The CEFR levels to practice
+
+Words are randomly shuffled for each session.
+
+### Practice History
+
+Practice results are automatically saved to the `history/` directory.
+
+WortWerk maintains separate history files for each practice mode:
+
+```text
+history
+├── article_practice_history.json
+├── english_practice_history.json
+├── german_practice_history.json
+├── plural_practice_history.json
+└── sessions.json
+```
+
+Session history records: **Date and time**, **Session type**, **Practice mode**, **Selected CEFR levels**, **Number of questions**, **Correct answers**, **Incorrect answers**, **Accuracy**, **Total answer time**, Wheter the session was **completed** or **not**.
+
+If a user quits before completing the session, the unfinished session is also saved.
+
+Each practice mode also maintains per-word statistics, including:
+- Number of attempts
+- Number of correct answers
+- Number of incorrect answers
 
 ## 🤝 Contributing
 
