@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 
-from config.constants import VALID_PRACTICE_MODES
+from config.constants import (
+    QUIZ_TEMPLATE_QUESTION_COUNTS,
+    VALID_PRACTICE_MODES,
+)
 
 
 @dataclass
@@ -42,34 +45,19 @@ class QuizTemplate:
 
 SHORT_QUIZ = QuizTemplate(
     name="Short",
-    question_counts={
-        "article": 3,
-        "english": 3,
-        "german": 3,
-        "plural": 3,
-    },
+    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS["short"],
 )
 
 
 MEDIUM_QUIZ = QuizTemplate(
     name="Medium",
-    question_counts={
-        "article": 5,
-        "english": 5,
-        "german": 5,
-        "plural": 5,
-    },
+    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS["medium"],
 )
 
 
 LONG_QUIZ = QuizTemplate(
     name="Long",
-    question_counts={
-        "article": 10,
-        "english": 10,
-        "german": 10,
-        "plural": 10,
-    },
+    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS["long"],
 )
 
 
