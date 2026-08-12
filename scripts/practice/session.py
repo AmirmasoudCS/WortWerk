@@ -154,6 +154,7 @@ def practice(
         record_word_result(
             word_id=row["id"],
             mode=mode,
+            session_type=session_type,
             correct=is_correct,
         )
 
