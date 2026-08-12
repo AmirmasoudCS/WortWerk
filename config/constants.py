@@ -7,6 +7,10 @@ DEFAULT_LANGUAGE = SUPPORTED_LANGUAGES[0]
 
 VALID_ARTICLES = {"der", "die", "das"}
 
+PRACTICE_SESSION_TYPE = "practice"
+QUIZ_SESSION_TYPE = "quiz"
+
+
 VALID_LEVELS = {
     "A1",
     "A2",
