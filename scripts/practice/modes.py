@@ -5,6 +5,8 @@ from scripts.utils.formatter import (
     print_wrong_english_answer,
     print_correct_german_answer,
     print_wrong_german_answer,
+    print_correct_plural_answer,
+    print_wrong_plural_answer,
 )
 
 
@@ -19,6 +21,9 @@ def get_practice_name(mode: str) -> str:
 
     if mode == "german":
         return "English → German"
+
+    if mode == "plural":
+        return "German → Plural"
 
     raise ValueError(
         f"Invalid practice mode: {mode}"
@@ -54,6 +59,26 @@ def check_german_answer(
     return user_answer == f"{article} {german}"
 
 
+def check_plural_answer(
+    row,
+    answer: str,
+) -> bool:
+    """Check a German-to-Plural answer."""
+
+    user_answer = " ".join(
+        answer.strip().lower().split()
+    )
+
+    plural = row["plural"]
+
+    if not plural:
+        return False
+
+    correct_plural = plural.strip().lower()
+
+    return user_answer == correct_plural
+
+
 def check_answer(
     row,
     answer: str,
@@ -76,6 +101,12 @@ def check_answer(
             row,
             answer,
             require_article,
+        )
+
+    if mode == "plural":
+        return check_plural_answer(
+            row,
+            answer,
         )
 
     raise ValueError(
@@ -112,6 +143,14 @@ def show_correct_answer(
         )
         return
 
+    if mode == "plural":
+        print_correct_plural_answer(
+            article=row["article"],
+            german=row["german"],
+            plural=row["plural"],
+        )
+        return
+
     raise ValueError(
         f"Invalid practice mode: {mode}"
     )
@@ -143,6 +182,14 @@ def show_wrong_answer(
             english=row["english"],
             article=row["article"],
             german=row["german"],
+        )
+        return
+
+    if mode == "plural":
+        print_wrong_plural_answer(
+            article=row["article"],
+            german=row["german"],
+            plural=row["plural"],
         )
         return
 
