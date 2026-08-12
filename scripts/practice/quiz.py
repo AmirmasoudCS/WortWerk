@@ -34,31 +34,30 @@ from scripts.utils.formatter import (
 from scripts.utils.helper import clear_screen
 
 
+QUESTION_FUNCTIONS = {
+    "article": show_article_question,
+    "english": show_english_question,
+    "german": show_german_question,
+    "plural": show_plural_question,
+}
+
+
 def get_question_function(mode: str):
     """Return the question function for a quiz mode."""
 
-    if mode == "article":
-        return show_article_question
+    if mode not in QUESTION_FUNCTIONS:
+        raise ValueError(
+            f"Invalid quiz mode: {mode}"
+        )
 
-    if mode == "english":
-        return show_english_question
-
-    if mode == "german":
-        return show_german_question
-
-    if mode == "plural":
-        return show_plural_question
-
-    raise ValueError(
-        f"Invalid quiz mode: {mode}"
-    )
+    return QUESTION_FUNCTIONS[mode]
 
 
-def get_quiz_questions(
+def build_questions(
     rows,
     question_counts: dict[str, int],
-) -> list[tuple[str, object]]:
-    """Build and shuffle the questions for a quiz."""
+) -> list[tuple[str, dict]]:
+    """Build a randomized list of quiz questions."""
 
     questions = []
 
@@ -66,20 +65,35 @@ def get_quiz_questions(
         if count <= 0:
             continue
 
-        if not rows:
-            break
-
         available_rows = rows.copy()
-        random.shuffle(available_rows)
 
-        selected_rows = available_rows[:count]
+        random.shuffle(
+            available_rows
+        )
+
+        if count <= len(available_rows):
+            selected_rows = available_rows[:count]
+        else:
+            selected_rows = []
+
+            while len(selected_rows) < count:
+                selected_rows.extend(
+                    available_rows
+                )
+
+            selected_rows = selected_rows[:count]
 
         for row in selected_rows:
             questions.append(
-                (mode, row)
+                (
+                    mode,
+                    row,
+                )
             )
 
-    random.shuffle(questions)
+    random.shuffle(
+        questions
+    )
 
     return questions
 
@@ -96,7 +110,9 @@ def quiz(
 
     template.validate()
 
-    rows = repo.get_practice_words(levels)
+    rows = repo.get_practice_words(
+        levels
+    )
 
     if not rows:
         print_error(
@@ -104,7 +120,7 @@ def quiz(
         )
         return
 
-    questions = get_quiz_questions(
+    questions = build_questions(
         rows=rows,
         question_counts=template.question_counts,
     )
@@ -116,6 +132,7 @@ def quiz(
         return
 
     total_questions = len(questions)
+
     attempted_questions = 0
     correct = 0
     incorrect = 0
@@ -127,41 +144,50 @@ def quiz(
         f"Starting {template.name} quiz "
         f"with {total_questions} question(s)."
     )
+
     print()
 
-    input("Press Enter to begin...")
+    input(
+        "Press Enter to begin..."
+    )
 
-    for question_number, (mode, row) in enumerate(
+    for question_number, (
+        mode,
+        row,
+    ) in enumerate(
         questions,
         start=1,
     ):
-        question_function = get_question_function(
-            mode
+        question_function = (
+            get_question_function(mode)
         )
 
         if mode == "german":
-            answer, answer_time = question_function(
-                row,
-                question_number,
-                total_questions,
-                require_article=require_article,
+            answer, answer_time = (
+                question_function(
+                    row,
+                    question_number,
+                    total_questions,
+                    require_article=require_article,
+                )
             )
         else:
-            answer, answer_time = question_function(
-                row,
-                question_number,
-                total_questions,
+            answer, answer_time = (
+                question_function(
+                    row,
+                    question_number,
+                    total_questions,
+                )
             )
 
         total_answer_time += answer_time
 
         if answer is None:
-            if attempted_questions > 0:
-                accuracy = (
-                    correct / attempted_questions
-                ) * 100
-            else:
-                accuracy = 0.0
+            accuracy = (
+                correct / attempted_questions * 100
+                if attempted_questions > 0
+                else 0.0
+            )
 
             save_session(
                 session_type=session_type,
@@ -173,6 +199,9 @@ def quiz(
                 accuracy=accuracy,
                 elapsed_time=total_answer_time,
                 completed=False,
+                question_counts=(
+                    template.question_counts
+                ),
             )
 
             clear_screen()
@@ -222,8 +251,10 @@ def quiz(
             )
 
     accuracy = (
-        correct / attempted_questions
-    ) * 100
+        correct / attempted_questions * 100
+        if attempted_questions > 0
+        else 0.0
+    )
 
     save_session(
         session_type=session_type,
@@ -235,6 +266,9 @@ def quiz(
         accuracy=accuracy,
         elapsed_time=total_answer_time,
         completed=True,
+        question_counts=(
+            template.question_counts
+        ),
     )
 
     print_practice_summary(
