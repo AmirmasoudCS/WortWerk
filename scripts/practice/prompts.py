@@ -1,161 +1,29 @@
 from config.colors import CYAN, RESET
-from config.constants import (
-    VALID_LEVELS,
-    VALID_PRACTICE_MODES,
+from config.constants import VALID_LEVELS
+from scripts.utils.formatter import (
+    print_error,
+    print_practice_mode_menu,
 )
 
-from scripts.practice.prompts import ask_levels
 
-from scripts.quiz.templates import (
-    QuizTemplate,
-    DEFAULT_QUIZ_TEMPLATES,
-)
-
-from scripts.utils.formatter import print_error
-
-
-def ask_quiz_template() -> QuizTemplate | None:
-    """Ask the user which quiz template they want."""
-
-    templates = list(
-        DEFAULT_QUIZ_TEMPLATES.items()
-    )
-
-    while True:
-        print()
-        print("What type of quiz would you like?")
-        print()
-
-        for index, (_, template) in enumerate(
-            templates,
-            start=1,
-        ):
-            print(
-                f"  {index}. "
-                f"{template.name} "
-                f"({template.total_questions} questions)"
-            )
-
-        custom_option = len(templates) + 1
-        saved_option = custom_option + 1
-
-        print(
-            f"  {custom_option}. Custom"
-        )
-
-        print(
-            f"  {saved_option}. Saved templates"
-        )
-
-        print()
-
-        value = input(
-            "Choose a quiz type "
-            f"(1-{saved_option}, or q to quit): "
-        ).strip().lower()
-
-        if value == "q":
-            return None
-
-        try:
-            choice = int(value)
-        except ValueError:
-            print_error(
-                f"Please choose 1-{saved_option}, "
-                "or q to quit."
-            )
-            continue
-
-        if 1 <= choice <= len(templates):
-            return templates[choice - 1][1]
-
-        if choice == custom_option:
-            return ask_custom_quiz()
-
-        if choice == saved_option:
-            return ask_saved_quiz()
-
-        print_error(
-            f"Please choose 1-{saved_option}, "
-            "or q to quit."
-        )
-
-
-def ask_custom_quiz() -> QuizTemplate | None:
-    """Build a custom quiz template interactively."""
-
-    print()
-    print("Custom Quiz")
-    print()
-
-    question_counts = {}
-
-    for mode in VALID_PRACTICE_MODES:
-        count = ask_question_count(mode)
-
-        if count is None:
-            return None
-
-        question_counts[mode] = count
-
-    template = QuizTemplate(
-        name="Custom",
-        question_counts=question_counts,
-    )
-
-    try:
-        template.validate()
-    except ValueError as error:
-        print_error(str(error))
-        return None
-
-    print()
-    print(
-        f"Total questions: "
-        f"{template.total_questions}"
-    )
-    print()
-
-    if not ask_confirmation(
-        "Create this quiz? (y/n): "
-    ):
-        return None
-
-    return template
-
-
-def ask_question_count(
-    mode: str,
-) -> int | None:
-    """Ask how many questions of a type to include."""
-
-    mode_names = {
-        "article": "German → Article",
-        "english": "German → English",
-        "german": "English → German",
-        "plural": "German → Plural",
-    }
-
-    name = mode_names.get(
-        mode,
-        mode,
-    )
+def ask_word_count() -> int | None:
+    """Ask how many words the user wants to practice."""
 
     while True:
         value = input(
-            f"How many {name} questions? "
-            "(0 or a positive number, or q to quit): "
+            "How many words would you like to practice? "
+            "(number or 'all'): "
         ).strip().lower()
 
-        if value == "q":
+        if value == "all":
             return None
 
         try:
             count = int(value)
 
-            if count < 0:
+            if count <= 0:
                 print_error(
-                    "Please enter 0 or a positive number."
+                    "Please enter a positive number."
                 )
                 continue
 
@@ -163,18 +31,89 @@ def ask_question_count(
 
         except ValueError:
             print_error(
-                "Please enter a number or q to quit."
+                "Please enter a number or 'all'."
             )
 
 
-def ask_confirmation(
-    message: str,
-) -> bool:
-    """Ask the user for a yes/no confirmation."""
+def ask_levels() -> list[str] | None:
+    """Ask which CEFR levels the user wants to practice."""
+
+    print()
+    print("Available levels:")
+    print("  ".join(sorted(VALID_LEVELS)))
+    print()
 
     while True:
         value = input(
-            message
+            "Which levels would you like to practice? "
+            "(e.g. A1 A2, or 'all'): "
+        ).strip().upper()
+
+        if value == "ALL":
+            return None
+
+        levels = value.split()
+
+        if not levels:
+            print_error(
+                "Please enter at least one level."
+            )
+            continue
+
+        invalid_levels = [
+            level
+            for level in levels
+            if level not in VALID_LEVELS
+        ]
+
+        if invalid_levels:
+            print_error(
+                f"Invalid level(s): "
+                f"{', '.join(invalid_levels)}. "
+                f"Choose from: "
+                f"{', '.join(sorted(VALID_LEVELS))}."
+            )
+            continue
+
+        return list(dict.fromkeys(levels))
+
+
+def ask_practice_mode() -> str | None:
+    """Ask which type of practice the user wants."""
+
+    while True:
+        print_practice_mode_menu()
+
+        value = input(
+            "Choose a practice mode (1-4, or q to quit): "
+        ).strip().lower()
+
+        if value == "q":
+            return None
+
+        if value == "1":
+            return "article"
+
+        if value == "2":
+            return "english"
+
+        if value == "3":
+            return "german"
+
+        if value == "4":
+            return "plural"
+
+        print_error(
+            "Please choose 1, 2, 3, 4, or q."
+        )
+
+
+def ask_require_article() -> bool:
+    """Ask whether the article is required in German answers."""
+
+    while True:
+        value = input(
+            "Require the article? (y/n): "
         ).strip().lower()
 
         if value in {"y", "yes"}:
@@ -188,15 +127,53 @@ def ask_confirmation(
         )
 
 
-def ask_quiz_template_name() -> str | None:
-    """Ask the user for a name for a quiz template."""
+def prompt_article() -> str | None:
+    """Prompt the user for a German article.
+
+    Accepts either the article itself or its
+    corresponding number.
+
+    Returns None when the user chooses to quit.
+    """
+
+    article_choices = {
+        "1": "der",
+        "2": "die",
+        "3": "das",
+        "der": "der",
+        "die": "die",
+        "das": "das",
+    }
 
     while True:
         value = input(
-            f"{CYAN}"
-            "Quiz template name"
-            f"{RESET} "
-            "(or q to cancel): "
+            f"{CYAN}Your answer "
+            f"(1-3, der/die/das, or q to quit)"
+            f"{RESET}: "
+        ).strip().lower()
+
+        if value == "q":
+            return None
+
+        if value in article_choices:
+            return article_choices[value]
+
+        print_error(
+            "Please enter 1, 2, 3, der, die, das, or q."
+        )
+
+
+def prompt_english() -> str | None:
+    """Prompt the user for an English translation.
+
+    Returns None when the user chooses to quit.
+    """
+
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(or q to quit)"
+            f"{RESET}: "
         ).strip()
 
         if value.lower() == "q":
@@ -206,24 +183,60 @@ def ask_quiz_template_name() -> str | None:
             return value
 
         print_error(
-            "Please enter a template name."
+            "Please enter an answer or q to quit."
         )
 
 
-def ask_saved_quiz() -> QuizTemplate | None:
-    """Ask the user to select a saved quiz template."""
+def prompt_german() -> str | None:
+    """Prompt the user for a German translation.
 
-    # Saved-template loading will be implemented
-    # when the template persistence layer is added.
+    Accepts either the German word alone or the word
+    together with its article.
 
-    print()
-    print_error(
-        "Saved quiz templates are not implemented yet."
-    )
-    print()
+    Examples:
+        Tisch
+        der Tisch
 
-    input(
-        "Press Enter to return..."
-    )
+    Returns None when the user chooses to quit.
+    """
 
-    return None
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(word or article + word, or q to quit)"
+            f"{RESET}: "
+        ).strip()
+
+        if value.lower() == "q":
+            return None
+
+        if value:
+            return value
+
+        print_error(
+            "Please enter an answer or q to quit."
+        )
+
+
+def prompt_plural() -> str | None:
+    """Prompt the user for a German plural.
+
+    Returns None when the user chooses to quit.
+    """
+
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(or q to quit)"
+            f"{RESET}: "
+        ).strip()
+
+        if value.lower() == "q":
+            return None
+
+        if value:
+            return value
+
+        print_error(
+            "Please enter an answer or q to quit."
+        )
