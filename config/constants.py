@@ -15,3 +15,15 @@ VALID_LEVELS = {
     "C1",
     "C2",
 }
+
+VALID_SESSION_TYPES = {
+    "practice",
+    "quiz",
+}
+
+VALID_PRACTICE_MODES = {
+    "article",
+    "english",
+    "german",
+    "plural",
+}
