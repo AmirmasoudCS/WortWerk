@@ -67,6 +67,7 @@ def show_german_question(
     row,
     question_number: int,
     total_questions: int,
+    require_article: bool = False,
 ) -> tuple[str | None, float]:
     """Display an English-to-German question and return the answer and response time."""
 
@@ -76,6 +77,7 @@ def show_german_question(
         english=row["english"],
         question_number=question_number,
         total_questions=total_questions,
+        require_article=require_article,
     )
 
     start_time = time.perf_counter()
