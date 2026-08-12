@@ -88,7 +88,7 @@ def _save_json(
 def _migrate_word_history(
     word_history: dict,
 ) -> dict:
-    """Convert the legacy word history format to the new format."""
+    """Convert legacy word history to the current format."""
 
     if "attempts" not in word_history:
         return word_history
@@ -102,6 +102,16 @@ def _migrate_word_history(
     }
 
 
+def _create_word_result() -> dict:
+    """Create an empty word-result record."""
+
+    return {
+        "attempts": 0,
+        "correct": 0,
+        "incorrect": 0,
+    }
+
+
 def save_session(
     session_type: str,
     mode: str,
@@ -112,6 +122,7 @@ def save_session(
     accuracy: float,
     elapsed_time: float,
     completed: bool = True,
+    question_counts: dict[str, int] | None = None,
 ) -> None:
     """Save the results of a practice or quiz session."""
 
@@ -120,7 +131,10 @@ def save_session(
             f"Invalid session type: {session_type}"
         )
 
-    if mode not in VALID_PRACTICE_MODES:
+    if (
+        session_type == "practice"
+        and mode not in VALID_PRACTICE_MODES
+    ):
         raise ValueError(
             f"Invalid practice mode: {mode}"
         )
@@ -135,7 +149,7 @@ def save_session(
         "%Y%m%d%H%M%S%f"
     )
 
-    history[session_id] = {
+    session = {
         "date": now.isoformat(
             timespec="seconds"
         ),
@@ -149,6 +163,13 @@ def save_session(
         "time": elapsed_time,
         "completed": completed,
     }
+
+    if question_counts is not None:
+        session["question_counts"] = (
+            question_counts
+        )
+
+    history[session_id] = session
 
     _save_json(
         SESSIONS_HISTORY,
@@ -188,11 +209,9 @@ def record_word_result(
     )
 
     if session_type not in history[word_id]:
-        history[word_id][session_type] = {
-            "attempts": 0,
-            "correct": 0,
-            "incorrect": 0,
-        }
+        history[word_id][session_type] = (
+            _create_word_result()
+        )
 
     result = history[word_id][session_type]
 
