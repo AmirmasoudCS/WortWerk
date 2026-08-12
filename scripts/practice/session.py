@@ -31,23 +31,67 @@ from scripts.utils.formatter import (
 from scripts.utils.helper import clear_screen
 
 
+PRACTICE_SESSION_TYPE = "practice"
+
+
 def get_question_function(mode: str):
     """Return the question function for the selected practice mode."""
 
-    if mode == "article":
-        return show_article_question
+    question_functions = {
+        "article": show_article_question,
+        "english": show_english_question,
+        "german": show_german_question,
+        "plural": show_plural_question,
+    }
 
-    if mode == "english":
-        return show_english_question
+    if mode not in question_functions:
+        raise ValueError(
+            f"Invalid practice mode: {mode}"
+        )
 
-    if mode == "german":
-        return show_german_question
+    return question_functions[mode]
 
-    if mode == "plural":
-        return show_plural_question
 
-    raise ValueError(
-        f"Invalid practice mode: {mode}"
+def calculate_accuracy(
+    correct: int,
+    attempted: int,
+) -> float:
+    """Calculate accuracy as a percentage."""
+
+    if attempted == 0:
+        return 0.0
+
+    return (
+        correct / attempted
+    ) * 100
+
+
+def save_practice_session(
+    mode: str,
+    levels: list[str] | None,
+    questions: int,
+    correct: int,
+    incorrect: int,
+    elapsed_time: float,
+    completed: bool,
+) -> None:
+    """Save the results of a practice session."""
+
+    accuracy = calculate_accuracy(
+        correct,
+        questions,
+    )
+
+    save_session(
+        session_type=PRACTICE_SESSION_TYPE,
+        mode=mode,
+        levels=levels,
+        questions=questions,
+        correct=correct,
+        incorrect=incorrect,
+        accuracy=accuracy,
+        elapsed_time=elapsed_time,
+        completed=completed,
     )
 
 
@@ -58,11 +102,11 @@ def practice(
     mode: str,
     require_article: bool = False,
 ) -> None:
-    """Run a practice session."""
+    """Run a vocabulary practice session."""
 
-    session_type = "practice"
-
-    rows = repo.get_practice_words(levels)
+    rows = repo.get_practice_words(
+        levels
+    )
 
     if not rows:
         print_error(
@@ -72,7 +116,10 @@ def practice(
 
     random.shuffle(rows)
 
-    if word_count is not None and word_count < len(rows):
+    if (
+        word_count is not None
+        and word_count < len(rows)
+    ):
         rows = rows[:word_count]
 
     total_questions = len(rows)
@@ -90,6 +137,7 @@ def practice(
         f"Starting {practice_name} practice "
         f"with {total_questions} word(s)."
     )
+
     print()
 
     input("Press Enter to begin...")
@@ -115,21 +163,12 @@ def practice(
         total_answer_time += answer_time
 
         if answer is None:
-            if attempted_questions > 0:
-                accuracy = (
-                    correct / attempted_questions
-                ) * 100
-            else:
-                accuracy = 0.0
-
-            save_session(
-                session_type=session_type,
+            save_practice_session(
                 mode=mode,
                 levels=levels,
                 questions=attempted_questions,
                 correct=correct,
                 incorrect=incorrect,
-                accuracy=accuracy,
                 elapsed_time=total_answer_time,
                 completed=False,
             )
@@ -154,7 +193,7 @@ def practice(
         record_word_result(
             word_id=row["id"],
             mode=mode,
-            session_type=session_type,
+            session_type=PRACTICE_SESSION_TYPE,
             correct=is_correct,
         )
 
@@ -180,20 +219,19 @@ def practice(
                 "Press Enter to continue..."
             )
 
-    accuracy = (
-        correct / attempted_questions
-    ) * 100
-
-    save_session(
-        session_type=session_type,
+    save_practice_session(
         mode=mode,
         levels=levels,
         questions=attempted_questions,
         correct=correct,
         incorrect=incorrect,
-        accuracy=accuracy,
         elapsed_time=total_answer_time,
         completed=True,
+    )
+
+    accuracy = calculate_accuracy(
+        correct,
+        attempted_questions,
     )
 
     print_practice_summary(
