@@ -11,7 +11,11 @@ from config.paths import (
     PLURAL_HISTORY,
 )
 
-from config.constants import VALID_SESSION_TYPES
+from config.constants import (
+    VALID_SESSION_TYPES,
+    VALID_PRACTICE_MODES,
+)
+
 
 def initialize_history() -> None:
     """Create the history directory and history files."""
@@ -125,9 +129,20 @@ def save_session(
 def record_word_result(
     word_id: int,
     mode: str,
+    session_type: str,
     correct: bool,
 ) -> None:
-    """Record the result of an individual vocabulary attempt."""
+    """Record an individual vocabulary attempt."""
+
+    if mode not in VALID_PRACTICE_MODES:
+        raise ValueError(
+            f"Invalid practice mode: {mode}"
+        )
+
+    if session_type not in VALID_SESSION_TYPES:
+        raise ValueError(
+            f"Invalid session type: {session_type}"
+        )
 
     history_paths = {
         "article": ARTICLE_HISTORY,
@@ -136,11 +151,6 @@ def record_word_result(
         "plural": PLURAL_HISTORY,
     }
 
-    if mode not in history_paths:
-        raise ValueError(
-            f"Invalid practice mode: {mode}"
-        )
-
     path = history_paths[mode]
 
     history = _load_json(path)
@@ -148,18 +158,34 @@ def record_word_result(
     word_id = str(word_id)
 
     if word_id not in history:
+        history[word_id] = {}
+
+    if "attempts" in history[word_id]:
+        old_result = history[word_id]
+
         history[word_id] = {
+            "practice": {
+                "attempts": old_result["attempts"],
+                "correct": old_result["correct"],
+                "incorrect": old_result["incorrect"],
+            }
+        }
+
+    if session_type not in history[word_id]:
+        history[word_id][session_type] = {
             "attempts": 0,
             "correct": 0,
             "incorrect": 0,
         }
 
-    history[word_id]["attempts"] += 1
+    result = history[word_id][session_type]
+
+    result["attempts"] += 1
 
     if correct:
-        history[word_id]["correct"] += 1
+        result["correct"] += 1
     else:
-        history[word_id]["incorrect"] += 1
+        result["incorrect"] += 1
 
     _save_json(
         path,
