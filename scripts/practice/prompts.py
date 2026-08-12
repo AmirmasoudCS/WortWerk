@@ -1,5 +1,5 @@
-from config.constants import VALID_LEVELS
 from config.colors import CYAN, RESET
+from config.constants import VALID_LEVELS
 from scripts.utils.formatter import (
     print_error,
     print_practice_mode_menu,
@@ -104,6 +104,7 @@ def ask_practice_mode() -> str | None:
             "Please choose 1, 2, 3, or q."
         )
 
+
 def prompt_article() -> str | None:
     """Prompt the user for a German article."""
 
@@ -119,7 +120,8 @@ def prompt_article() -> str | None:
     while True:
         value = input(
             f"{CYAN}Your answer "
-            f"(1-3, der/die/das, or q to quit){RESET}: "
+            f"(1-3, der/die/das, or q to quit)"
+            f"{RESET}: "
         ).strip().lower()
 
         if value == "q":
@@ -136,26 +138,48 @@ def prompt_article() -> str | None:
 def prompt_english() -> str | None:
     """Prompt the user for an English translation."""
 
-    value = input(
-        f"{CYAN}Your answer "
-        f"(or q to quit){RESET}: "
-    ).strip()
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(or q to quit)"
+            f"{RESET}: "
+        ).strip()
 
-    if value.lower() == "q":
-        return None
+        if value.lower() == "q":
+            return None
 
-    return value
+        if value:
+            return value
+
+        print_error(
+            "Please enter an answer or q to quit."
+        )
 
 
 def prompt_german() -> str | None:
-    """Prompt the user for a German translation."""
+    """Prompt the user for a German translation.
 
-    value = input(
-        f"{CYAN}Your answer "
-        f"(or q to quit){RESET}: "
-    ).strip()
+    Accepts either the German word alone or the word
+    together with its article.
 
-    if value.lower() == "q":
-        return None
+    Examples:
+        Tisch
+        der Tisch
+    """
 
-    return value
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(word or article + word, or q to quit)"
+            f"{RESET}: "
+        ).strip()
+
+        if value.lower() == "q":
+            return None
+
+        if value:
+            return value
+
+        print_error(
+            "Please enter an answer or q to quit."
+        )
