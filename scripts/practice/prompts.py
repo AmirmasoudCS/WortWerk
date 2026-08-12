@@ -85,7 +85,7 @@ def ask_practice_mode() -> str | None:
         print_practice_mode_menu()
 
         value = input(
-            "Choose a practice mode (1-3, or q to quit): "
+            "Choose a practice mode (1-4, or q to quit): "
         ).strip().lower()
 
         if value == "q":
@@ -100,8 +100,11 @@ def ask_practice_mode() -> str | None:
         if value == "3":
             return "german"
 
+        if value == "4":
+            return "plural"
+
         print_error(
-            "Please choose 1, 2, 3, or q."
+            "Please choose 1, 2, 3, 4, or q."
         )
 
 
@@ -190,6 +193,27 @@ def prompt_german() -> str | None:
         value = input(
             f"{CYAN}Your answer "
             f"(word or article + word, or q to quit)"
+            f"{RESET}: "
+        ).strip()
+
+        if value.lower() == "q":
+            return None
+
+        if value:
+            return value
+
+        print_error(
+            "Please enter an answer or q to quit."
+        )
+
+
+def prompt_plural() -> str | None:
+    """Prompt the user for a German plural."""
+
+    while True:
+        value = input(
+            f"{CYAN}Your answer "
+            f"(or q to quit)"
             f"{RESET}: "
         ).strip()
 
