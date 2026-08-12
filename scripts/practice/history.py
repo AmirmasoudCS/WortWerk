@@ -11,6 +11,7 @@ from config.paths import (
     PLURAL_HISTORY,
 )
 
+from config.constants import VALID_SESSION_TYPES
 
 def initialize_history() -> None:
     """Create the history directory and history files."""
@@ -55,6 +56,11 @@ def _save_json(
 ) -> None:
     """Save JSON data to a history file."""
 
+    path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
     with path.open(
         "w",
         encoding="utf-8",
@@ -80,16 +86,23 @@ def save_session(
 ) -> None:
     """Save the results of a practice or quiz session."""
 
+    if session_type not in VALID_SESSION_TYPES:
+        raise ValueError(
+            f"Invalid session type: {session_type}"
+        )
+
     history = _load_json(
         SESSIONS_HISTORY
     )
 
-    session_id = datetime.now().strftime(
+    now = datetime.now()
+
+    session_id = now.strftime(
         "%Y%m%d%H%M%S%f"
     )
 
     history[session_id] = {
-        "date": datetime.now().isoformat(
+        "date": now.isoformat(
             timespec="seconds"
         ),
         "session_type": session_type,
