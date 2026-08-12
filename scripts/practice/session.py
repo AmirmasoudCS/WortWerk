@@ -14,6 +14,7 @@ from scripts.practice.questions import (
     show_article_question,
     show_english_question,
     show_german_question,
+    show_plural_question,
 )
 
 from scripts.utils.formatter import (
@@ -36,6 +37,9 @@ def get_question_function(mode: str):
 
     if mode == "german":
         return show_german_question
+
+    if mode == "plural":
+        return show_plural_question
 
     raise ValueError(
         f"Invalid practice mode: {mode}"
