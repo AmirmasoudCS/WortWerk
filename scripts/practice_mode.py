@@ -87,15 +87,10 @@ def run_quiz(
 
     levels = ask_levels()
 
-    if levels is None:
-        quiz_levels = None
-    else:
-        quiz_levels = levels
-
     quiz(
         repo=repo,
         template=template,
-        levels=quiz_levels,
+        levels=levels,
     )
 
 
