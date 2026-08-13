@@ -972,6 +972,7 @@ def format_session_history_table(
         return "No practice history found."
 
     headers = [
+        "#",
         "DATE",
         "TYPE",
         "MODE",
@@ -983,7 +984,10 @@ def format_session_history_table(
 
     data = []
 
-    for session in sessions:
+    for index, session in enumerate(
+        sessions,
+        start=1,
+    ):
         date = session.get(
             "date",
             "-",
@@ -1036,6 +1040,7 @@ def format_session_history_table(
 
         data.append(
             [
+                str(index),
                 date,
                 session_type,
                 mode,
@@ -1065,7 +1070,13 @@ def format_session_history_table(
     ) -> str:
         """Format and color a history table cell."""
 
-        if column_index == 1:
+        if column_index == 0:
+            return colorize(
+                value,
+                CYAN,
+            )
+
+        if column_index == 2:
             if value == "Practice":
                 return colorize(
                     value,
@@ -1077,7 +1088,7 @@ def format_session_history_table(
                 YELLOW,
             )
 
-        if column_index == 4:
+        if column_index == 5:
             try:
                 numeric_accuracy = float(
                     value.rstrip("%")
@@ -1097,7 +1108,7 @@ def format_session_history_table(
                 color,
             )
 
-        if column_index == 6:
+        if column_index == 7:
             if value == "Completed":
                 return colorize(
                     value,
@@ -1111,7 +1122,9 @@ def format_session_history_table(
 
         return value
 
-    def format_row(row: list[str]) -> str:
+    def format_row(
+        row: list[str],
+    ) -> str:
         """Format a single history row."""
 
         cells = []
@@ -1124,11 +1137,20 @@ def format_session_history_table(
                 index,
             )
 
-            if index in {1, 4, 6}:
+            if index in {
+                0,
+                2,
+                5,
+                7,
+            }:
                 formatted_value += (
                     " " * (width - len(value))
                 )
-            elif index in {3, 4, 5}:
+            elif index in {
+                4,
+                5,
+                6,
+            }:
                 formatted_value = (
                     f"{value:>{width}}"
                 )
