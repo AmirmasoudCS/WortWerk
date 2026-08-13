@@ -8,9 +8,9 @@ WortWerk is a personal project I'm building alongside my journey of learning Ger
 
 Before contributing, make sure you have:
 
-* Python 3.10 or newer
-* Git
-* SQLite
+- Python 3.10 or newer
+- Git
+- SQLite
 
 Clone the repository:
 
@@ -21,15 +21,13 @@ cd WortWerk
 
 Create and activate a virtual environment:
 
-### Windows
-
+**Windows:**
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-### Linux / macOS
-
+**Linux / macOS:**
 ```bash
 python -m venv .venv
 source .venv/bin/activate
@@ -44,13 +42,13 @@ pip install -r requirements.txt
 Initialize the database:
 
 ```bash
-python -m scripts.cli init
+python -m scripts.wortwerk init
 ```
 
 You can check that the CLI is working with:
 
 ```bash
-python -m scripts.cli -h
+python -m scripts.wortwerk -h
 ```
 
 ## 🌱 Creating a Branch
@@ -75,13 +73,13 @@ When working on WortWerk, please try to follow the existing project structure an
 
 Some general guidelines:
 
-* Keep functions focused on a single responsibility.
-* Reuse existing utilities instead of duplicating functionality.
-* Keep database operations inside the repository layer.
-* Keep CLI presentation and formatting inside the appropriate formatter or CLI modules.
-* Reuse constants from `config/constants.py` rather than defining duplicate values.
-* Keep user-facing messages clear and concise.
-* Avoid introducing unnecessary dependencies.
+- Keep functions focused on a single responsibility.
+- Reuse existing utilities instead of duplicating functionality.
+- Keep database operations inside the repository layer.
+- Keep CLI presentation and formatting inside the appropriate formatter or CLI modules.
+- Reuse constants from `config/constants.py` rather than defining duplicate values.
+- Keep user-facing messages clear and concise.
+- Avoid introducing unnecessary dependencies.
 
 If you are unsure where a change belongs, feel free to open an issue and discuss it before implementing the change.
 
@@ -94,13 +92,15 @@ At minimum, test the relevant CLI functionality manually.
 For example:
 
 ```bash
-python -m scripts.cli -h
-python -m scripts.cli list
-python -m scripts.cli add
-python -m scripts.cli edit <id>
-python -m scripts.cli delete <id>
-python scripts/practice.py
+python -m scripts.wortwerk -h
+python -m scripts.wortwerk list
+python -m scripts.wortwerk add
+python -m scripts.wortwerk edit <id>
+python -m scripts.wortwerk delete <id>
+python -m scripts.practice_mode
 ```
+
+If your change touches Quiz Mode, also run through a quiz session (predefined and custom) to confirm it still behaves as expected.
 
 If your change affects an existing feature, make sure that the existing functionality still works as expected.
 
@@ -164,11 +164,11 @@ Pull Requests may be reviewed before being merged.
 
 During review, changes may be requested to:
 
-* Improve code structure.
-* Fix bugs.
-* Add missing validation.
-* Improve documentation.
-* Follow existing project conventions.
+- Improve code structure.
+- Fix bugs.
+- Add missing validation.
+- Improve documentation.
+- Follow existing project conventions.
 
 If changes are requested, simply update your branch and push the new commits. The Pull Request will update automatically.
 
@@ -178,18 +178,18 @@ If you find a bug, please open a GitHub Issue.
 
 Try to include:
 
-* What you were trying to do.
-* What you expected to happen.
-* What actually happened.
-* The command you used.
-* Any relevant error messages.
-* Steps to reproduce the problem.
+- What you were trying to do.
+- What you expected to happen.
+- What actually happened.
+- The command you used.
+- Any relevant error messages.
+- Steps to reproduce the problem.
 
 For example:
 
 ```text
 Command:
-python -m scripts.cli list --level A1
+python -m scripts.wortwerk list --level A1
 
 Expected:
 Only A1 vocabulary should be displayed.
@@ -204,9 +204,9 @@ Feature ideas are welcome.
 
 Before implementing a significant new feature, consider opening an issue describing:
 
-* What the feature would do.
-* Why it would be useful.
-* How you think it could work.
+- What the feature would do.
+- Why it would be useful.
+- How you think it could work.
 
 This is especially useful for larger changes that could affect the existing CLI or database structure.
 
@@ -216,11 +216,11 @@ Since WortWerk is also a German-learning project, contributions involving German
 
 When suggesting vocabulary, please provide accurate information where possible, including:
 
-* German word
-* English translation
-* Article
-* Plural form
-* CEFR level
+- German word
+- English translation
+- Article
+- Plural form
+- CEFR level
 
 Please avoid submitting duplicate or questionable vocabulary entries.
 
