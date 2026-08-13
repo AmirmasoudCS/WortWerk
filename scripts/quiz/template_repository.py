@@ -40,14 +40,28 @@ def _save_templates(
         )
 
 
+def _normalize_name(
+    name: str,
+) -> str:
+    """Normalize a quiz template name."""
+
+    return " ".join(
+        name.strip().split()
+    )
+
+
 def template_exists(
     name: str,
 ) -> bool:
     """Return whether a saved template exists."""
 
+    normalized_name = _normalize_name(
+        name
+    )
+
     templates = _load_templates()
 
-    return name in templates
+    return normalized_name in templates
 
 
 def save_template(
@@ -56,6 +70,15 @@ def save_template(
     """Save a quiz template."""
 
     template.validate()
+
+    template.name = _normalize_name(
+        template.name
+    )
+
+    if not template.name:
+        raise ValueError(
+            "Quiz template name cannot be empty."
+        )
 
     templates = _load_templates()
 
@@ -99,9 +122,15 @@ def load_template(
 ) -> QuizTemplate | None:
     """Load a saved quiz template by name."""
 
+    normalized_name = _normalize_name(
+        name
+    )
+
     templates = load_templates()
 
-    return templates.get(name)
+    return templates.get(
+        normalized_name
+    )
 
 
 def delete_template(
@@ -112,12 +141,18 @@ def delete_template(
     Return True when a template was deleted.
     """
 
+    normalized_name = _normalize_name(
+        name
+    )
+
     templates = _load_templates()
 
-    if name not in templates:
+    if normalized_name not in templates:
         return False
 
-    del templates[name]
+    del templates[
+        normalized_name
+    ]
 
     _save_templates(
         templates
