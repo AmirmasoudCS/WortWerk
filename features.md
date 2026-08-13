@@ -21,9 +21,11 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 🧪 Quiz
 
-- [ ] Implement quiz mode
+- [x] Implement quiz mode
 - [x] Add quiz history
-- [ ] Support all practice question types
+- [x] Support all practice question types
+- [x] Implement default quiz modes (short, medium, long) 
+- [x] Implement quiz template saving and loading
 
 ## 🔎 Search
 
