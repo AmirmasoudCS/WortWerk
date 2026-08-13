@@ -10,7 +10,6 @@ from scripts.practice.prompts import (
     ask_practice_mode,
     ask_word_count,
 )
-
 from scripts.practice.session import practice
 
 from scripts.quiz.prompts import ask_quiz_template
@@ -60,14 +59,7 @@ def run_practice(
     print()
 
     word_count = ask_word_count()
-
     levels = ask_levels()
-
-    if levels is None:
-        # None means "all levels", so this is not
-        # a cancellation. The practice session
-        # should continue normally.
-        pass
 
     practice(
         repo=repo,
