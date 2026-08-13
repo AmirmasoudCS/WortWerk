@@ -34,22 +34,23 @@ from scripts.utils.formatter import (
 from scripts.utils.helper import clear_screen
 
 
+QUESTION_FUNCTIONS = {
+    "article": show_article_question,
+    "english": show_english_question,
+    "german": show_german_question,
+    "plural": show_plural_question,
+}
+
+
 def get_question_function(mode: str):
     """Return the question function for the selected quiz mode."""
 
-    question_functions = {
-        "article": show_article_question,
-        "english": show_english_question,
-        "german": show_german_question,
-        "plural": show_plural_question,
-    }
-
-    if mode not in question_functions:
+    if mode not in QUESTION_FUNCTIONS:
         raise ValueError(
             f"Invalid quiz mode: {mode}"
         )
 
-    return question_functions[mode]
+    return QUESTION_FUNCTIONS[mode]
 
 
 def calculate_accuracy(
@@ -92,6 +93,7 @@ def save_quiz_session(
         accuracy=accuracy,
         elapsed_time=elapsed_time,
         completed=completed,
+        question_counts=template.question_counts,
     )
 
 
@@ -108,16 +110,35 @@ def build_question_list(
             continue
 
         available_rows = rows.copy()
-        random.shuffle(available_rows)
 
-        selected_rows = available_rows[:count]
+        random.shuffle(
+            available_rows
+        )
+
+        if count <= len(available_rows):
+            selected_rows = available_rows[:count]
+
+        else:
+            selected_rows = []
+
+            while len(selected_rows) < count:
+                selected_rows.extend(
+                    available_rows
+                )
+
+            selected_rows = selected_rows[:count]
 
         for row in selected_rows:
             questions.append(
-                (mode, row)
+                (
+                    mode,
+                    row,
+                )
             )
 
-    random.shuffle(questions)
+    random.shuffle(
+        questions
+    )
 
     return questions
 
@@ -154,6 +175,7 @@ def quiz(
         return
 
     total_questions = len(questions)
+
     attempted_questions = 0
     correct = 0
     incorrect = 0
@@ -168,9 +190,14 @@ def quiz(
 
     print()
 
-    input("Press Enter to begin...")
+    input(
+        "Press Enter to begin..."
+    )
 
-    for question_number, (mode, row) in enumerate(
+    for question_number, (
+        mode,
+        row,
+    ) in enumerate(
         questions,
         start=1,
     ):
@@ -179,17 +206,22 @@ def quiz(
         )
 
         if mode == "german":
-            answer, answer_time = question_function(
-                row,
-                question_number,
-                total_questions,
-                require_article=require_article,
+            answer, answer_time = (
+                question_function(
+                    row,
+                    question_number,
+                    total_questions,
+                    require_article=require_article,
+                )
             )
+
         else:
-            answer, answer_time = question_function(
-                row,
-                question_number,
-                total_questions,
+            answer, answer_time = (
+                question_function(
+                    row,
+                    question_number,
+                    total_questions,
+                )
             )
 
         total_answer_time += answer_time
