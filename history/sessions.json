@@ -52,5 +52,53 @@
         "accuracy": 0.0,
         "time": 5.809058799999548,
         "completed": true
+    },
+    "20260813075725245583": {
+        "date": "2026-08-13T07:57:25",
+        "session_type": "practice",
+        "mode": "article",
+        "levels": null,
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 2.9422334999981103,
+        "completed": true
+    },
+    "20260813075735734807": {
+        "date": "2026-08-13T07:57:35",
+        "session_type": "practice",
+        "mode": "english",
+        "levels": null,
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 2.498834700003499,
+        "completed": true
+    },
+    "20260813075747555154": {
+        "date": "2026-08-13T07:57:47",
+        "session_type": "practice",
+        "mode": "german",
+        "levels": null,
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 4.144232099999499,
+        "completed": true
+    },
+    "20260813075802910347": {
+        "date": "2026-08-13T07:58:02",
+        "session_type": "practice",
+        "mode": "plural",
+        "levels": null,
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 5.232338900001196,
+        "completed": true
     }
 }

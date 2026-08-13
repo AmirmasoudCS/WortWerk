@@ -5,5 +5,12 @@
             "correct": 0,
             "incorrect": 1
         }
+    },
+    "6": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
     }
 }
