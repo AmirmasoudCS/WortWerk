@@ -1,6 +1,8 @@
 import time
 
 from scripts.practice.prompts import (
+    prompt_article,
+    prompt_english,
     prompt_german,
     prompt_plural,
 )
@@ -10,9 +12,8 @@ from scripts.utils.formatter import (
     print_english_question,
     print_german_question,
     print_plural_question,
-    prompt_article,
-    prompt_english,
 )
+
 from scripts.utils.helper import clear_screen
 
 
