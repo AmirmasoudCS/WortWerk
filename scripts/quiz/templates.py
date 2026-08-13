@@ -8,7 +8,7 @@ from config.constants import (
 
 @dataclass
 class QuizTemplate:
-    """Define the structure of a quiz."""
+    """Define the structure of a quiz template."""
 
     name: str
     question_counts: dict[str, int]
@@ -25,10 +25,21 @@ class QuizTemplate:
     def validate(self) -> None:
         """Validate the quiz template."""
 
+        if not self.name.strip():
+            raise ValueError(
+                "Quiz template name cannot be empty."
+            )
+
         for mode, count in self.question_counts.items():
             if mode not in VALID_PRACTICE_MODES:
                 raise ValueError(
                     f"Invalid quiz mode: {mode}"
+                )
+
+            if not isinstance(count, int):
+                raise ValueError(
+                    f"Question count must be an integer: "
+                    f"{mode}={count}"
                 )
 
             if count < 0:
@@ -43,25 +54,35 @@ class QuizTemplate:
             )
 
 
-SHORT_QUIZ = QuizTemplate(
+def _create_default_template(
+    name: str,
+    template_key: str,
+) -> QuizTemplate:
+    """Create a default quiz template."""
+
+    return QuizTemplate(
+        name=name,
+        question_counts=(
+            QUIZ_TEMPLATE_QUESTION_COUNTS[
+                template_key
+            ].copy()
+        ),
+    )
+
+
+SHORT_QUIZ = _create_default_template(
     name="Short",
-    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS[
-        "short"
-    ].copy(),
+    template_key="short",
 )
 
-MEDIUM_QUIZ = QuizTemplate(
+MEDIUM_QUIZ = _create_default_template(
     name="Medium",
-    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS[
-        "medium"
-    ].copy(),
+    template_key="medium",
 )
 
-LONG_QUIZ = QuizTemplate(
+LONG_QUIZ = _create_default_template(
     name="Long",
-    question_counts=QUIZ_TEMPLATE_QUESTION_COUNTS[
-        "long"
-    ].copy(),
+    template_key="long",
 )
 
 
