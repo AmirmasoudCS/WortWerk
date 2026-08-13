@@ -962,3 +962,397 @@ def print_wrong_plural_answer(
     )
 
     print()
+
+def format_session_history_table(
+    sessions: list[dict],
+) -> str:
+    """Format recent practice and quiz sessions as a table."""
+
+    if not sessions:
+        return "No practice history found."
+
+    headers = [
+        "DATE",
+        "TYPE",
+        "MODE",
+        "QUESTIONS",
+        "ACCURACY",
+        "TIME",
+        "STATUS",
+    ]
+
+    data = []
+
+    for session in sessions:
+        date = session.get(
+            "date",
+            "-",
+        )
+
+        if "T" in date:
+            date = date.replace(
+                "T",
+                " ",
+            )
+
+        session_type = session.get(
+            "session_type",
+            "-",
+        ).capitalize()
+
+        mode = session.get(
+            "mode",
+            "-",
+        )
+
+        questions = str(
+            session.get(
+                "questions",
+                0,
+            )
+        )
+
+        accuracy = (
+            f"{session.get('accuracy', 0.0):.1f}%"
+        )
+
+        elapsed_time = format_duration(
+            session.get(
+                "time",
+                0.0,
+            )
+        )
+
+        completed = session.get(
+            "completed",
+            False,
+        )
+
+        status = (
+            "Completed"
+            if completed
+            else "Unfinished"
+        )
+
+        data.append(
+            [
+                date,
+                session_type,
+                mode,
+                questions,
+                accuracy,
+                elapsed_time,
+                status,
+            ]
+        )
+
+    widths = []
+
+    for index, header in enumerate(headers):
+        column_width = max(
+            len(header),
+            max(
+                len(row[index])
+                for row in data
+            ),
+        )
+
+        widths.append(column_width)
+
+    def format_cell(
+        value: str,
+        column_index: int,
+    ) -> str:
+        """Format and color a history table cell."""
+
+        if column_index == 1:
+            if value == "Practice":
+                return colorize(
+                    value,
+                    CYAN,
+                )
+
+            return colorize(
+                value,
+                YELLOW,
+            )
+
+        if column_index == 4:
+            try:
+                numeric_accuracy = float(
+                    value.rstrip("%")
+                )
+            except ValueError:
+                return value
+
+            if numeric_accuracy >= 80:
+                color = GREEN
+            elif numeric_accuracy >= 50:
+                color = YELLOW
+            else:
+                color = BRIGHT_RED
+
+            return colorize(
+                value,
+                color,
+            )
+
+        if column_index == 6:
+            if value == "Completed":
+                return colorize(
+                    value,
+                    GREEN,
+                )
+
+            return colorize(
+                value,
+                BRIGHT_RED,
+            )
+
+        return value
+
+    def format_row(row: list[str]) -> str:
+        """Format a single history row."""
+
+        cells = []
+
+        for index, (value, width) in enumerate(
+            zip(row, widths)
+        ):
+            formatted_value = format_cell(
+                value,
+                index,
+            )
+
+            if index in {1, 4, 6}:
+                formatted_value += (
+                    " " * (width - len(value))
+                )
+            elif index in {3, 4, 5}:
+                formatted_value = (
+                    f"{value:>{width}}"
+                )
+            else:
+                formatted_value = (
+                    f"{formatted_value}"
+                    + " " * (
+                        width - len(value)
+                    )
+                )
+
+            cells.append(
+                formatted_value
+            )
+
+        return (
+            "│ "
+            + " │ ".join(cells)
+            + " │"
+        )
+
+    top = (
+        "┌─"
+        + "─┬─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┐"
+    )
+
+    separator = (
+        "├─"
+        + "─┼─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┤"
+    )
+
+    bottom = (
+        "└─"
+        + "─┴─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┘"
+    )
+
+    header = (
+        "│ "
+        + " │ ".join(
+            colorize_padded(
+                header,
+                f"{CYAN}{BOLD}",
+                width,
+            )
+            for header, width in zip(
+                headers,
+                widths,
+            )
+        )
+        + " │"
+    )
+
+    table_rows = [
+        format_row(row)
+        for row in data
+    ]
+
+    return "\n".join(
+        [
+            top,
+            header,
+            separator,
+            *table_rows,
+            bottom,
+        ]
+    )
+
+
+def print_history_header() -> None:
+    """Print the WortWerk history header."""
+
+    print()
+    print(
+        "╭──────────────────────────────╮"
+    )
+    print(
+        "│       WortWerk History       │"
+    )
+    print(
+        "╰──────────────────────────────╯"
+    )
+    print()
+
+
+def print_session_details(
+    session: dict,
+) -> None:
+    """Print detailed information about a single session."""
+
+    print()
+
+    print(
+        f"{CYAN}{BOLD}"
+        "Session Details"
+        f"{RESET}"
+    )
+
+    print()
+
+    date = session.get(
+        "date",
+        "-",
+    )
+
+    if "T" in date:
+        date = date.replace(
+            "T",
+            " ",
+        )
+
+    session_type = session.get(
+        "session_type",
+        "-",
+    ).capitalize()
+
+    mode = session.get(
+        "mode",
+        "-",
+    )
+
+    levels = session.get(
+        "levels",
+    )
+
+    if levels:
+        levels_text = ", ".join(
+            levels
+        )
+    else:
+        levels_text = "All"
+
+    questions = session.get(
+        "questions",
+        0,
+    )
+
+    correct = session.get(
+        "correct",
+        0,
+    )
+
+    incorrect = session.get(
+        "incorrect",
+        0,
+    )
+
+    accuracy = session.get(
+        "accuracy",
+        0.0,
+    )
+
+    elapsed_time = format_duration(
+        session.get(
+            "time",
+            0.0,
+        )
+    )
+
+    completed = session.get(
+        "completed",
+        False,
+    )
+
+    status = (
+        "Completed"
+        if completed
+        else "Unfinished"
+    )
+
+    print(
+        f"  {CYAN}Date:{RESET}       {date}"
+    )
+
+    print(
+        f"  {CYAN}Type:{RESET}       {session_type}"
+    )
+
+    print(
+        f"  {CYAN}Mode:{RESET}       {mode}"
+    )
+
+    print(
+        f"  {CYAN}Levels:{RESET}     {levels_text}"
+    )
+
+    print(
+        f"  {CYAN}Questions:{RESET}  {questions}"
+    )
+
+    print(
+        f"  {GREEN}Correct:{RESET}    {correct}"
+    )
+
+    print(
+        f"  {BRIGHT_RED}Incorrect:{RESET}  {incorrect}"
+    )
+
+    print(
+        f"  {CYAN}Accuracy:{RESET}   {accuracy:.1f}%"
+    )
+
+    print(
+        f"  {CYAN}Time:{RESET}       {elapsed_time}"
+    )
+
+    if completed:
+        print(
+            f"  {GREEN}Status:{RESET}     {status}"
+        )
+    else:
+        print(
+            f"  {BRIGHT_RED}Status:{RESET}     {status}"
+        )
+
+    print()
