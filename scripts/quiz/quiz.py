@@ -54,10 +54,10 @@ def get_question_function(mode: str):
 
 
 def build_questions(
-    rows: list,
+    rows,
     question_counts: dict[str, int],
 ) -> list[tuple[str, dict]]:
-    """Build and shuffle the questions for a quiz."""
+    """Build a randomized list of quiz questions."""
 
     questions = []
 
@@ -73,7 +73,6 @@ def build_questions(
 
         if count <= len(available_rows):
             selected_rows = available_rows[:count]
-
         else:
             selected_rows = []
 
@@ -119,15 +118,11 @@ def save_quiz_session(
     questions: int,
     correct: int,
     incorrect: int,
+    accuracy: float,
     elapsed_time: float,
     completed: bool,
 ) -> None:
     """Save the results of a quiz session."""
-
-    accuracy = calculate_accuracy(
-        correct,
-        questions,
-    )
 
     save_session(
         session_type=QUIZ_SESSION_TYPE,
@@ -149,7 +144,7 @@ def quiz(
     levels: list[str] | None,
     require_article: bool = False,
 ) -> None:
-    """Run a vocabulary quiz session."""
+    """Run a quiz session."""
 
     template.validate()
 
@@ -175,7 +170,6 @@ def quiz(
         return
 
     total_questions = len(questions)
-
     attempted_questions = 0
     correct = 0
     incorrect = 0
@@ -201,8 +195,8 @@ def quiz(
         questions,
         start=1,
     ):
-        question_function = get_question_function(
-            mode
+        question_function = (
+            get_question_function(mode)
         )
 
         if mode == "german":
@@ -214,7 +208,6 @@ def quiz(
                     require_article=require_article,
                 )
             )
-
         else:
             answer, answer_time = (
                 question_function(
@@ -227,12 +220,18 @@ def quiz(
         total_answer_time += answer_time
 
         if answer is None:
+            accuracy = calculate_accuracy(
+                correct,
+                attempted_questions,
+            )
+
             save_quiz_session(
                 template=template,
                 levels=levels,
                 questions=attempted_questions,
                 correct=correct,
                 incorrect=incorrect,
+                accuracy=accuracy,
                 elapsed_time=total_answer_time,
                 completed=False,
             )
@@ -283,19 +282,20 @@ def quiz(
                 "Press Enter to continue..."
             )
 
+    accuracy = calculate_accuracy(
+        correct,
+        attempted_questions,
+    )
+
     save_quiz_session(
         template=template,
         levels=levels,
         questions=attempted_questions,
         correct=correct,
         incorrect=incorrect,
+        accuracy=accuracy,
         elapsed_time=total_answer_time,
         completed=True,
-    )
-
-    accuracy = calculate_accuracy(
-        correct,
-        attempted_questions,
     )
 
     print_practice_summary(
