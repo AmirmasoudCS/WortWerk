@@ -25,25 +25,114 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 | **Total** | **83** | **0** | **0** | **0** | **0** | **0** | **83** |
 
 > **Dataset snapshot:** August 2026  
-> The vocabulary dataset is continuously growing alongside my German-learning journey. Run `python -m scripts.wortwerk stats` to view the current statistics.
+> The vocabulary dataset is continuously growing alongside my German-learning journey.
+> Run `python -m scripts.wortwerk stats` to view the current statistics.
 
 ## ✨ Features
 
-- Vocabulary management
-- Vocabulary filtering and sorting
-- Vocabulary search
-- German → Article practice
-- German → English practice
-- English → German practice
-- German → Plural practice
-- CEFR level-based practice
-- Practice accuracy tracking
-- Practice session history
-- Per-word practice history
-- Completed and unfinished session tracking
-- Practice session timer
-- Colored CLI interface
+### 📚 Vocabulary Management
 
+- Add new vocabulary
+- Edit existing vocabulary
+- Delete vocabulary
+- Search vocabulary
+- Filter vocabulary by German article
+- Filter vocabulary by CEFR level
+- Sort vocabulary by ID, alphabetical order, or level
+- Reverse sorting order
+- Vocabulary statistics
+
+### 📝 Practice Mode
+
+WortWerk currently supports four practice modes:
+
+- German → Article
+- German → English
+- English → German
+- German → Plural
+
+Practice sessions support:
+
+- Randomized questions
+- Word-count selection
+- CEFR level selection
+- Optional German article requirement
+- Answer validation
+- Practice accuracy tracking
+- Per-question response timing
+- Practice session timing
+- Completed and unfinished session tracking
+
+### 🎯 Quiz Mode
+
+WortWerk also provides a more structured quiz experience.
+
+Quiz mode includes:
+
+- Predefined quiz templates
+- Short, Medium, and Long quizzes
+- Custom quiz creation
+- Multiple question types in a single quiz
+- Randomized question order
+- Configurable number of questions for each practice mode
+- CEFR level selection
+- Optional German article requirement
+- Quiz accuracy tracking
+- Per-question response timing
+- Completed and unfinished quiz tracking
+
+### 💾 Reusable Quiz Templates
+
+Custom quizzes can be saved as reusable templates.
+
+Saved templates allow you to:
+
+- Give custom quizzes your own names
+- Save a custom question distribution
+- Load saved templates later
+- Reuse the same quiz structure without recreating it
+- Keep different quiz configurations for different learning goals
+
+For example, you could create templates such as:
+
+```text
+Grammar Focus
+├── 10 × German → Article
+├── 5 × English → German
+└── 5 × German → Plural
+
+Translation Practice
+├── 10 × German → English
+└── 10 × English → German
+```
+
+### 📈 Learning History
+
+WortWerk automatically records practice and quiz results.
+The history system tracks:
+- Session date and time
+- Session type
+- Practice mode
+- Selected CEFR levels
+- Number of questions
+- Correct answers
+- Incrrect answers
+- Accuracy
+- Total answer time
+- Wheter the session was completed or not
+
+Per-word history also tracks:
+- Number of attempts
+- Number of correct answers
+- Number of incorrect answers
+
+### 🎨 CLI Experience
+- Colored command-line interface
+- Interactive prompts
+- Clear validation messages
+- Interactive menus
+- Randomized practice and quiz questions
+- Simple terminal-based workflow
 
 ## 🛠️ Requirements
 
@@ -136,6 +225,7 @@ WortWerk currently supports four practice modes:
 
 Before starting a session, you can choose:
 
+- The practice mode (practice / quiz)
 - The number of words to practice
 - The CEFR levels to practice
 
