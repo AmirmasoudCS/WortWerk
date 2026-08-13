@@ -13,6 +13,9 @@ from scripts.practice.prompts import (
 
 from scripts.practice.session import practice
 
+from scripts.quiz.prompts import ask_quiz_template
+from scripts.quiz.quiz import quiz
+
 from scripts.utils.formatter import (
     print_error,
     print_info,
@@ -72,8 +75,27 @@ def run_quiz(
 ) -> None:
     """Launch quiz mode."""
 
-    print_info(
-        "Quiz mode is not implemented yet."
+    template = ask_quiz_template()
+
+    if template is None:
+        print_info(
+            "Quiz session cancelled."
+        )
+        return
+
+    print()
+
+    levels = ask_levels()
+
+    if levels is None:
+        quiz_levels = None
+    else:
+        quiz_levels = levels
+
+    quiz(
+        repo=repo,
+        template=template,
+        levels=quiz_levels,
     )
 
 
