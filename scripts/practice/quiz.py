@@ -1,6 +1,8 @@
 import random
 import time
 
+from config.constants import QUIZ_SESSION_TYPE
+
 from src.vocabulary.repository import VocabularyRepository
 
 from scripts.practice.history import (
@@ -21,9 +23,7 @@ from scripts.practice.questions import (
     show_plural_question,
 )
 
-from scripts.quiz.templates import (
-    QuizTemplate,
-)
+from scripts.quiz.templates import QuizTemplate
 
 from scripts.utils.formatter import (
     print_error,
@@ -98,6 +98,46 @@ def build_questions(
     return questions
 
 
+def calculate_accuracy(
+    correct: int,
+    attempted: int,
+) -> float:
+    """Calculate accuracy as a percentage."""
+
+    if attempted == 0:
+        return 0.0
+
+    return (
+        correct / attempted
+    ) * 100
+
+
+def save_quiz_session(
+    template: QuizTemplate,
+    levels: list[str] | None,
+    questions: int,
+    correct: int,
+    incorrect: int,
+    accuracy: float,
+    elapsed_time: float,
+    completed: bool,
+) -> None:
+    """Save the results of a quiz session."""
+
+    save_session(
+        session_type=QUIZ_SESSION_TYPE,
+        mode=template.name.lower(),
+        levels=levels,
+        questions=questions,
+        correct=correct,
+        incorrect=incorrect,
+        accuracy=accuracy,
+        elapsed_time=elapsed_time,
+        completed=completed,
+        question_counts=template.question_counts,
+    )
+
+
 def quiz(
     repo: VocabularyRepository,
     template: QuizTemplate,
@@ -105,8 +145,6 @@ def quiz(
     require_article: bool = False,
 ) -> None:
     """Run a quiz session."""
-
-    session_type = "quiz"
 
     template.validate()
 
@@ -132,7 +170,6 @@ def quiz(
         return
 
     total_questions = len(questions)
-
     attempted_questions = 0
     correct = 0
     incorrect = 0
@@ -183,15 +220,13 @@ def quiz(
         total_answer_time += answer_time
 
         if answer is None:
-            accuracy = (
-                correct / attempted_questions * 100
-                if attempted_questions > 0
-                else 0.0
+            accuracy = calculate_accuracy(
+                correct,
+                attempted_questions,
             )
 
-            save_session(
-                session_type=session_type,
-                mode=template.name.lower(),
+            save_quiz_session(
+                template=template,
                 levels=levels,
                 questions=attempted_questions,
                 correct=correct,
@@ -199,9 +234,6 @@ def quiz(
                 accuracy=accuracy,
                 elapsed_time=total_answer_time,
                 completed=False,
-                question_counts=(
-                    template.question_counts
-                ),
             )
 
             clear_screen()
@@ -224,7 +256,7 @@ def quiz(
         record_word_result(
             word_id=row["id"],
             mode=mode,
-            session_type=session_type,
+            session_type=QUIZ_SESSION_TYPE,
             correct=is_correct,
         )
 
@@ -250,15 +282,13 @@ def quiz(
                 "Press Enter to continue..."
             )
 
-    accuracy = (
-        correct / attempted_questions * 100
-        if attempted_questions > 0
-        else 0.0
+    accuracy = calculate_accuracy(
+        correct,
+        attempted_questions,
     )
 
-    save_session(
-        session_type=session_type,
-        mode=template.name.lower(),
+    save_quiz_session(
+        template=template,
         levels=levels,
         questions=attempted_questions,
         correct=correct,
@@ -266,9 +296,6 @@ def quiz(
         accuracy=accuracy,
         elapsed_time=total_answer_time,
         completed=True,
-        question_counts=(
-            template.question_counts
-        ),
     )
 
     print_practice_summary(
