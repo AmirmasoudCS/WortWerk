@@ -6,9 +6,9 @@ from src.database.database import Database
 from src.vocabulary.repository import VocabularyRepository
 
 from scripts.practice.prompts import (
+    ask_levels,
     ask_practice_mode,
     ask_word_count,
-    ask_levels,
 )
 
 from scripts.practice.session import practice
@@ -60,7 +60,14 @@ def run_practice(
     print()
 
     word_count = ask_word_count()
+
     levels = ask_levels()
+
+    if levels is None:
+        # None means "all levels", so this is not
+        # a cancellation. The practice session
+        # should continue normally.
+        pass
 
     practice(
         repo=repo,
@@ -100,11 +107,18 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
-    db = Database(SQLITE_DATABASE)
-    repo = VocabularyRepository(db)
+    db = Database(
+        SQLITE_DATABASE
+    )
+
+    repo = VocabularyRepository(
+        db
+    )
 
     try:
-        if not db.table_exists("vocabulary"):
+        if not db.table_exists(
+            "vocabulary"
+        ):
             print_error(
                 "Database not initialized. "
                 "Run 'wortwerk init' first."
