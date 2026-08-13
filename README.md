@@ -55,7 +55,7 @@ A more structured experience for combining multiple question types in one sessio
 - Accuracy tracking, per-question timing, and completed/unfinished session tracking
 
 ### 💾 Reusable Quiz Templates
-Custom quizzes can be saved as named, reusable templates with their own question distribution — useful for keeping separate configurations for different learning goals. Saved templates load instantly without recreating the setup, and are stored locally for future sessions.
+Custom quizzes can be saved as named, reusable templates with their own question distribution - useful for keeping separate configurations for different learning goals. Saved templates load instantly without recreating the setup, and are stored locally for future sessions.
 
 Example:
 ```text
@@ -168,7 +168,7 @@ WortWerk is a personal learning project, but contributions and suggestions are w
 
 ## ⚖️ License
 
-MIT License — see [LICENSE](./LICENSE) for the full text.
+MIT License - see [LICENSE](./LICENSE) for the full text.
 
 ## 📌 Project Status
 
