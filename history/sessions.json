@@ -216,5 +216,25 @@
             "german": 3,
             "plural": 3
         }
+    },
+    "20260813090626326608": {
+        "date": "2026-08-13T09:06:26",
+        "session_type": "quiz",
+        "mode": "test template",
+        "levels": [
+            "A1"
+        ],
+        "questions": 4,
+        "correct": 4,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 14.636800400003267,
+        "completed": true,
+        "question_counts": {
+            "german": 1,
+            "article": 1,
+            "plural": 1,
+            "english": 1
+        }
     }
 }

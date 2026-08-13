@@ -68,5 +68,12 @@
             "correct": 1,
             "incorrect": 0
         }
+    },
+    "4": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
     }
 }
