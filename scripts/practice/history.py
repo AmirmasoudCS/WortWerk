@@ -49,7 +49,9 @@ def initialize_history() -> None:
             )
 
 
-def _load_json(path: Path) -> dict:
+def _load_json(
+    path: Path,
+) -> dict:
     """Load JSON data from a history file."""
 
     if not path.exists():
@@ -131,10 +133,7 @@ def save_session(
             f"Invalid session type: {session_type}"
         )
 
-    if (
-        session_type == "practice"
-        and mode not in VALID_PRACTICE_MODES
-    ):
+    if mode not in VALID_PRACTICE_MODES:
         raise ValueError(
             f"Invalid practice mode: {mode}"
         )
@@ -226,3 +225,74 @@ def record_word_result(
         path,
         history,
     )
+
+
+def load_sessions() -> dict:
+    """Load all recorded practice and quiz sessions."""
+
+    return _load_json(
+        SESSIONS_HISTORY
+    )
+
+
+def load_word_history(
+    mode: str,
+) -> dict:
+    """Load word history for a practice mode."""
+
+    if mode not in VALID_PRACTICE_MODES:
+        raise ValueError(
+            f"Invalid practice mode: {mode}"
+        )
+
+    history = _load_json(
+        HISTORY_PATHS[mode]
+    )
+
+    for word_id in history:
+        history[word_id] = _migrate_word_history(
+            history[word_id]
+        )
+
+    return history
+
+
+def load_all_word_history() -> dict[str, dict]:
+    """Load word history for all practice modes."""
+
+    history = {}
+
+    for mode in VALID_PRACTICE_MODES:
+        history[mode] = load_word_history(
+            mode
+        )
+
+    return history
+
+
+def get_recent_sessions(
+    limit: int = 10,
+) -> list[dict]:
+    """Return the most recent sessions."""
+
+    if limit <= 0:
+        return []
+
+    sessions = load_sessions()
+
+    sorted_sessions = sorted(
+        sessions.items(),
+        key=lambda item: item[1].get(
+            "date",
+            "",
+        ),
+        reverse=True,
+    )
+
+    return [
+        {
+            "id": session_id,
+            **session,
+        }
+        for session_id, session in sorted_sessions[:limit]
+    ]
