@@ -296,3 +296,22 @@ def get_recent_sessions(
         }
         for session_id, session in sorted_sessions[:limit]
     ]
+
+def get_session(
+    session_id: str,
+) -> dict | None:
+    """Return a single session by its ID."""
+
+    sessions = load_sessions()
+
+    session = sessions.get(
+        session_id
+    )
+
+    if session is None:
+        return None
+
+    return {
+        "id": session_id,
+        **session,
+    }
