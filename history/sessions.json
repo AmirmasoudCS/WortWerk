@@ -140,5 +140,61 @@
             "plural": 1,
             "german": 1
         }
+    },
+    "20260813090221021214": {
+        "date": "2026-08-13T09:02:21",
+        "session_type": "practice",
+        "mode": "article",
+        "levels": [
+            "A1"
+        ],
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 2.1758090000002994,
+        "completed": true
+    },
+    "20260813090252573586": {
+        "date": "2026-08-13T09:02:52",
+        "session_type": "practice",
+        "mode": "english",
+        "levels": [
+            "A1"
+        ],
+        "questions": 2,
+        "correct": 1,
+        "incorrect": 1,
+        "accuracy": 50.0,
+        "time": 12.410998499995912,
+        "completed": true
+    },
+    "20260813090309216755": {
+        "date": "2026-08-13T09:03:09",
+        "session_type": "practice",
+        "mode": "german",
+        "levels": [
+            "A1"
+        ],
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 7.522712400001183,
+        "completed": true
+    },
+    "20260813090325173143": {
+        "date": "2026-08-13T09:03:25",
+        "session_type": "practice",
+        "mode": "plural",
+        "levels": [
+            "A1"
+        ],
+        "questions": 1,
+        "correct": 1,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 5.859312699998554,
+        "completed": true
     }
 }
