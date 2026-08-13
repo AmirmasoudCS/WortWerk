@@ -34,19 +34,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="Show vocabulary statistics",
     )
 
-    history_parser = subparsers.add_parser(
-        "history",
-        help="Show practice and quiz history",
-    )
-
-    history_parser.add_argument(
-        "--limit",
-        "-l",
-        type=int,
-        default=10,
-        help="Number of recent sessions to show",
-    )
-
     search_parser = subparsers.add_parser(
         "search",
         help="Search vocabulary",
