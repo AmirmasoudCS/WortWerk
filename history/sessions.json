@@ -196,5 +196,25 @@
         "accuracy": 100.0,
         "time": 5.859312699998554,
         "completed": true
+    },
+    "20260813090524334264": {
+        "date": "2026-08-13T09:05:24",
+        "session_type": "quiz",
+        "mode": "short",
+        "levels": [
+            "A1"
+        ],
+        "questions": 12,
+        "correct": 6,
+        "incorrect": 6,
+        "accuracy": 50.0,
+        "time": 56.47533320001094,
+        "completed": true,
+        "question_counts": {
+            "article": 3,
+            "english": 3,
+            "german": 3,
+            "plural": 3
+        }
     }
 }
