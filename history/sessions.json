@@ -120,5 +120,25 @@
             "german": 3,
             "plural": 3
         }
+    },
+    "20260813080231315300": {
+        "date": "2026-08-13T08:02:31",
+        "session_type": "quiz",
+        "mode": "custom",
+        "levels": [
+            "A1"
+        ],
+        "questions": 4,
+        "correct": 4,
+        "incorrect": 0,
+        "accuracy": 100.0,
+        "time": 16.387747499997204,
+        "completed": true,
+        "question_counts": {
+            "english": 1,
+            "article": 1,
+            "plural": 1,
+            "german": 1
+        }
     }
 }

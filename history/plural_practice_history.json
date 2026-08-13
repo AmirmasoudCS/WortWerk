@@ -33,5 +33,12 @@
             "correct": 0,
             "incorrect": 1
         }
+    },
+    "34": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
     }
 }
