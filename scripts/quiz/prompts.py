@@ -1,17 +1,25 @@
 from config.colors import CYAN, RESET
-from config.constants import (
-    VALID_LEVELS,
-    VALID_PRACTICE_MODES,
-)
-
-from scripts.practice.prompts import ask_levels
+from config.constants import VALID_PRACTICE_MODES
 
 from scripts.quiz.templates import (
     QuizTemplate,
     DEFAULT_QUIZ_TEMPLATES,
 )
 
+from scripts.quiz.template_repository import (
+    load_templates,
+    save_template,
+)
+
 from scripts.utils.formatter import print_error
+
+
+MODE_NAMES = {
+    "article": "German → Article",
+    "english": "German → English",
+    "german": "English → German",
+    "plural": "German → Plural",
+}
 
 
 def ask_quiz_template() -> QuizTemplate | None:
@@ -121,6 +129,27 @@ def ask_custom_quiz() -> QuizTemplate | None:
     ):
         return None
 
+    if ask_confirmation(
+        "Save this quiz as a reusable template? (y/n): "
+    ):
+        name = ask_quiz_template_name()
+
+        if name is None:
+            return template
+
+        template.name = name
+
+        try:
+            save_template(template)
+
+            print()
+            print(
+                f"Quiz template '{name}' saved."
+            )
+
+        except ValueError as error:
+            print_error(str(error))
+
     return template
 
 
@@ -129,14 +158,7 @@ def ask_question_count(
 ) -> int | None:
     """Ask how many questions of a type to include."""
 
-    mode_names = {
-        "article": "German → Article",
-        "english": "German → English",
-        "german": "English → German",
-        "plural": "German → Plural",
-    }
-
-    name = mode_names.get(
+    name = MODE_NAMES.get(
         mode,
         mode,
     )
@@ -213,17 +235,66 @@ def ask_quiz_template_name() -> str | None:
 def ask_saved_quiz() -> QuizTemplate | None:
     """Ask the user to select a saved quiz template."""
 
-    # Saved-template loading will be implemented
-    # when the template persistence layer is added.
+    templates = load_templates()
 
-    print()
-    print_error(
-        "Saved quiz templates are not implemented yet."
+    if not templates:
+        print()
+        print_error(
+            "No saved quiz templates found."
+        )
+        print()
+
+        input(
+            "Press Enter to return..."
+        )
+
+        return None
+
+    templates = list(
+        templates.values()
     )
-    print()
 
-    input(
-        "Press Enter to return..."
-    )
+    while True:
+        print()
+        print("Saved Quiz Templates")
+        print()
 
-    return None
+        for index, template in enumerate(
+            templates,
+            start=1,
+        ):
+            print(
+                f"  {index}. "
+                f"{template.name} "
+                f"({template.total_questions} questions)"
+            )
+
+        print()
+        print(
+            "Choose a template "
+            f"(1-{len(templates)}, or q to return): "
+        )
+
+        value = input(
+            "> "
+        ).strip().lower()
+
+        if value == "q":
+            return None
+
+        try:
+            choice = int(value)
+        except ValueError:
+            print_error(
+                f"Please choose 1-{len(templates)}, "
+                "or q to return."
+            )
+            continue
+
+        if 1 <= choice <= len(templates):
+            return templates[choice - 1]
+
+        print_error(
+            f"Please choose 1-{len(templates)}, "
+            "or q to return."
+        )
