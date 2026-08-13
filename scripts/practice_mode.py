@@ -11,6 +11,9 @@ from scripts.practice.prompts import (
     ask_word_count,
 )
 from scripts.practice.session import practice
+from scripts.practice.history import (
+    get_recent_sessions,
+)
 
 from scripts.quiz.prompts import ask_quiz_template
 from scripts.quiz.quiz import quiz
@@ -19,6 +22,9 @@ from scripts.utils.formatter import (
     print_error,
     print_info,
     print_practice_header,
+    print_history_header,
+    format_session_history_table,
+    print_session_details,
 )
 
 
@@ -35,6 +41,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--quiz",
         action="store_true",
         help="Launch quiz mode",
+    )
+
+    parser.add_argument(
+        "-H",
+        "--history",
+        action="store_true",
+        help="Show practice history",
     )
 
     return parser
@@ -93,11 +106,81 @@ def run_quiz(
     )
 
 
+def run_history() -> None:
+    """Display recent practice and quiz history."""
+
+    print_history_header()
+
+    sessions = get_recent_sessions(
+        limit=10
+    )
+
+    print(
+        format_session_history_table(
+            sessions
+        )
+    )
+
+    print()
+
+    if not sessions:
+        input(
+            "Press Enter to return..."
+        )
+        return
+
+    while True:
+        value = input(
+            "Enter a session number for details "
+            "or press Enter to return: "
+        ).strip()
+
+        if not value:
+            return
+
+        try:
+            session_number = int(value)
+        except ValueError:
+            print_error(
+                "Please enter a valid session number."
+            )
+            continue
+
+        if (
+            session_number < 1
+            or session_number > len(sessions)
+        ):
+            print_error(
+                "Invalid session number."
+            )
+            continue
+
+        session = sessions[
+            session_number - 1
+        ]
+
+        print_session_details(
+            session
+        )
+
+        input(
+            "Press Enter to return..."
+        )
+
+        return
+
+
 def main() -> None:
     """Start the WortWerk practice CLI."""
 
     parser = build_parser()
     args = parser.parse_args()
+
+    if args.quiz and args.history:
+        parser.error(
+            "The --quiz and --history options "
+            "cannot be used together."
+        )
 
     db = Database(
         SQLITE_DATABASE
@@ -117,7 +200,9 @@ def main() -> None:
             )
             return
 
-        if args.quiz:
+        if args.history:
+            run_history()
+        elif args.quiz:
             run_quiz(repo)
         else:
             run_practice(repo)
