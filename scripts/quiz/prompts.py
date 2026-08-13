@@ -1,14 +1,14 @@
 from config.colors import CYAN, RESET
 from config.constants import VALID_PRACTICE_MODES
 
-from scripts.quiz.templates import (
-    QuizTemplate,
-    DEFAULT_QUIZ_TEMPLATES,
-)
-
 from scripts.quiz.template_repository import (
     load_templates,
     save_template,
+)
+
+from scripts.quiz.templates import (
+    DEFAULT_QUIZ_TEMPLATES,
+    QuizTemplate,
 )
 
 from scripts.utils.formatter import print_error
@@ -132,25 +132,52 @@ def ask_custom_quiz() -> QuizTemplate | None:
     if ask_confirmation(
         "Save this quiz as a reusable template? (y/n): "
     ):
+        saved_template = save_custom_template(
+            question_counts
+        )
+
+        if saved_template is not None:
+            template = saved_template
+
+    return template
+
+
+def save_custom_template(
+    question_counts: dict[str, int],
+) -> QuizTemplate | None:
+    """Create and save a custom quiz template."""
+
+    while True:
         name = ask_quiz_template_name()
 
         if name is None:
-            return template
+            return None
 
-        template.name = name
+        template = QuizTemplate(
+            name=name,
+            question_counts=question_counts.copy(),
+        )
 
         try:
+            template.validate()
             save_template(template)
-
-            print()
-            print(
-                f"Quiz template '{name}' saved."
-            )
 
         except ValueError as error:
             print_error(str(error))
 
-    return template
+            if not ask_confirmation(
+                "Would you like to choose another name? (y/n): "
+            ):
+                return None
+
+            continue
+
+        print()
+        print(
+            f"Quiz template '{template.name}' saved."
+        )
+
+        return template
 
 
 def ask_question_count(
