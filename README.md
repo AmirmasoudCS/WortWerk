@@ -6,12 +6,10 @@
 
 **A small CLI tool for practicing German vocabulary, articles, translations, and plurals.**
 
-
 *WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.*
 
 </div>
-</br>
-
+<br>
 
 ## 📊 Current Vocabulary
 
@@ -24,250 +22,42 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 | das     | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
 | **Total** | **83** | **0** | **0** | **0** | **0** | **0** | **83** |
 
-> **Dataset snapshot:** August 2026  
+> **Dataset snapshot:** August 2026
 > The vocabulary dataset is continuously growing alongside my German-learning journey.
 > Run `python -m scripts.wortwerk stats` to view the current statistics.
 
 ## ✨ Features
 
 ### 📚 Vocabulary Management
-
-- Add new vocabulary
-- Edit existing vocabulary
-- Delete vocabulary
-- Search vocabulary
-- Filter vocabulary by German article
-- Filter vocabulary by CEFR level
-- Sort vocabulary by ID, alphabetical order, or level
-- Reverse sorting order
-- Vocabulary statistics
+Add, edit, delete, and search vocabulary. Filter by article or CEFR level, sort by ID/alphabetical order/level (with reverse option), and view overall vocabulary statistics.
 
 ### 📝 Practice Mode
-
-WortWerk currently supports four practice modes:
-
+Four practice modes:
 - German → Article
 - German → English
 - English → German
 - German → Plural
 
-Practice sessions support:
+Before each session you can choose the number of words, the CEFR level(s), and whether a German article is required. Questions are randomized, with answer validation, per-question timing, session timing, accuracy tracking, and saving of both completed and unfinished sessions.
 
-- Randomized questions
-- Word-count selection
-- CEFR level selection
-- Optional German article requirement
-- Answer validation
-- Practice accuracy tracking
-- Per-question response timing
-- Practice session timing
-- Completed and unfinished session tracking
-
-### 🎯 Quiz Mode
-
-WortWerk also provides a more structured quiz experience.
-
-Quiz mode includes:
-
-- Predefined quiz templates
-- Short, Medium, and Long quizzes
-- Custom quiz creation
-- Multiple question types in a single quiz
-- Randomized question order
-- Configurable number of questions for each practice mode
-- CEFR level selection
-- Optional German article requirement
-- Quiz accuracy tracking
-- Per-question response timing
-- Completed and unfinished quiz tracking
-
-### 💾 Reusable Quiz Templates
-
-Custom quizzes can be saved as reusable templates.
-
-Saved templates allow you to:
-
-- Give custom quizzes your own names
-- Save a custom question distribution
-- Load saved templates later
-- Reuse the same quiz structure without recreating it
-- Keep different quiz configurations for different learning goals
-
-For example, you could create templates such as:
-
-```text
-Grammar Focus
-├── 10 × German → Article
-├── 5 × English → German
-└── 5 × German → Plural
-
-Translation Practice
-├── 10 × German → English
-└── 10 × English → German
-```
-
-### 📈 Learning History
-
-WortWerk automatically records practice and quiz results.
-The history system tracks:
-- Session date and time
-- Session type
-- Practice mode
-- Selected CEFR levels
-- Number of questions
-- Correct answers
-- Incrrect answers
-- Accuracy
-- Total answer time
-- Wheter the session was completed or not
-
-Per-word history also tracks:
-- Number of attempts
-- Number of correct answers
-- Number of incorrect answers
-
-### 🎨 CLI Experience
-- Colored command-line interface
-- Interactive prompts
-- Clear validation messages
-- Interactive menus
-- Randomized practice and quiz questions
-- Simple terminal-based workflow
-
-## 🛠️ Requirements
-
-* Python 3.10+
-* SQLite
-
-No external database server is required.
-
-## 📦 Installation
-
-Clone the repository and install the project dependencies:
-
-```bash
-git clone https://github.com/AmirmasoudCS/WortWerk.git
-cd WortWerk
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-Activate the virtual environment.
-
-### Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-source .venv/bin/activate
-```
-
-Install the requirements:
-
-```bash
-pip install -r requirements.txt
-```
-
-## 🚀 Getting Started
-
-To see the available commands and options:
-
-```bash
-python -m scripts.wortwerk -h
-```
-
-### Vocabulary Management
-
-| Command                    | Alias                 | Functionality                            |
-| :------------------------- | :-------------------- | :--------------------------------------- |
-| `--help`                   | `-h`                  | Show help messages                       |
-| `init`                     | -                     | Initialize the database                  |
-| `add`                      | -                     | Add a new word                           |
-| `list`                     | -                     | List vocabulary                          |
-| `list --help`              | `list -h`             | Show help for the list command           |
-| `list --article <article>` | `list -art <article>` | Filter by article                        |
-| `list --level <level>`     | `list -lev <level>`   | Filter by level                          |
-| `list --sort <method>`     | `list -s <method>`    | Sort by ID, alphabetical order, or level |
-| `list --reverse`           | `list -rev`           | Reverse the sort order                   |
-| `delete <id>`              | -                     | Delete a word by ID                      |
-| `edit <id>`                | -                     | Edit a word by ID                        |
-| `stats`                    | -                     | Show vocabulary statistics               |
-| `search <query>`           | -                     | Search for a word or translation         |
-
-For example:
-
-```bash
-python -m scripts.wortwerk list --sort alphabetical
-```
-
-## 📝 Practice
-
-Start a practice session with:
-
+**Run it:**
 ```bash
 python -m scripts.practice_mode
 ```
 
-WortWerk currently supports four practice modes:
-
-1. German -> Article
-2. German -> English
-3. English -> German
-4. German -> Plural
-
-Before starting a practice session, you can choose:
-
-- The practice mode
-- The number of words to practice
-- The CEFR levels to practice
-
-Words are randomly shuffled for each session.
-
 ### 🎯 Quiz Mode
+A more structured experience for combining multiple question types in one session.
 
-WortWerk provides a structured quiz experience for combining multiple question types into a single session.
-
-Quiz mode includes:
-
-- Predefined quiz templates:
-  - Short
-  - Medium
-  - Long
-- Custom quiz creation
-- Multiple question types in a single quiz
-- Configurable number of questions for each practice mode
+- Predefined templates: **Short**, **Medium**, **Long**
+- Custom quiz creation with a configurable number of questions per mode
 - Randomized question selection and order
-- CEFR level selection
-- Optional German article requirement for English → German questions
-- Quiz accuracy tracking
-- Per-question response timing
-- Completed and unfinished quiz tracking
-- Quiz session history
+- CEFR level selection and optional article requirement
+- Accuracy tracking, per-question timing, and completed/unfinished session tracking
 
 ### 💾 Reusable Quiz Templates
+Custom quizzes can be saved as named, reusable templates with their own question distribution — useful for keeping separate configurations for different learning goals. Saved templates load instantly without recreating the setup, and are stored locally for future sessions.
 
-Custom quiz configurations can be saved as reusable templates.
-
-When creating a custom quiz, you can choose to save its question distribution and give it a custom name. Saved templates can then be loaded later without having to recreate the configuration.
-
-Saved templates allow you to:
-
-- Create custom quiz configurations
-- Give templates custom names
-- Save question distributions for different learning goals
-- Load saved templates later
-- Reuse quiz configurations across multiple sessions
-
-For example:
-
+Example:
 ```text
 Grammar Focus
 ├── 10 × German → Article
@@ -278,21 +68,18 @@ Translation Practice
 ├── 10 × German → English
 └── 10 × English → German
 ```
-When launching quiz mode, you can choose between:
+
+When launching quiz mode, you choose between:
 ```text
 1. Short
-2. Medium 
+2. Medium
 3. Long
 4. Custom
 5. Saved templates
 ```
-Custom templates are stored locally and remain available for future quiz sessions.
 
-### Practice History
-
-Practice results are automatically saved to the `history/` directory.
-
-WortWerk maintains separate history files for each practice mode:
+### 📈 Learning History
+Practice and quiz results are recorded automatically to the `history/` directory, with a separate file per practice mode:
 
 ```text
 history
@@ -303,26 +90,85 @@ history
 └── sessions.json
 ```
 
-Session history records: **Date and time**, **Session type**, **Practice mode**, **Selected CEFR levels**, **Number of questions**, **Correct answers**, **Incorrect answers**, **Accuracy**, **Total answer time**, Wheter the session was **completed** or **not**.
+Each session records: date/time, session type, practice mode, selected CEFR levels, number of questions, correct/incorrect answers, accuracy, total answer time, and whether it was completed. Unfinished sessions are saved too. Per-word stats (attempts, correct, incorrect) are also tracked.
 
-If a user quits before completing the session, the unfinished session is also saved.
+### 🎨 CLI Experience
+Colored, interactive terminal interface with clear validation messages, interactive menus, and randomized questions.
 
-Each practice mode also maintains per-word statistics, including:
-- Number of attempts
-- Number of correct answers
-- Number of incorrect answers
+## 🛠️ Requirements
+
+- Python 3.10+
+- SQLite (no external database server required)
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/AmirmasoudCS/WortWerk.git
+cd WortWerk
+```
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+**Windows:**
+```bash
+.venv\Scripts\activate
+```
+
+**Linux / macOS:**
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## 🚀 Getting Started
+
+See all available commands and options:
+
+```bash
+python -m scripts.wortwerk -h
+```
+
+### Vocabulary Commands
+
+| Command                    | Alias                 | Functionality                            |
+| :-------------------------- | :--------------------- | :----------------------------------------- |
+| `--help`                   | `-h`                  | Show help messages                       |
+| `init`                     | -                      | Initialize the database                  |
+| `add`                      | -                      | Add a new word                           |
+| `list`                     | -                      | List vocabulary                          |
+| `list --help`              | `list -h`              | Show help for the list command           |
+| `list --article <article>` | `list -art <article>`  | Filter by article                        |
+| `list --level <level>`     | `list -lev <level>`    | Filter by level                          |
+| `list --sort <method>`     | `list -s <method>`     | Sort by ID, alphabetical order, or level |
+| `list --reverse`           | `list -rev`            | Reverse the sort order                   |
+| `delete <id>`              | -                      | Delete a word by ID                      |
+| `edit <id>`                | -                      | Edit a word by ID                        |
+| `stats`                    | -                      | Show vocabulary statistics               |
+| `search <query>`           | -                      | Search for a word or translation         |
+
+Example:
+```bash
+python -m scripts.wortwerk list --sort alphabetical
+```
+
+> For Practice Mode, Quiz Mode, templates, and history details, see the [Features](#-features) section above.
 
 ## 🤝 Contributing
 
-WortWerk is a personal learning project, but contributions and suggestions are welcome.
-
-If you would like to contribute, please see the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
+WortWerk is a personal learning project, but contributions and suggestions are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## ⚖️ License
 
-WortWerk is licensed under the MIT License.
-
-See the [LICENSE](./LICENSE) file for the full license text.
+MIT License — see [LICENSE](./LICENSE) for the full text.
 
 ## 📌 Project Status
 
