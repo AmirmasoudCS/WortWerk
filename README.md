@@ -4,7 +4,7 @@
 
 # WortWerk
 
-**A small CLI tool for practicing German vocabulary, articles, and translations.**
+**A small CLI tool for practicing German vocabulary, articles, translations, and plurals.**
 
 
 *WortWerk is a personal project I'm building alongside my journey of learning German. The goal is to create a simple tool that I can actually use while learning.*
@@ -181,7 +181,7 @@ pip install -r requirements.txt
 To see the available commands and options:
 
 ```bash
-python -m scripts.worwerk -h
+python -m scripts.wortwerk -h
 ```
 
 ### Vocabulary Management
@@ -223,13 +223,70 @@ WortWerk currently supports four practice modes:
 3. English -> German
 4. German -> Plural
 
-Before starting a session, you can choose:
+Before starting a practice session, you can choose:
 
-- The practice mode (practice / quiz)
+- The practice mode
 - The number of words to practice
 - The CEFR levels to practice
 
 Words are randomly shuffled for each session.
+
+### 🎯 Quiz Mode
+
+WortWerk provides a structured quiz experience for combining multiple question types into a single session.
+
+Quiz mode includes:
+
+- Predefined quiz templates:
+  - Short
+  - Medium
+  - Long
+- Custom quiz creation
+- Multiple question types in a single quiz
+- Configurable number of questions for each practice mode
+- Randomized question selection and order
+- CEFR level selection
+- Optional German article requirement for English → German questions
+- Quiz accuracy tracking
+- Per-question response timing
+- Completed and unfinished quiz tracking
+- Quiz session history
+
+### 💾 Reusable Quiz Templates
+
+Custom quiz configurations can be saved as reusable templates.
+
+When creating a custom quiz, you can choose to save its question distribution and give it a custom name. Saved templates can then be loaded later without having to recreate the configuration.
+
+Saved templates allow you to:
+
+- Create custom quiz configurations
+- Give templates custom names
+- Save question distributions for different learning goals
+- Load saved templates later
+- Reuse quiz configurations across multiple sessions
+
+For example:
+
+```text
+Grammar Focus
+├── 10 × German → Article
+├── 5 × English → German
+└── 5 × German → Plural
+
+Translation Practice
+├── 10 × German → English
+└── 10 × English → German
+```
+When launching quiz mode, you can choose between:
+```text
+1. Short
+2. Medium 
+3. Long
+4. Custom
+5. Saved templates
+```
+Custom templates are stored locally and remain available for future quiz sessions.
 
 ### Practice History
 
