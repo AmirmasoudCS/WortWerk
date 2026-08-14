@@ -99,6 +99,11 @@ history
 
 Each session records: date/time, session type, practice mode, selected CEFR levels, number of questions, correct/incorrect answers, accuracy, total answer time, and whether it was completed. Unfinished sessions are saved too. Per-word stats (attempts, correct, incorrect) are also tracked.
 
+**Run it:**
+```bash
+python -m scripts.practice_mode --history
+```
+
 ### 🎨 CLI Experience
 Colored, interactive terminal interface with clear validation messages, interactive menus, and randomized questions.
 
