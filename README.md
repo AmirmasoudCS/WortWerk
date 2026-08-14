@@ -22,10 +22,11 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 | das     | 35 | 0 | 0 | 0 | 0 | 0 | 35 |
 | **Total** | **99** | **0** | **0** | **0** | **0** | **0** | **99** |
 
+All the words are gathered from the **Starten Wir** book series.
+
 > **Dataset snapshot:** August 2026
 > The vocabulary dataset is continuously growing alongside my German-learning journey.
 > Run `python -m scripts.wortwerk stats` to view the current statistics.
-> All the words are gathered from the **Starten Wir** book series.
 
 ## ✨ Features
 
