@@ -56,6 +56,11 @@ A more structured experience for combining multiple question types in one sessio
 - CEFR level selection and optional article requirement
 - Accuracy tracking, per-question timing, and completed/unfinished session tracking
 
+**Run it:**
+```bash
+python -m scripts.practice_mode --quiz
+```
+
 ### 💾 Reusable Quiz Templates
 Custom quizzes can be saved as named, reusable templates with their own question distribution - useful for keeping separate configurations for different learning goals. Saved templates load instantly without recreating the setup, and are stored locally for future sessions.
 
