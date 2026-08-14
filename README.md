@@ -17,10 +17,10 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 
 | Article | A1 | A2 | B1 | B2 | C1 | C2 | Total |
 | :------ | --: | --: | --: | --: | --: | --: | ----: |
-| der     | 24 | 0 | 0 | 0 | 0 | 0 | 24 |
-| die     | 30 | 0 | 0 | 0 | 0 | 0 | 30 |
-| das     | 29 | 0 | 0 | 0 | 0 | 0 | 29 |
-| **Total** | **83** | **0** | **0** | **0** | **0** | **0** | **83** |
+| der     | 28 | 0 | 0 | 0 | 0 | 0 | 28 |
+| die     | 36 | 0 | 0 | 0 | 0 | 0 | 36 |
+| das     | 35 | 0 | 0 | 0 | 0 | 0 | 35 |
+| **Total** | **99** | **0** | **0** | **0** | **0** | **0** | **99** |
 
 > **Dataset snapshot:** August 2026
 > The vocabulary dataset is continuously growing alongside my German-learning journey.
