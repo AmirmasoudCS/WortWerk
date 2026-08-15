@@ -12,7 +12,7 @@ SRC = ROOT / "src"
 CONFIG = ROOT / "config"
 HISTORY = ROOT / "history"
 TEMPLATES = DATA / "templates"
-
+PROGRESS_DIR = ROOT / "progress"
 
 # Depth 2
 
