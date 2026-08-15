@@ -12,3 +12,10 @@ MAGENTA = "\033[35m"
 CYAN = "\033[36m"
 BRIGHT_MAGENTA = "\033[95m"
 BRIGHT_RED = "\033[91m"
+
+MODE_COLORS = {
+    "article": "#1f77b4",
+    "english": "#ff7f0e",
+    "german": "#2ca02c",
+    "plural": "#d62728",
+}
