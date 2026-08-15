@@ -34,3 +34,7 @@ MODE_COLORS = {
     "german": "#2ca02c",
     "plural": "#d62728",
 }
+
+SEAL_BODY = "\033[38;5;250m"
+SEAL_DARK = "\033[38;5;245m"
+SEAL_WATER = "\033[38;5;117m"
