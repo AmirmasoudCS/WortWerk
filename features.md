@@ -90,7 +90,7 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 🔮 Long-Term Ideas
 
-* [ ] Expand beyond article practice
+* [x] Expand beyond article practice
 * [ ] Build a more complete German vocabulary trainer
 * [ ] Add configurable learning goals
 * [ ] Support more advanced German exercises
