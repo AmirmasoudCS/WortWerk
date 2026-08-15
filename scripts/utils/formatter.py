@@ -1378,3 +1378,172 @@ def print_session_details(
         )
 
     print()
+
+def format_weak_words_table(
+    weak_words: list[dict],
+) -> str:
+    """Format weak words as a colored table, sorted from lowest to highest accuracy."""
+
+    headers = [
+        "GERMAN",
+        "ART",
+        "ACCURACY",
+        "ATTEMPTS",
+        "CORRECT",
+        "INCORRECT",
+    ]
+
+    data = []
+
+    for item in weak_words:
+        row = item["row"]
+        correct = item["attempts"] - item["incorrect"]
+
+        data.append(
+            [
+                row["german"],
+                row["article"],
+                f"{item['accuracy'] * 100:.1f}%",
+                str(item["attempts"]),
+                str(correct),
+                str(item["incorrect"]),
+            ]
+        )
+
+    widths = []
+
+    for index, header in enumerate(headers):
+        column_width = max(
+            len(header),
+            max(
+                len(row[index])
+                for row in data
+            ),
+        )
+
+        widths.append(column_width)
+
+    def format_cell(
+        value: str,
+        column_index: int,
+    ) -> str:
+        """Format and color an individual table cell."""
+
+        if column_index == 0:
+            return colorize(
+                value,
+                BOLD,
+            )
+
+        if column_index == 1:
+            return format_article(value)
+
+        if column_index == 2:
+            try:
+                numeric_accuracy = float(
+                    value.rstrip("%")
+                )
+            except ValueError:
+                return value
+
+            if numeric_accuracy >= 80:
+                color = GREEN
+            elif numeric_accuracy >= 50:
+                color = YELLOW
+            else:
+                color = BRIGHT_RED
+
+            return colorize(
+                value,
+                color,
+            )
+
+        return value
+
+    def format_row(row) -> str:
+        """Format a single table row."""
+
+        cells = []
+
+        for index, (value, width) in enumerate(
+            zip(row, widths)
+        ):
+            formatted_value = format_cell(
+                value,
+                index,
+            )
+
+            if index in {0, 1, 2}:
+                formatted_value += (
+                    " " * (width - len(value))
+                )
+            else:
+                formatted_value = (
+                    f"{value:>{width}}"
+                )
+
+            cells.append(formatted_value)
+
+        return (
+            "│ "
+            + " │ ".join(cells)
+            + " │"
+        )
+
+    top = (
+        "┌─"
+        + "─┬─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┐"
+    )
+
+    separator = (
+        "├─"
+        + "─┼─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┤"
+    )
+
+    bottom = (
+        "└─"
+        + "─┴─".join(
+            "─" * width
+            for width in widths
+        )
+        + "─┘"
+    )
+
+    header = (
+        "│ "
+        + " │ ".join(
+            colorize_padded(
+                header,
+                f"{CYAN}{BOLD}",
+                width,
+            )
+            for header, width in zip(
+                headers,
+                widths,
+            )
+        )
+        + " │"
+    )
+
+    table_rows = [
+        format_row(row)
+        for row in data
+    ]
+
+    return "\n".join(
+        [
+            top,
+            header,
+            separator,
+            *table_rows,
+            bottom,
+        ]
+    )
