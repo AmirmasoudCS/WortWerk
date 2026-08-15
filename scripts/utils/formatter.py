@@ -18,7 +18,7 @@ from config.colors import (
 )
 from scripts.utils.helper import clear_screen
 
-from config.sprites import FOX_FRAMES, RACCOON_FRAMES, MASCOTS
+from config.sprites import MASCOTS
 
 def colorize(text: str, color: str) -> str:
     """Apply a color to text."""
