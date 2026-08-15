@@ -30,6 +30,12 @@ from scripts.utils.formatter import (
 
 from scripts.practice.weak import list_weak_words
 
+from scripts.practice.progress import (
+    build_progress_summary,
+    print_progress_summary,
+    build_progress_chart,
+)
+
 
 def build_parser() -> argparse.ArgumentParser:
     """Build the practice CLI argument parser."""
@@ -65,6 +71,20 @@ def build_parser() -> argparse.ArgumentParser:
         "--show-weak",
         action="store_true",
         help="Show your lowest-accuracy words",
+    )
+
+    parser.add_argument(
+        "-sp",
+        "--show-progress",
+        action="store_true",
+        help="Show accuracy progress over time",
+    )
+
+    parser.add_argument(
+        "-s",
+        "--save",
+        action="store_true",
+        help="Save the progress chart to the progress/ directory (used with --show-progress)",
     )
 
     return parser
@@ -188,6 +208,7 @@ def run_history() -> None:
 
         return
 
+
 def run_show_weak(
     repo: VocabularyRepository,
 ) -> None:
@@ -222,16 +243,37 @@ def run_show_weak(
         )
     )
 
+
+def run_show_progress(save: bool) -> None:
+    """Display accuracy progress over time, in terminal and as a chart."""
+
+    summary = build_progress_summary()
+    print_progress_summary(summary)
+
+    filepath = build_progress_chart(save=save)
+
+    if filepath:
+        print_info(f"Progress chart saved to {filepath}")
+
+
 def main() -> None:
     """Start the WortWerk practice CLI."""
 
     parser = build_parser()
     args = parser.parse_args()
 
-    if sum([args.quiz, args.history, args.weak, args.show_weak]) > 1:
+    if sum(
+        [
+            args.quiz,
+            args.history,
+            args.weak,
+            args.show_weak,
+            args.show_progress,
+        ]
+    ) > 1:
         parser.error(
-            "The --quiz, --history, --weak, and --show-weak options "
-            "cannot be used together."
+            "The --quiz, --history, --weak, --show-weak, and --show-progress "
+            "options cannot be used together."
         )
 
     db = Database(
@@ -258,6 +300,8 @@ def main() -> None:
             run_quiz(repo)
         elif args.show_weak:
             run_show_weak(repo)
+        elif args.show_progress:
+            run_show_progress(save=args.save)
         else:
             run_practice(repo, weak=args.weak)
 
