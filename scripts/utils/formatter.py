@@ -18,8 +18,6 @@ from config.colors import (
 )
 from scripts.utils.helper import clear_screen
 
-from config.sprites import MASCOTS
-
 def colorize(text: str, color: str) -> str:
     """Apply a color to text."""
 
@@ -141,31 +139,8 @@ def render_frame(frame):
 
     return frame
 
-def play_mascot_intro(
-    frame_delay: float = 0.10,
-    loops: int = 2,
-) -> None:
-    """Play a short mascot animation before the practice header."""
-
-    mascot = random.choice(list(MASCOTS))
-    frames = MASCOTS[mascot]
-
-    try:
-        for _ in range(loops):
-            for frame in frames:
-                clear_screen()
-                print(frame)
-                time.sleep(frame_delay)
-    except KeyboardInterrupt:
-        pass
-
-    clear_screen()
-
-
 def print_practice_header() -> None:
     """Print the WortWerk practice header."""
-
-    play_mascot_intro()
 
     print()
     print(
