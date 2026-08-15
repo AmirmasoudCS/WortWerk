@@ -1547,3 +1547,8 @@ def format_weak_words_table(
             bottom,
         ]
     )
+
+def print_menu_option(number: str, label: str) -> None:
+    """Print a numbered menu option with consistent styling."""
+
+    print(f"  {colorize(number + '.', CYAN)} {label}")
