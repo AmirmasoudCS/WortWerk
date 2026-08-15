@@ -1,3 +1,6 @@
+import random
+import time
+
 from config.colors import (
     RESET,
     BOLD,
@@ -99,6 +102,112 @@ def format_level(level: str) -> str:
         level,
         YELLOW,
     )
+
+
+def format_progress_bar(
+    current: int,
+    total: int,
+    width: int = 20,
+) -> str:
+    """Format a text progress bar for the current question."""
+
+    if total <= 0:
+        filled = 0
+    else:
+        filled = int((current / total) * width)
+
+    bar = "█" * filled + "░" * (width - filled)
+
+    return f"{CYAN}[{bar}] {current}/{total}{RESET}"
+
+
+FOX_FRAMES = [
+    r"""
+        /\   /\
+       (  ._. )
+        > ^ <
+    """,
+    r"""
+        /\   /\
+       (  o.o )
+        > ^ <
+    """,
+]
+
+RACCOON_FRAMES = [
+    r"""
+       (\_/)
+      ( ..  )
+      / >o
+    """,
+    r"""
+       (\_/)
+      ( -.- )
+      / >o
+    """,
+]
+
+MASCOTS = {
+    "fox": FOX_FRAMES,
+    "raccoon": RACCOON_FRAMES,
+}
+
+
+def play_mascot_intro(
+    frame_delay: float = 0.35,
+    loops: int = 2,
+) -> None:
+    """Play a short mascot animation before the practice header."""
+
+    mascot = random.choice(list(MASCOTS))
+    frames = MASCOTS[mascot]
+
+    try:
+        for _ in range(loops):
+            for frame in frames:
+                clear_screen()
+                print(f"{CYAN}{frame}{RESET}")
+                time.sleep(frame_delay)
+    except KeyboardInterrupt:
+        pass
+
+    clear_screen()
+
+
+def print_practice_header() -> None:
+    """Print the WortWerk practice header."""
+
+    play_mascot_intro()
+
+    print()
+    print(
+        "╭──────────────────────────────╮"
+    )
+    print(
+        "│       WortWerk Practice      │"
+    )
+    print(
+        "╰──────────────────────────────╯"
+    )
+
+
+def print_menu_option(number: str, label: str) -> None:
+    """Print a numbered menu option with consistent styling."""
+
+    print(f"  {colorize(number + '.', CYAN)} {label}")
+
+
+def print_practice_mode_menu() -> None:
+    """Print the available practice modes."""
+
+    print(f"{BOLD}What would you like to practice?{RESET}")
+    print()
+
+    print_menu_option("1", "German → Article")
+    print_menu_option("2", "German → English")
+    print_menu_option("3", "English → German")
+    print_menu_option("4", "German → Plural")
+    print()
 
 
 def format_word_table(rows) -> str:
@@ -309,34 +418,6 @@ def prompt_english() -> str | None:
         )
 
 
-def print_practice_header() -> None:
-    """Print the WortWerk practice header."""
-
-    print()
-    print(
-        "╭──────────────────────────────╮"
-    )
-    print(
-        "│       WortWerk Practice      │"
-    )
-    print(
-        "╰──────────────────────────────╯"
-    )
-
-
-def print_practice_mode_menu() -> None:
-    """Print the available practice modes."""
-
-    print(f"{BOLD}What would you like to practice?{RESET}")
-    print()
-
-    print_menu_option("1", "German → Article")
-    print_menu_option("2", "German → English")
-    print_menu_option("3", "English → German")
-    print_menu_option("4", "German → Plural")
-    print()
-
-
 def print_question(
     german: str,
     question_number: int,
@@ -345,9 +426,10 @@ def print_question(
     """Print an article practice question."""
 
     print(
-        f"{CYAN}Question "
-        f"{question_number}/{total_questions}"
-        f"{RESET}"
+        format_progress_bar(
+            question_number,
+            total_questions,
+        )
     )
 
     print()
@@ -387,9 +469,10 @@ def print_english_question(
     """Print a German to English practice question."""
 
     print(
-        f"{CYAN}Question "
-        f"{question_number}/{total_questions}"
-        f"{RESET}"
+        format_progress_bar(
+            question_number,
+            total_questions,
+        )
     )
 
     print()
@@ -829,8 +912,10 @@ def print_german_question(
     """Print an English-to-German practice question."""
 
     print(
-        f"{CYAN}Question "
-        f"{question_number}/{total_questions}{RESET}"
+        format_progress_bar(
+            question_number,
+            total_questions,
+        )
     )
 
     print()
@@ -904,9 +989,10 @@ def print_plural_question(
     """Print a German-to-Plural practice question."""
 
     print(
-        f"{CYAN}Question "
-        f"{question_number}/{total_questions}"
-        f"{RESET}"
+        format_progress_bar(
+            question_number,
+            total_questions,
+        )
     )
 
     print()
@@ -1547,8 +1633,3 @@ def format_weak_words_table(
             bottom,
         ]
     )
-
-def print_menu_option(number: str, label: str) -> None:
-    """Print a numbered menu option with consistent styling."""
-
-    print(f"  {colorize(number + '.', CYAN)} {label}")
