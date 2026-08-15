@@ -1,28 +1,178 @@
+from config.colors import (
+    RESET,
+    ORANGE,
+    DARK_ORANGE,
+    WHITE,
+    GRAY,
+    DARK_GRAY,
+)
+
+
 FOX_FRAMES = [
     r"""
-        /\   /\
-       (  ._. )
-        > ^ <
-    """,
+      {ORANGE}/\_/\\{RESET}
+     {ORANGE}( {WHITE}o.o{ORANGE} ){RESET}
+     {ORANGE}/  >  \{RESET}
+    {DARK_ORANGE}/|     |\{RESET}
+     {ORANGE}\/|___|\/{RESET}
+      {DARK_ORANGE}/   \{RESET}
+     {ORANGE}/_____\{RESET}
+""",
+
     r"""
-        /\   /\
-       (  o.o )
-        > ^ <
-    """,
+      {ORANGE}/\_/\\{RESET}
+     {ORANGE}( {WHITE}o.o{ORANGE} ){RESET}
+     {ORANGE}/  >  \{RESET}
+    {DARK_ORANGE}/|     |\{RESET}
+     {ORANGE}\/|___|\/{RESET}
+       {DARK_ORANGE}/  \{RESET}
+      {ORANGE}/____\{RESET}
+""",
+
+    r"""
+       {ORANGE}/\_/\\{RESET}
+      {ORANGE}( {WHITE}^.^{ORANGE} ){RESET}
+      {ORANGE}/  >  \{RESET}
+     {DARK_ORANGE}/|     |\{RESET}
+      {ORANGE}\/|___|\/{RESET}
+       {DARK_ORANGE}/   \{RESET}
+      {ORANGE}/_____\{RESET}
+""",
+
+    r"""
+       {ORANGE}/\_/\\{RESET}
+      {ORANGE}( {WHITE}o.o{ORANGE} ){RESET}
+      {ORANGE}/  >  \{RESET}
+     {DARK_ORANGE}/|     |\{RESET}
+      {ORANGE}\/|___|\/{RESET}
+        {DARK_ORANGE}/ \{RESET}
+       {ORANGE}/___\{RESET}
+""",
+
+    r"""
+      {ORANGE}/\_/\\{RESET}
+     {ORANGE}( {WHITE}o.o{ORANGE} ){RESET}
+     {ORANGE}/  >  \{RESET}
+    {DARK_ORANGE}/|     |\{RESET}
+     {ORANGE}\/|___|\/{RESET}
+      {DARK_ORANGE}/   \{RESET}
+     {ORANGE}/_____\{RESET}
+""",
+
+    r"""
+      {ORANGE}/\_/\\{RESET}
+     {ORANGE}( {WHITE}^.^{ORANGE} ){RESET}
+     {ORANGE}/  >  \{RESET}
+    {DARK_ORANGE}/|     |\{RESET}
+     {ORANGE}\/|___|\/{RESET}
+       {DARK_ORANGE}/  \{RESET}
+      {ORANGE}/____\{RESET}
+""",
+
+    r"""
+       {ORANGE}/\_/\\{RESET}
+      {ORANGE}( {WHITE}o.o{ORANGE} ){RESET}
+      {ORANGE}/  >  \{RESET}
+     {DARK_ORANGE}/|     |\{RESET}
+      {ORANGE}\/|___|\/{RESET}
+       {DARK_ORANGE}/   \{RESET}
+      {ORANGE}/_____\{RESET}
+""",
+
+    r"""
+      {ORANGE}/\_/\\{RESET}
+     {ORANGE}( {WHITE}-.-{ORANGE} ){RESET}
+     {ORANGE}/  >  \{RESET}
+    {DARK_ORANGE}/|     |\{RESET}
+     {ORANGE}\/|___|\/{RESET}
+      {DARK_ORANGE}/   \{RESET}
+     {ORANGE}/_____\{RESET}
+""",
 ]
+
 
 RACCOON_FRAMES = [
     r"""
-       (\_/)
-      ( ..  )
-      / >o
-    """,
+       {GRAY}/\___/\{RESET}
+      {GRAY}( {WHITE}o.o{GRAY} ){RESET}
+      {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+     {DARK_GRAY}/ |     | \{RESET}
+       {GRAY}/|___|\{RESET}
+      {DARK_GRAY}/  |  \{RESET}
+     {GRAY}/___|___\{RESET}
+""",
+
     r"""
-       (\_/)
-      ( -.- )
-      / >o
-    """,
+        {GRAY}/\___/\{RESET}
+       {GRAY}( {WHITE}o.o{GRAY} ){RESET}
+       {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+      {DARK_GRAY}/ |     | \{RESET}
+        {GRAY}/|___|\{RESET}
+       {DARK_GRAY}/  |  \{RESET}
+      {GRAY}/___|___\{RESET}
+""",
+
+    r"""
+       {GRAY}/\___/\{RESET}
+      {GRAY}( {WHITE}^.^{GRAY} ){RESET}
+      {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+     {DARK_GRAY}/ |     | \{RESET}
+       {GRAY}/|___|\{RESET}
+        {DARK_GRAY}/ | \{RESET}
+       {GRAY}/__|__\{RESET}
+""",
+
+    r"""
+       {GRAY}/\___/\{RESET}
+      {GRAY}( {WHITE}-.-{GRAY} ){RESET}
+      {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+     {DARK_GRAY}/ |     | \{RESET}
+       {GRAY}/|___|\{RESET}
+      {DARK_GRAY}/  |  \{RESET}
+     {GRAY}/___|___\{RESET}
+""",
+
+    r"""
+        {GRAY}/\___/\{RESET}
+       {GRAY}( {WHITE}o.o{GRAY} ){RESET}
+       {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+      {DARK_GRAY}/ |     | \{RESET}
+        {GRAY}/|___|\{RESET}
+       {DARK_GRAY}/ |   \{RESET}
+      {GRAY}/__|____\{RESET}
+""",
+
+    r"""
+       {GRAY}/\___/\{RESET}
+      {GRAY}( {WHITE}o.o{GRAY} ){RESET}
+      {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+     {DARK_GRAY}/ |     | \{RESET}
+       {GRAY}/|___|\{RESET}
+        {DARK_GRAY}/ | \{RESET}
+       {GRAY}/__|__\{RESET}
+""",
+
+    r"""
+       {GRAY}/\___/\{RESET}
+      {GRAY}( {WHITE}^.^{GRAY} ){RESET}
+      {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+     {DARK_GRAY}/ |     | \{RESET}
+       {GRAY}/|___|\{RESET}
+       {DARK_GRAY}/  |  \{RESET}
+      {GRAY}/___|___\{RESET}
+""",
+
+    r"""
+       {GRAY}/\___/\{RESET}
+      {GRAY}( {WHITE}o.o{GRAY} ){RESET}
+      {DARK_GRAY}/|{GRAY}___{DARK_GRAY}|\{RESET}
+     {DARK_GRAY}/ |     | \{RESET}
+       {GRAY}/|___|\{RESET}
+      {DARK_GRAY}/  |  \{RESET}
+     {GRAY}/___|___\{RESET}
+""",
 ]
+
 
 MASCOTS = {
     "fox": FOX_FRAMES,
