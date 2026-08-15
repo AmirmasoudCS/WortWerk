@@ -112,6 +112,16 @@ Colored, interactive terminal interface with clear validation messages, interact
 - Python 3.10+
 - SQLite (no external database server required)
 
+## 📸 Screenshots
+
+### Practice Mode
+
+![WortWerk Practice Mode](./assets/images/screenshots/menu.png)
+
+### Vocabulary List
+
+![WortWerk Vocabulary List](./assets/images/screenshots/stats.png)
+
 ## 📦 Installation
 
 ```bash
