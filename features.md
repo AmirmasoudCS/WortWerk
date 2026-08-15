@@ -75,11 +75,10 @@ Ideas and planned features for future versions of WortWerk.
 
 ## 🎨 CLI Improvements
 
-* [ ] Add progress indicators
+* [x] Add progress indicators
 * [ ] Improve practice question layout
 * [x] Add more visual feedback
 * [x] Improve interactive menus
-* [ ] Add optional terminal animations
 
 ## 🧩 Vocabulary Improvements
 
