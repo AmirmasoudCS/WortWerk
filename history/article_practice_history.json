@@ -232,5 +232,19 @@
             "correct": 1,
             "incorrect": 0
         }
+    },
+    "64": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "74": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
     }
 }
