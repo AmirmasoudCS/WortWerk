@@ -10,6 +10,11 @@ from config.colors import (
     BLUE,
     CYAN,
     BRIGHT_RED,
+    ORANGE,
+    DARK_ORANGE,
+    WHITE,
+    GRAY,
+    DARK_GRAY,
 )
 from scripts.utils.helper import clear_screen
 
@@ -121,8 +126,23 @@ def format_progress_bar(
 
     return f"{CYAN}[{bar}] {current}/{total}{RESET}"
 
+def render_frame(frame):
+    colors = {
+        "{ORANGE}": ORANGE,
+        "{DARK_ORANGE}": DARK_ORANGE,
+        "{WHITE}": WHITE,
+        "{GRAY}": GRAY,
+        "{DARK_GRAY}": DARK_GRAY,
+        "{RESET}": RESET,
+    }
+
+    for placeholder, color in colors.items():
+        frame = frame.replace(placeholder, color)
+
+    return frame
+
 def play_mascot_intro(
-    frame_delay: float = 0.35,
+    frame_delay: float = 0.10,
     loops: int = 2,
 ) -> None:
     """Play a short mascot animation before the practice header."""
@@ -134,7 +154,7 @@ def play_mascot_intro(
         for _ in range(loops):
             for frame in frames:
                 clear_screen()
-                print(f"{CYAN}{frame}{RESET}")
+                print(render_frame(frame))
                 time.sleep(frame_delay)
     except KeyboardInterrupt:
         pass
