@@ -174,7 +174,7 @@ python -m scripts.wortwerk -h
 | `--help`                    | `-h`                   | Show help message                          |
 | `--quiz`                    | `-q`                   | Launch quiz mode                           |
 | `--history`                 | `-H`                   | Show practice history                      |
-| `--weak`                    | `-w`                   | practice your weakest words                |
+| `--weak`                    | `-w`                   | Practice your weakest words                |
 | `--show-weak`               | `-sw`                  | Show your weakest words                    |
 | `--show-progress`           | `-sp`                  | Show accuracy progress over time           |
 | `--save`                    | `-s`                   | Save the progress chart created with `-sp` |
