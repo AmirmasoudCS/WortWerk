@@ -118,7 +118,7 @@ Colored, interactive terminal interface with clear validation messages, interact
 
 <div align="center">
 
-<img src="./assets/images/screenshots/menu.png" alt="WortWerk Practice Mode" width="650">
+<img src="./assets/images/screenshots/menu.png" alt="WortWerk Practice Mode" width="600">
 
 </div>
 
@@ -126,7 +126,7 @@ Colored, interactive terminal interface with clear validation messages, interact
 
 <div align="center">
 
-<img src="./assets/images/screenshots/stats.png" alt="WortWerk Vocabulary List" width="650">
+<img src="./assets/images/screenshots/stats.png" alt="WortWerk Vocabulary List" width="600">
 
 </div>
 
