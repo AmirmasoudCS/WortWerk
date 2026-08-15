@@ -50,11 +50,19 @@ def build_parser() -> argparse.ArgumentParser:
         help="Show practice history",
     )
 
+    parser.add_argument(
+        "-w",
+        "--weak",
+        action="store_true",
+        help="Practice your weakest words",
+    )
+
     return parser
 
 
 def run_practice(
     repo: VocabularyRepository,
+    weak: bool = False,
 ) -> None:
     """Launch a standard practice session."""
 
@@ -79,6 +87,7 @@ def run_practice(
         levels=levels,
         word_count=word_count,
         mode=mode,
+        weak=weak,
     )
 
 
@@ -176,9 +185,9 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
-    if args.quiz and args.history:
+    if sum([args.quiz, args.history, args.weak]) > 1:
         parser.error(
-            "The --quiz and --history options "
+            "The --quiz, --history, and --weak options "
             "cannot be used together."
         )
 
@@ -205,7 +214,7 @@ def main() -> None:
         elif args.quiz:
             run_quiz(repo)
         else:
-            run_practice(repo)
+            run_practice(repo, weak=args.weak)
 
     finally:
         db.close()
