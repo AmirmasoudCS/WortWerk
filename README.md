@@ -199,4 +199,4 @@ MIT License - see [LICENSE](./LICENSE) for the full text.
 
 WortWerk is an ongoing personal project that will evolve alongside my German-learning journey.
 
-[🛣️ Roadmap](./features.md)
+[🛣️ Roadmap](./roadmap.md)
