@@ -13,6 +13,7 @@ from config.colors import (
 )
 from scripts.utils.helper import clear_screen
 
+from config.sprites import FOX_FRAMES, RACCOON_FRAMES, MASCOTS
 
 def colorize(text: str, color: str) -> str:
     """Apply a color to text."""
@@ -119,39 +120,6 @@ def format_progress_bar(
     bar = "█" * filled + "░" * (width - filled)
 
     return f"{CYAN}[{bar}] {current}/{total}{RESET}"
-
-
-FOX_FRAMES = [
-    r"""
-        /\   /\
-       (  ._. )
-        > ^ <
-    """,
-    r"""
-        /\   /\
-       (  o.o )
-        > ^ <
-    """,
-]
-
-RACCOON_FRAMES = [
-    r"""
-       (\_/)
-      ( ..  )
-      / >o
-    """,
-    r"""
-       (\_/)
-      ( -.- )
-      / >o
-    """,
-]
-
-MASCOTS = {
-    "fox": FOX_FRAMES,
-    "raccoon": RACCOON_FRAMES,
-}
-
 
 def play_mascot_intro(
     frame_delay: float = 0.35,
