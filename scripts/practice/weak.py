@@ -134,3 +134,46 @@ def get_weak_words(
         )
 
     return selected
+
+def list_weak_words(
+    rows: list,
+    mode: str,
+    min_attempts: int = 3,
+    max_accuracy: float = 0.8,
+) -> list[dict]:
+    """Return weak words with their stats, sorted from lowest to highest accuracy."""
+
+    history = load_word_history(mode)
+
+    weak_words = []
+
+    for row in rows:
+        attempts, incorrect = _get_word_stats(
+            row["id"],
+            history,
+        )
+
+        if attempts < min_attempts:
+            continue
+
+        accuracy = (
+            attempts - incorrect
+        ) / attempts
+
+        if accuracy >= max_accuracy:
+            continue
+
+        weak_words.append(
+            {
+                "row": row,
+                "attempts": attempts,
+                "incorrect": incorrect,
+                "accuracy": accuracy,
+            }
+        )
+
+    weak_words.sort(
+        key=lambda item: item["accuracy"]
+    )
+
+    return weak_words
