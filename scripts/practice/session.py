@@ -5,6 +5,8 @@ from config.constants import PRACTICE_SESSION_TYPE
 
 from src.vocabulary.repository import VocabularyRepository
 
+from scripts.practice.weak import get_weak_words
+
 from scripts.practice.history import (
     record_word_result,
     save_session,
@@ -100,7 +102,9 @@ def practice(
     word_count: int | None,
     mode: str,
     require_article: bool = False,
+    weak: bool = False,
 ) -> None:
+    
     """Run a vocabulary practice session."""
 
     rows = repo.get_practice_words(
@@ -115,7 +119,13 @@ def practice(
 
     random.shuffle(rows)
 
-    if (
+    if weak:
+        rows = get_weak_words(
+            rows,
+            mode,
+            word_count if word_count is not None else len(rows),
+        )
+    elif (
         word_count is not None
         and word_count < len(rows)
     ):
