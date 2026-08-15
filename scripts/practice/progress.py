@@ -173,14 +173,17 @@ def build_progress_chart(save: bool = False) -> Path | None:
                 continue
 
             accuracies = [e["accuracy"] for e in entries]
+            questions = [e["questions"] for e in entries]
             x = list(range(1, len(accuracies) + 1))
 
             color = MODE_COLORS.get(mode, "#333333")
 
-            ax.scatter(x, accuracies, color=color, alpha=0.4, s=20)
+            sizes = [max(20, q * 4) for q in questions]
+
+            ax.scatter(x, accuracies, color=color, alpha=0.4, s=sizes)
             ax.plot(
                 x,
-                _weighted_rolling_average(accuracies, ROLLING_WINDOW),
+                _weighted_rolling_average(accuracies, questions, ROLLING_WINDOW),
                 color=color,
                 label=mode,
                 linewidth=2,
