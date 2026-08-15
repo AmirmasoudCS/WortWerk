@@ -124,7 +124,7 @@ Colored, interactive terminal interface with clear validation messages, interact
 
 ### Vocabulary List
 
-<div>
+<div align="center">
 
 <img src="./assets/images/screenshots/stats.png" alt="WortWerk Vocabulary List" width="650">
 
