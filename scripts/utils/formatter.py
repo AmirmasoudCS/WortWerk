@@ -327,13 +327,13 @@ def print_practice_header() -> None:
 def print_practice_mode_menu() -> None:
     """Print the available practice modes."""
 
-    print("What would you like to practice?")
+    print(f"{BOLD}What would you like to practice?{RESET}")
     print()
 
-    print("  1. German → Article")
-    print("  2. German → English")
-    print("  3. English → German")
-    print("  4. German → Plural")
+    print_menu_option("1", "German → Article")
+    print_menu_option("2", "German → English")
+    print_menu_option("3", "English → German")
+    print_menu_option("4", "German → Plural")
     print()
 
 
