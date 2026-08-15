@@ -77,8 +77,8 @@ Ideas and planned features for future versions of WortWerk.
 
 * [ ] Add progress indicators
 * [ ] Improve practice question layout
-* [ ] Add more visual feedback
-* [ ] Improve interactive menus
+* [x] Add more visual feedback
+* [x] Improve interactive menus
 * [ ] Add optional terminal animations
 
 ## 🧩 Vocabulary Improvements
