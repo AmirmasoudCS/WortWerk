@@ -14,6 +14,8 @@ from scripts.utils.formatter import (
     print_plural_question,
 )
 
+from config.colors import CYAN, RESET
+
 from scripts.utils.helper import clear_screen
 
 
@@ -115,3 +117,16 @@ def show_plural_question(
     elapsed_time = time.perf_counter() - start_time
 
     return answer, elapsed_time
+
+def format_progress_bar(
+    current: int,
+    total: int,
+    width: int = 20,
+) -> str:
+    """Format a text progress bar for the current question."""
+
+    filled = int((current / total) * width) if total else 0
+
+    bar = "█" * filled + "░" * (width - filled)
+
+    return f"{CYAN}[{bar}] {current}/{total}{RESET}"
