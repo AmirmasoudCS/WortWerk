@@ -1,8 +1,8 @@
 {
     "72": {
         "practice": {
-            "attempts": 1,
-            "correct": 0,
+            "attempts": 2,
+            "correct": 1,
             "incorrect": 1
         }
     },
@@ -32,6 +32,11 @@
             "attempts": 1,
             "correct": 0,
             "incorrect": 1
+        },
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
         }
     },
     "34": {
@@ -43,8 +48,8 @@
     },
     "46": {
         "practice": {
-            "attempts": 1,
-            "correct": 1,
+            "attempts": 2,
+            "correct": 2,
             "incorrect": 0
         }
     },
@@ -78,6 +83,125 @@
     },
     "76": {
         "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "52": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "56": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "42": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "49": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "60": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "17": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "9": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "70": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "73": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "97": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "63": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "40": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "69": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "58": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "37": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "26": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "21": {
+        "practice": {
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
