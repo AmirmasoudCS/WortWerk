@@ -3,6 +3,7 @@ from config.constants import VALID_LEVELS
 from scripts.utils.formatter import (
     print_error,
     print_practice_mode_menu,
+    format_level,
 )
 
 
@@ -11,8 +12,8 @@ def ask_word_count() -> int | None:
 
     while True:
         value = input(
-            "How many words would you like to practice? "
-            "(number or 'all'): "
+            f"{CYAN}How many words would you like to practice? "
+            f"(number or 'all'){RESET}: "
         ).strip().lower()
 
         if value == "all":
@@ -39,14 +40,14 @@ def ask_levels() -> list[str] | None:
     """Ask which CEFR levels the user wants to practice."""
 
     print()
-    print("Available levels:")
-    print("  ".join(sorted(VALID_LEVELS)))
+    print(f"{CYAN}Available levels:{RESET}")
+    print("  ".join(format_level(level) for level in sorted(VALID_LEVELS)))
     print()
 
     while True:
         value = input(
-            "Which levels would you like to practice? "
-            "(e.g. A1 A2, or 'all'): "
+            f"{CYAN}Which levels would you like to practice? "
+            f"(e.g. A1 A2, or 'all'){RESET}: "
         ).strip().upper()
 
         if value == "ALL":
@@ -85,7 +86,7 @@ def ask_practice_mode() -> str | None:
         print_practice_mode_menu()
 
         value = input(
-            "Choose a practice mode (1-4, or q to quit): "
+            f"{CYAN}Choose a practice mode (1-4, or q to quit){RESET}: "
         ).strip().lower()
 
         if value == "q":
@@ -113,7 +114,7 @@ def ask_require_article() -> bool:
 
     while True:
         value = input(
-            "Require the article? (y/n): "
+            f"{CYAN}Require the article? (y/n){RESET}: "
         ).strip().lower()
 
         if value in {"y", "yes"}:
