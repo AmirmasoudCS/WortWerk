@@ -25,6 +25,7 @@ from scripts.utils.formatter import (
     print_history_header,
     format_session_history_table,
     print_session_details,
+    format_weak_words_table,
 )
 
 from scripts.practice.weak import list_weak_words
