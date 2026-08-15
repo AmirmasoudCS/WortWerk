@@ -1,13 +1,3 @@
-from config.colors import (
-    RESET,
-    ORANGE,
-    DARK_ORANGE,
-    WHITE,
-    GRAY,
-    DARK_GRAY,
-)
-
-
 FOX_FRAMES = [
     r"""
       {ORANGE}/\_/\\{RESET}
