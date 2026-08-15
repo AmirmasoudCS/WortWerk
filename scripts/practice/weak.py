@@ -105,7 +105,7 @@ def get_weak_words(
         print_info(
             "No weak words found yet. Starting a normal practice session instead."
         )
-        return rows
+        return rows[:word_count]
 
     selected = _weighted_sample_without_replacement(
         weak_rows,
