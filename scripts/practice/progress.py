@@ -45,15 +45,32 @@ def _grouped_sessions() -> dict:
     return grouped
 
 
-def _rolling_average(values: list[float], window: int) -> list[float]:
-    """Compute a simple rolling average over a list of values."""
+def _weighted_rolling_average(
+    accuracies: list[float],
+    weights: list[int],
+    window: int,
+) -> list[float]:
+    """Compute a rolling average weighted by question count per session."""
 
     averages = []
 
-    for i in range(len(values)):
+    for i in range(len(accuracies)):
         start = max(0, i - window + 1)
-        chunk = values[start:i + 1]
-        averages.append(sum(chunk) / len(chunk))
+
+        acc_chunk = accuracies[start:i + 1]
+        weight_chunk = weights[start:i + 1]
+
+        total_weight = sum(weight_chunk)
+
+        if total_weight == 0:
+            averages.append(0.0)
+            continue
+
+        weighted_sum = sum(
+            a * w for a, w in zip(acc_chunk, weight_chunk)
+        )
+
+        averages.append(weighted_sum / total_weight)
 
     return averages
 
@@ -162,7 +179,7 @@ def build_progress_chart(save: bool = False) -> Path | None:
             ax.scatter(x, accuracies, color=color, alpha=0.4, s=20)
             ax.plot(
                 x,
-                _rolling_average(accuracies, ROLLING_WINDOW),
+                _weighted_rolling_average(accuracies, ROLLING_WINDOW),
                 color=color,
                 label=mode,
                 linewidth=2,
