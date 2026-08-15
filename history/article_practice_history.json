@@ -246,5 +246,12 @@
             "correct": 1,
             "incorrect": 0
         }
+    },
+    "40": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
     }
 }
