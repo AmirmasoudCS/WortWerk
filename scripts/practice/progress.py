@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 
 from scripts.practice.history import load_sessions
 
@@ -142,6 +143,7 @@ def build_progress_chart(save: bool = False) -> Path | None:
         ax.set_xlabel("Session #")
         ax.set_ylabel("Accuracy (%)")
         ax.set_ylim(0, 100)
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
     def plot_on(ax, session_type):
         modes = grouped.get(session_type, {})
