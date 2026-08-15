@@ -166,6 +166,8 @@ def build_progress_chart(save: bool = False) -> Path | None:
     def plot_on(ax, session_type):
         modes = grouped.get(session_type, {})
 
+        plotted_anything = False
+
         for mode in VALID_PRACTICE_MODES:
             entries = modes.get(mode)
 
@@ -189,7 +191,9 @@ def build_progress_chart(save: bool = False) -> Path | None:
                 linewidth=2,
             )
 
-        if modes:
+            plotted_anything = True
+
+        if plotted_anything:
             ax.legend(fontsize=8)
 
     plot_on(axes[0], "practice")
