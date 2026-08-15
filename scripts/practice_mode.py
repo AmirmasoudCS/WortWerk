@@ -27,6 +27,8 @@ from scripts.utils.formatter import (
     print_session_details,
 )
 
+from scripts.practice.weak import list_weak_words
+
 
 def build_parser() -> argparse.ArgumentParser:
     """Build the practice CLI argument parser."""
@@ -55,6 +57,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--weak",
         action="store_true",
         help="Practice your weakest words",
+    )
+
+    parser.add_argument(
+        "-sw",
+        "--show-weak",
+        action="store_true",
+        help="Show your lowest-accuracy words",
     )
 
     return parser
@@ -178,6 +187,39 @@ def run_history() -> None:
 
         return
 
+def run_show_weak(
+    repo: VocabularyRepository,
+) -> None:
+    """Display the user's weakest words for a chosen practice mode."""
+
+    mode = ask_practice_mode()
+
+    if mode is None:
+        print_info(
+            "Cancelled."
+        )
+        return
+
+    print()
+
+    rows = repo.get_practice_words(None)
+
+    weak_words = list_weak_words(
+        rows,
+        mode,
+    )
+
+    if not weak_words:
+        print_info(
+            "No weak words found yet. Keep practicing!"
+        )
+        return
+
+    print(
+        format_weak_words_table(
+            weak_words
+        )
+    )
 
 def main() -> None:
     """Start the WortWerk practice CLI."""
@@ -185,9 +227,9 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
-    if sum([args.quiz, args.history, args.weak]) > 1:
+    if sum([args.quiz, args.history, args.weak, args.show_weak]) > 1:
         parser.error(
-            "The --quiz, --history, and --weak options "
+            "The --quiz, --history, --weak, and --show-weak options "
             "cannot be used together."
         )
 
@@ -213,6 +255,8 @@ def main() -> None:
             run_history()
         elif args.quiz:
             run_quiz(repo)
+        elif args.show_weak:
+            run_show_weak(repo)
         else:
             run_practice(repo, weak=args.weak)
 
