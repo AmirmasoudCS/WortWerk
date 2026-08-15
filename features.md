@@ -37,9 +37,9 @@ Ideas and planned features for future versions of WortWerk.
 ## 🔥 Weak-Word Practice
 
 * [x] Track incorrectly answered words
-* [ ] Add a weak-word practice mode
-* [ ] Prioritize frequently missed words
-* [ ] Add a `--weak` practice option
+* [x] Add a weak-word practice mode
+* [x] Prioritize frequently missed words
+* [x] Add a `--weak` practice option
 
 ## 📈 Practice History
 
@@ -47,7 +47,7 @@ Ideas and planned features for future versions of WortWerk.
 * [x] Track correct and incorrect answers
 * [x] Track accuracy over time
 * [x] Show previous practice sessions
-* [ ] Show improvement over time
+* [x] Show improvement over time
 * [x] Store per-word practice results
 * [x] Track performance by practice mode
 
