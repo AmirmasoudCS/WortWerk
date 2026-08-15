@@ -154,7 +154,7 @@ def play_mascot_intro(
         for _ in range(loops):
             for frame in frames:
                 clear_screen()
-                print(render_frame(frame))
+                print(frame)
                 time.sleep(frame_delay)
     except KeyboardInterrupt:
         pass
