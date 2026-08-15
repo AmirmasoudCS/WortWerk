@@ -114,13 +114,17 @@ Colored, interactive terminal interface with clear validation messages, interact
 
 ## 📸 Screenshots
 
+<div align="center">
+
 ### Practice Mode
 
-![WortWerk Practice Mode](./assets/images/screenshots/menu.png)
+<img src="./assets/images/screenshots/menu.png" alt="WortWerk Practice Mode" width="650">
 
 ### Vocabulary List
 
-![WortWerk Vocabulary List](./assets/images/screenshots/stats.png)
+<img src="./assets/images/screenshots/stats.png" alt="WortWerk Vocabulary List" width="650">
+
+</div>
 
 ## 📦 Installation
 
