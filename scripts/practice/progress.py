@@ -39,6 +39,7 @@ def _grouped_sessions() -> dict:
             {
                 "accuracy": session.get("accuracy", 0.0),
                 "date": session.get("date", ""),
+                "questions": session.get("questions", 0),
             }
         )
 
