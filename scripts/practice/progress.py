@@ -6,22 +6,11 @@ import matplotlib.pyplot as plt
 
 from scripts.practice.history import load_sessions
 
-from config.constants import VALID_PRACTICE_MODES
+from config.constants import VALID_PRACTICE_MODES, MIN_SESSIONS, ROLLING_WINDOW
 
-from config.colors import CYAN, YELLOW, RESET
+from config.colors import CYAN, YELLOW, RESET, MODE_COLORS
 
-PROGRESS_DIR = Path("progress")
-
-MIN_SESSIONS = 3
-ROLLING_WINDOW = 3
-
-MODE_COLORS = {
-    "article": "#1f77b4",
-    "english": "#ff7f0e",
-    "german": "#2ca02c",
-    "plural": "#d62728",
-}
-
+from config.paths import PROGRESS_DIR
 
 def _grouped_sessions() -> dict:
     """Group completed sessions by session_type and mode, in chronological order."""
