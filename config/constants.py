@@ -60,3 +60,6 @@ QUIZ_TEMPLATE_QUESTION_COUNTS = {
         "plural": 10,
     },
 }
+
+MIN_SESSIONS = 3
+ROLLING_WINDOW = 3
