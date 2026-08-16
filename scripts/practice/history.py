@@ -14,6 +14,7 @@ from config.paths import (
 from config.constants import (
     VALID_SESSION_TYPES,
     VALID_PRACTICE_MODES,
+    PRACTICE_SESSION_TYPE,
 )
 
 
@@ -133,7 +134,7 @@ def save_session(
             f"Invalid session type: {session_type}"
         )
 
-    if mode not in VALID_PRACTICE_MODES:
+    if session_type == PRACTICE_SESSION_TYPE and mode not in VALID_PRACTICE_MODES:
         raise ValueError(
             f"Invalid practice mode: {mode}"
         )
