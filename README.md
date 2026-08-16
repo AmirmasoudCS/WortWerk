@@ -141,6 +141,14 @@ Colored, interactive terminal interface with clear validation messages, interact
 </div>
 </br>
 
+### Session Summary
+
+<div align="center">
+
+<img src="./assets/images/screenshots/summary.png" alt="WortWerk Vocabulary List" width="600">
+
+</div>
+</br>
 
 ## 📦 Installation
 
