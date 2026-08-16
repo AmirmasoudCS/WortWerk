@@ -11,6 +11,11 @@
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
+        },
+        "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
         }
     },
     "22": {
@@ -277,6 +282,27 @@
         }
     },
     "18": {
+        "quiz": {
+            "attempts": 2,
+            "correct": 2,
+            "incorrect": 0
+        }
+    },
+    "41": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "79": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "17": {
         "quiz": {
             "attempts": 1,
             "correct": 1,

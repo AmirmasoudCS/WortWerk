@@ -46,6 +46,11 @@
             "attempts": 2,
             "correct": 2,
             "incorrect": 0
+        },
+        "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
         }
     },
     "81": {
@@ -233,8 +238,8 @@
     },
     "93": {
         "quiz": {
-            "attempts": 1,
-            "correct": 1,
+            "attempts": 2,
+            "correct": 2,
             "incorrect": 0
         }
     },
@@ -243,6 +248,27 @@
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
+        }
+    },
+    "45": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "78": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "47": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
         }
     }
 }
