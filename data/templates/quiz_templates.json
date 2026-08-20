@@ -4,5 +4,11 @@
         "article": 1,
         "plural": 1,
         "english": 1
+    },
+    "20-q-template": {
+        "german": 20,
+        "article": 20,
+        "plural": 20,
+        "english": 20
     }
 }
