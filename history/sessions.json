@@ -400,5 +400,85 @@
             "german": 3,
             "plural": 3
         }
+    },
+    "20260821071533741831": {
+        "date": "2026-08-21T07:15:33",
+        "session_type": "quiz",
+        "mode": "short",
+        "levels": [
+            "A1"
+        ],
+        "questions": 12,
+        "correct": 10,
+        "incorrect": 2,
+        "accuracy": 83.33333333333334,
+        "time": 58.06996829994023,
+        "completed": true,
+        "question_counts": {
+            "article": 3,
+            "english": 3,
+            "german": 3,
+            "plural": 3
+        }
+    },
+    "20260821072035626855": {
+        "date": "2026-08-21T07:20:35",
+        "session_type": "quiz",
+        "mode": "short",
+        "levels": [
+            "A1"
+        ],
+        "questions": 12,
+        "correct": 8,
+        "incorrect": 4,
+        "accuracy": 66.66666666666666,
+        "time": 70.93788209976628,
+        "completed": true,
+        "question_counts": {
+            "article": 3,
+            "english": 3,
+            "german": 3,
+            "plural": 3
+        }
+    },
+    "20260821072646992334": {
+        "date": "2026-08-21T07:26:46",
+        "session_type": "quiz",
+        "mode": "short",
+        "levels": [
+            "A1"
+        ],
+        "questions": 12,
+        "correct": 8,
+        "incorrect": 4,
+        "accuracy": 66.66666666666666,
+        "time": 55.91150380007457,
+        "completed": true,
+        "question_counts": {
+            "article": 3,
+            "english": 3,
+            "german": 3,
+            "plural": 3
+        }
+    },
+    "20260821073138282574": {
+        "date": "2026-08-21T07:31:38",
+        "session_type": "quiz",
+        "mode": "medium",
+        "levels": [
+            "A1"
+        ],
+        "questions": 20,
+        "correct": 16,
+        "incorrect": 4,
+        "accuracy": 80.0,
+        "time": 89.67946870042942,
+        "completed": true,
+        "question_counts": {
+            "article": 5,
+            "english": 5,
+            "german": 5,
+            "plural": 5
+        }
     }
 }
