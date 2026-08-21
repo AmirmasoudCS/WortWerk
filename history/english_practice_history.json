@@ -271,8 +271,8 @@
     },
     "36": {
         "quiz": {
-            "attempts": 1,
-            "correct": 1,
+            "attempts": 2,
+            "correct": 2,
             "incorrect": 0
         }
     },
@@ -389,6 +389,20 @@
         }
     },
     "83": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "54": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "48": {
         "quiz": {
             "attempts": 1,
             "correct": 1,

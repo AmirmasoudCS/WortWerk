@@ -380,5 +380,25 @@
             "plural": 20,
             "english": 20
         }
+    },
+    "20260821070948615910": {
+        "date": "2026-08-21T07:09:48",
+        "session_type": "quiz",
+        "mode": "short",
+        "levels": [
+            "A1"
+        ],
+        "questions": 12,
+        "correct": 5,
+        "incorrect": 7,
+        "accuracy": 41.66666666666667,
+        "time": 75.12808789964765,
+        "completed": true,
+        "question_counts": {
+            "article": 3,
+            "english": 3,
+            "german": 3,
+            "plural": 3
+        }
     }
 }
