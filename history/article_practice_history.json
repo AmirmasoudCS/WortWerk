@@ -61,6 +61,11 @@
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
+        },
+        "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
         }
     },
     "30": {
@@ -256,6 +261,11 @@
     },
     "98": {
         "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        },
+        "quiz": {
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
@@ -525,6 +535,27 @@
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
+        }
+    },
+    "118": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "123": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "100": {
+        "quiz": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
         }
     }
 }

@@ -480,5 +480,25 @@
             "german": 5,
             "plural": 5
         }
+    },
+    "20260823090215149518": {
+        "date": "2026-08-23T09:02:15",
+        "session_type": "quiz",
+        "mode": "medium",
+        "levels": [
+            "A1"
+        ],
+        "questions": 20,
+        "correct": 8,
+        "incorrect": 12,
+        "accuracy": 40.0,
+        "time": 78.37689159996808,
+        "completed": true,
+        "question_counts": {
+            "article": 5,
+            "english": 5,
+            "german": 5,
+            "plural": 5
+        }
     }
 }
