@@ -542,5 +542,19 @@
         "accuracy": 66.66666666666666,
         "time": 92.16851769969799,
         "completed": true
+    },
+    "20260824071218732458": {
+        "date": "2026-08-24T07:12:18",
+        "session_type": "practice",
+        "mode": "plural",
+        "levels": [
+            "A1"
+        ],
+        "questions": 15,
+        "correct": 9,
+        "incorrect": 6,
+        "accuracy": 60.0,
+        "time": 103.40137960005086,
+        "completed": true
     }
 }
