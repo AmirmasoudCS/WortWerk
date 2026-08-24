@@ -500,5 +500,19 @@
             "german": 5,
             "plural": 5
         }
+    },
+    "20260824070327320049": {
+        "date": "2026-08-24T07:03:27",
+        "session_type": "practice",
+        "mode": "article",
+        "levels": [
+            "A1"
+        ],
+        "questions": 15,
+        "correct": 12,
+        "incorrect": 3,
+        "accuracy": 80.0,
+        "time": 54.85241870046593,
+        "completed": true
     }
 }
