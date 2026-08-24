@@ -84,6 +84,11 @@
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
+        },
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
         }
     },
     "29": {
@@ -121,8 +126,8 @@
     },
     "72": {
         "practice": {
-            "attempts": 1,
-            "correct": 1,
+            "attempts": 2,
+            "correct": 2,
             "incorrect": 0
         }
     },
@@ -373,10 +378,20 @@
             "attempts": 1,
             "correct": 0,
             "incorrect": 1
+        },
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
         }
     },
     "135": {
         "quiz": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        },
+        "practice": {
             "attempts": 1,
             "correct": 1,
             "incorrect": 0
@@ -499,6 +514,83 @@
             "attempts": 1,
             "correct": 0,
             "incorrect": 1
+        }
+    },
+    "169": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "123": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "27": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "151": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "21": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "18": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "188": {
+        "practice": {
+            "attempts": 1,
+            "correct": 0,
+            "incorrect": 1
+        }
+    },
+    "181": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "76": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "145": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
+        }
+    },
+    "196": {
+        "practice": {
+            "attempts": 1,
+            "correct": 1,
+            "incorrect": 0
         }
     }
 }

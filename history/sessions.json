@@ -528,5 +528,19 @@
         "accuracy": 86.66666666666667,
         "time": 75.58230169990566,
         "completed": true
+    },
+    "20260824070914742403": {
+        "date": "2026-08-24T07:09:14",
+        "session_type": "practice",
+        "mode": "german",
+        "levels": [
+            "A1"
+        ],
+        "questions": 15,
+        "correct": 10,
+        "incorrect": 5,
+        "accuracy": 66.66666666666666,
+        "time": 92.16851769969799,
+        "completed": true
     }
 }
