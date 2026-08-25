@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib import colormaps
 
+import hashlib
+
 from scripts.practice.history import load_sessions
 
 from config.constants import VALID_PRACTICE_MODES, MIN_SESSIONS, ROLLING_WINDOW
@@ -83,7 +85,8 @@ def _color_for_mode(mode: str) -> str:
         return MODE_COLORS[mode]
 
     cmap = colormaps["tab20"]
-    idx = hash(mode) % 20
+    digest = hashlib.md5(mode.encode()).hexdigest()
+    idx = int(digest, 16) % 20
 
     return cmap(idx / 20)
 
