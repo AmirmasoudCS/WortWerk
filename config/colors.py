@@ -33,6 +33,9 @@ MODE_COLORS = {
     "english": "#ff7f0e",
     "german": "#2ca02c",
     "plural": "#d62728",
+    "short": "#e63946",
+    "medium": "#f4a261",
+    "long": "#2a9d8f",
 }
 
 SEAL_BODY = "\033[38;5;250m"
