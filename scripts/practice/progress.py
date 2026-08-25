@@ -168,9 +168,7 @@ def build_progress_chart(save: bool = False) -> Path | None:
 
         plotted_anything = False
 
-        for mode in VALID_PRACTICE_MODES:
-            entries = modes.get(mode)
-
+        for mode, entries in modes.items():
             if not entries or len(entries) < MIN_SESSIONS:
                 continue
 
@@ -179,7 +177,6 @@ def build_progress_chart(save: bool = False) -> Path | None:
             x = list(range(1, len(accuracies) + 1))
 
             color = MODE_COLORS.get(mode, "#333333")
-
             sizes = [max(20, q * 4) for q in questions]
 
             ax.scatter(x, accuracies, color=color, alpha=0.4, s=sizes)
