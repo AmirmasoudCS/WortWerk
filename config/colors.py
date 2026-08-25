@@ -29,13 +29,13 @@ BLACK = "\033[30m"
 
 
 MODE_COLORS = {
-    "article": "#1f77b4",
-    "english": "#ff7f0e",
-    "german": "#2ca02c",
-    "plural": "#d62728",
-    "short": "#e63946",
-    "medium": "#f4a261",
-    "long": "#2a9d8f",
+    "article": "#1f77b4",  # blue
+    "english": "#ff7f0e",  # orange
+    "german": "#2ca02c",   # green
+    "plural": "#d62728",   # red
+    "short": "#9467bd",    # purple
+    "medium": "#8c564b",   # brown
+    "long": "#e377c2",     # pink
 }
 
 SEAL_BODY = "\033[38;5;250m"
