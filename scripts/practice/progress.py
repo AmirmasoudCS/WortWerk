@@ -187,7 +187,7 @@ def build_progress_chart(save: bool = False) -> Path | None:
             questions = [e["questions"] for e in entries]
             x = list(range(1, len(accuracies) + 1))
 
-            color = MODE_COLORS.get(mode, "#333333")
+            color = _color_for_mode(mode)
             sizes = [max(20, q * 4) for q in questions]
 
             ax.scatter(x, accuracies, color=color, alpha=0.4, s=sizes)
