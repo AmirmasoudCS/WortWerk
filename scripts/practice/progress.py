@@ -4,6 +4,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+from matplotlib import colormaps
 
 from scripts.practice.history import load_sessions
 
@@ -75,6 +76,16 @@ def _weighted_rolling_average(
 
     return averages
 
+def _color_for_mode(mode: str) -> str:
+    """Return a fixed color for known modes, or a deterministic generated one for custom quiz templates."""
+
+    if mode in MODE_COLORS:
+        return MODE_COLORS[mode]
+
+    cmap = colormaps["tab20"]
+    idx = hash(mode) % 20
+
+    return cmap(idx / 20)
 
 def build_progress_summary() -> dict:
     """Build a text-ready summary of accuracy progress per session type and mode."""
