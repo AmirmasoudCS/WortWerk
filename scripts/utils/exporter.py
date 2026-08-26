@@ -28,6 +28,14 @@ EXPORT_HEADERS = [
     "Level",
 ]
 
+ARTICLE_COLORS = {
+    "der": colors.HexColor("#3b82f6"),   # matches CLI BLUE
+    "die": colors.HexColor("#ef4444"),   # matches CLI BRIGHT_RED
+    "das": colors.HexColor("#22c55e"),   # matches CLI GREEN
+}
+
+ARTICLE_COLUMN_INDEX = EXPORT_COLUMNS.index("article")
+
 
 def _rows_to_values(rows) -> list[list]:
     """Convert sqlite Row objects into plain value lists."""
@@ -120,19 +128,39 @@ def export_pdf(
     table_data = [EXPORT_HEADERS] + _rows_to_values(rows)
     table = Table(table_data, repeatRows=1)
 
-    table.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#2c3e50")),
-                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
-                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-                ("FONTSIZE", (0, 0), (-1, -1), 8),
-                ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
-                ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f2f2f2")]),
-                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-            ]
-        )
-    )
+    style_commands = [
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#2c3e50")),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("FONTSIZE", (0, 0), (-1, -1), 8),
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f2f2f2")]),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+    ]
+
+    for row_index, row in enumerate(table_data[1:], start=1):
+        article = row[ARTICLE_COLUMN_INDEX].lower()
+        color = ARTICLE_COLORS.get(article)
+
+        if color is not None:
+            style_commands.append(
+                (
+                    "TEXTCOLOR",
+                    (ARTICLE_COLUMN_INDEX, row_index),
+                    (ARTICLE_COLUMN_INDEX, row_index),
+                    color,
+                )
+            )
+            style_commands.append(
+                (
+                    "FONTNAME",
+                    (ARTICLE_COLUMN_INDEX, row_index),
+                    (ARTICLE_COLUMN_INDEX, row_index),
+                    "Helvetica-Bold",
+                )
+            )
+
+    table.setStyle(TableStyle(style_commands))
 
     document.build([table])
 
