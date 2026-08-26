@@ -33,6 +33,29 @@ All the words are gathered from the **Starten Wir** book series.
 ### 📚 Vocabulary Management
 Add, edit, delete, and search vocabulary. Filter by article or CEFR level, sort by ID/alphabetical order/level (with reverse option), and view overall vocabulary statistics.
 
+### 📤 Export
+Export your vocabulary to CSV, Excel, or PDF - individually or all at once. Exports can be sorted by ID, alphabetical order, or level (with reverse option), and each format/sort combination is saved to its own file so multiple orderings can coexist side by side:
+
+```text
+📁 exports
+├── 📁 csv
+│   ├── 📊 vocabulary_alphabetical.csv
+│   └── 📊 vocabulary_id.csv
+├── 📁 excel
+│   ├── 📄 vocabulary_alphabetical.xlsx
+│   └── 📄 vocabulary_id.xlsx
+└── 📁 pdf
+    ├── 📕 vocabulary_alphabetical.pdf
+    └── 📕 vocabulary_id.pdf
+```
+> Generated using [Tree Printer](https://github.com/AmirmasoudCS/Tree-Printer.git)
+
+**Run it:**
+```bash
+python -m scripts.wortwerk export --format csv
+python -m scripts.wortwerk export -f all -s alphabetical -rev
+```
+
 ### 📝 Practice Mode
 Four practice modes:
 - German → Article
@@ -204,6 +227,10 @@ python -m scripts.wortwerk -h
 | `edit <id>`                 | -                       | Edit a word by ID                          |
 | `stats`                     | -                       | Show vocabulary statistics                 |
 | `search <query>`            | -                       | Search for a word or translation           |
+| `export`                    | -                       | Export vocabulary (csv, excel, pdf, all)   |
+| `export --format <format>`  | `export -f <format>`    | Choose export format                       |
+| `export --sort <method>`    | `export -s <method>`    | Sort exported words by ID, alphabetical order, or level |
+| `export --reverse`          | `export -rev`           | Reverse the export sort order              |
 
 ### Practice Mode Commands
 
