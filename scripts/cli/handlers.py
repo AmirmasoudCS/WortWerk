@@ -181,7 +181,10 @@ def handle_export(
 ) -> None:
     """Export vocabulary to CSV, Excel, and/or PDF."""
 
-    rows = repo.list_words()
+    rows = repo.list_words(
+        sort_by=args.sort,
+        reverse=args.reverse,
+    )
 
     if not rows:
         print_info("No words to export.")
