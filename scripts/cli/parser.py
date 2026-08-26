@@ -118,4 +118,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="Export format: csv, excel, pdf, or all",
     )
 
+    export_parser.add_argument(
+        "--sort",
+        "-s",
+        choices=[
+            "id",
+            "alphabetical",
+            "level",
+        ],
+        default="id",
+        help="Sort exported words by id, alphabetical order, or level",
+    )
+
+    export_parser.add_argument(
+        "--reverse",
+        "-rev",
+        action="store_true",
+        help="Reverse the sort order",
+    )
+
     return parser
