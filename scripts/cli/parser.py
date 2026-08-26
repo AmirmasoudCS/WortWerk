@@ -3,6 +3,7 @@ import argparse
 from config.constants import (
     VALID_ARTICLES,
     VALID_LEVELS,
+    VALID_EXPORT_FORMATS,
 )
 
 
@@ -102,6 +103,19 @@ def build_parser() -> argparse.ArgumentParser:
         "id",
         type=int,
         help="ID of the word to edit",
+    )
+
+    export_parser = subparsers.add_parser(
+        "export",
+        help="Export vocabulary to a file",
+    )
+
+    export_parser.add_argument(
+        "--format",
+        "-f",
+        choices=sorted(VALID_EXPORT_FORMATS),
+        default="all",
+        help="Export format: csv, excel, pdf, or all",
     )
 
     return parser
