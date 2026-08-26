@@ -5,6 +5,8 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
+from pathlib import Path
+
 from config.paths import EXPORTS
 
 
@@ -36,17 +38,31 @@ def _rows_to_values(rows) -> list[list]:
     ]
 
 
-def _ensure_exports_dir() -> None:
-    """Create the exports directory if it doesn't exist."""
+def _build_output_path(
+    fmt: str,
+    extension: str,
+    sort_by: str,
+    reverse: bool,
+) -> Path:
+    """Build the export path: exports/<format>/vocabulary_<sort>[_desc].<ext>"""
 
-    EXPORTS.mkdir(parents=True, exist_ok=True)
+    format_dir = EXPORTS / fmt
+    format_dir.mkdir(parents=True, exist_ok=True)
+
+    suffix = "_desc" if reverse else ""
+    filename = f"vocabulary_{sort_by}{suffix}.{extension}"
+
+    return format_dir / filename
 
 
-def export_csv(rows, filename: str = "vocabulary.csv") -> str:
+def export_csv(
+    rows,
+    sort_by: str = "id",
+    reverse: bool = False,
+) -> str:
     """Export vocabulary rows to a CSV file. Returns the output path."""
 
-    _ensure_exports_dir()
-    output_path = EXPORTS / filename
+    output_path = _build_output_path("csv", "csv", sort_by, reverse)
 
     with open(output_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
@@ -56,11 +72,14 @@ def export_csv(rows, filename: str = "vocabulary.csv") -> str:
     return str(output_path)
 
 
-def export_excel(rows, filename: str = "vocabulary.xlsx") -> str:
+def export_excel(
+    rows,
+    sort_by: str = "id",
+    reverse: bool = False,
+) -> str:
     """Export vocabulary rows to an Excel file. Returns the output path."""
 
-    _ensure_exports_dir()
-    output_path = EXPORTS / filename
+    output_path = _build_output_path("excel", "xlsx", sort_by, reverse)
 
     workbook = Workbook()
     sheet = workbook.active
@@ -84,11 +103,14 @@ def export_excel(rows, filename: str = "vocabulary.xlsx") -> str:
     return str(output_path)
 
 
-def export_pdf(rows, filename: str = "vocabulary.pdf") -> str:
+def export_pdf(
+    rows,
+    sort_by: str = "id",
+    reverse: bool = False,
+) -> str:
     """Export vocabulary rows to a PDF file. Returns the output path."""
 
-    _ensure_exports_dir()
-    output_path = EXPORTS / filename
+    output_path = _build_output_path("pdf", "pdf", sort_by, reverse)
 
     document = SimpleDocTemplate(
         str(output_path),
