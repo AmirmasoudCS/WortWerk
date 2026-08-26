@@ -197,7 +197,11 @@ def handle_export(
     )
 
     for fmt in formats:
-        output_path = EXPORT_HANDLERS[fmt](rows)
+        output_path = EXPORT_HANDLERS[fmt](
+            rows,
+            sort_by=args.sort,
+            reverse=args.reverse,
+        )
         print_success(f"Exported {len(rows)} words to {output_path}")
 
 def handle_edit(
