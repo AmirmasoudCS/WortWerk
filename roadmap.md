@@ -69,9 +69,9 @@ Ideas and planned features for future versions of WortWerk.
 ## 📥 Import & Export
 
 * [ ] Import vocabulary from CSV
-* [ ] Export vocabulary to CSV
-* [ ] Export vocabulary to PDF
-* [ ] Export vocabulary to Excel
+* [x] Export vocabulary to CSV
+* [x] Export vocabulary to PDF
+* [x] Export vocabulary to Excel
 * [ ] Validate imported vocabulary
 * [ ] Handle duplicate words during import
 
@@ -89,6 +89,7 @@ Ideas and planned features for future versions of WortWerk.
 * [ ] Support additional word metadata
 * [ ] Improve vocabulary filtering
 * [ ] Add more advanced search options
+* [ ] Somehow manage multiple meanings for the words
 
 ## 🔮 Long-Term Ideas
 
