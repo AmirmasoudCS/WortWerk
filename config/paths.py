@@ -13,6 +13,7 @@ CONFIG = ROOT / "config"
 HISTORY = ROOT / "history"
 TEMPLATES = DATA / "templates"
 PROGRESS_DIR = ROOT / "progress"
+EXPORTS = ROOT / "exports"
 
 # Depth 2
 
