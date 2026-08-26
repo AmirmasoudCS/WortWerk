@@ -13,6 +13,8 @@ from scripts.utils.formatter import (
     format_stats_table,
 )
 
+from scripts.utils.exporter import EXPORT_HANDLERS
+
 
 def handle_init(
     repo: VocabularyRepository,
@@ -173,6 +175,27 @@ def edit_prompt(
 
     return current_value or ""
 
+def handle_export(
+    repo: VocabularyRepository,
+    args,
+) -> None:
+    """Export vocabulary to CSV, Excel, and/or PDF."""
+
+    rows = repo.list_words()
+
+    if not rows:
+        print_info("No words to export.")
+        return
+
+    formats = (
+        EXPORT_HANDLERS.keys()
+        if args.format == "all"
+        else [args.format]
+    )
+
+    for fmt in formats:
+        output_path = EXPORT_HANDLERS[fmt](rows)
+        print_success(f"Exported {len(rows)} words to {output_path}")
 
 def handle_edit(
     repo: VocabularyRepository,
@@ -248,4 +271,5 @@ COMMAND_HANDLERS = {
     "list": handle_list,
     "delete": handle_delete,
     "edit": handle_edit,
+    "export": handle_export,
 }
