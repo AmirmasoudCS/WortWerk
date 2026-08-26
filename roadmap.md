@@ -70,6 +70,8 @@ Ideas and planned features for future versions of WortWerk.
 
 * [ ] Import vocabulary from CSV
 * [ ] Export vocabulary to CSV
+* [ ] Export vocabulary to PDF
+* [ ] Export vocabulary to Excel
 * [ ] Validate imported vocabulary
 * [ ] Handle duplicate words during import
 
