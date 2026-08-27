@@ -204,13 +204,13 @@ pip install -r requirements.txt
 
 ## 🚀 Getting Started
 
+### Vocabulary Commands
+
 See all available commands and options:
 
 ```bash
 python -m scripts.wortwerk -h
 ```
-
-### Vocabulary Commands
 
 | Command                     | Alias                   | Functionality                              |
 | :-------------------------- | :---------------------- | :----------------------------------------- |
@@ -233,6 +233,12 @@ python -m scripts.wortwerk -h
 | `export --reverse`          | `export -rev`           | Reverse the export sort order              |
 
 ### Practice Mode Commands
+
+See all available commands and options:
+
+```bash
+python -m scripts.practice_mode -h
+```
 
 | Command                     | Alias                  | Functionality                              |
 | :-------------------------- | :--------------------- | :----------------------------------------- |
