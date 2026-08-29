@@ -10,5 +10,11 @@
         "article": 20,
         "plural": 20,
         "english": 20
+    },
+    "Articles and Plurals Only": {
+        "plural": 10,
+        "german": 0,
+        "english": 0,
+        "article": 10
     }
 }
