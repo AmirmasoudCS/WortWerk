@@ -17,10 +17,10 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 
 | Article | A1 | A2 | B1 | B2 | C1 | C2 | Total |
 | :------ | --: | --: | --: | --: | --: | --: | ----: |
-| der     | 67 | 0 | 0 | 0 | 0 | 0 | 67 |
-| die     | 92 | 0 | 0 | 0 | 0 | 0 | 92 |
-| das     | 93 | 0 | 0 | 0 | 0 | 0 | 93 |
-| **Total** | **252** | **0** | **0** | **0** | **0** | **0** | **252** |
+| der     | 91 | 0 | 0 | 0 | 0 | 0 | 91 |
+| die     | 136 | 0 | 0 | 0 | 0 | 0 | 136 |
+| das     | 126 | 0 | 0 | 0 | 0 | 0 | 126 |
+| **Total** | **353** | **0** | **0** | **0** | **0** | **0** | **353** |
 
 All the words are gathered from the **Starten Wir** book series.
 
