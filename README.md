@@ -24,7 +24,7 @@ The current WortWerk vocabulary dataset is organized by German article and CEFR 
 
 All the words are gathered from the **Starten Wir** book series.
 
-> **Dataset snapshot:** August 2026
+> **Dataset snapshot:** October 2026
 > The vocabulary dataset is continuously growing alongside my German-learning journey.
 > Run `python -m scripts.wortwerk stats` to view the current statistics.
 
