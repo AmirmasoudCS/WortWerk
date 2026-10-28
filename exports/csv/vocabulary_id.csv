@@ -251,3 +251,130 @@ ID,German,Article,English,Plural,Level
 250,Stammbaum,der,Family Tree,Stammbäume,A1
 251,Stamm,der,Stem,Stämme,A1
 252,Baum,der,Tree,Bäume,A1
+253,Klavier,das,Piano,Klaviere,A1
+254,Rad,das,Bike,Räder,A1
+255,Kino,das,Cinema,Kinos,A1
+256,Park,der,Park,Parke,A1
+257,Computerspiel,das,Computer Game,Computerspiele,A1
+258,Spaß,der,Fun,Späße,A1
+259,Stress,der,Stress,Stresse,A1
+260,Freizeit,die,Free Time,Freizeiten,A1
+261,Disco,die,Club,Discos,A1
+262,Tag,der,Day,Tage,A1
+263,Montag,der,Monday,Montage,A1
+264,Dienstag,der,Tuesday,Dienstage,A1
+265,Mittwoch,der,Wednesday,Mittwoche,A1
+266,Donnerstag,der,Thursday,Donnerstage,A1
+267,Freitag,der,Friday,Freitage,A1
+268,Samstag,der,Saturday,Samstage,A1
+269,Sonntag,der,Sunday,Sonntage,A1
+270,Konzert,das,Concert,Konzerte,A1
+271,Theater,das,Theater,Theater,A1
+272,Leser,der,Reader (M),Leser,A1
+273,Leserin,die,Reader (F),Leserinnen,A1
+274,Kreis,der,Circle,Kreise,A1
+275,Gedicht,das,Poem,Gedichte,A1
+276,Idee,die,Idea,Ideen,A1
+277,Wohnung,die,Apartment,Wohnungen,A1
+278,Arbeitsplatz,der,Workplace,Arbeitsplätze,A1
+279,Notfall,der,Emergency,Notfälle,A1
+280,Arzt,der,Doctor (M),Ärzte,A1
+281,Ärztin,die,Doctor (F),Ärztinnen,A1
+282,Krankenpfleger,der,Nurse (M),Krankenpfleger,A1
+283,Krankenpflegering,die,Nurse (F),Krankenpflegerinnen,A1
+284,Krankenschwester,die,Nurse,Krankenschwester,A1
+285,Krankenhaus,das,Hospital,Krankenhäuser,A1
+286,Tankstelle,die,Gas Station,Tankstellen,A1
+287,Flughafen,der,Airport,Flughäfen,A1
+288,Bahnhof,der,Train Station,Bahnhöfe,A1
+289,Geschäft,das,Store,Geschäfte,A1
+290,Schule,die,School,Sculen,A1
+291,Kirche,die,Church,Kirchen,A1
+292,Lücke,die,Gap,Lücken,A1
+293,Zentrum,das,Center,Zentren,A1
+294,Tiergarten,der,Zoo,Tiergärten,A1
+295,Stadtpark,der,City Park,Stadtparke,A1
+296,Dorf,das,Village,Dörfer,A1
+297,Miete,die,Rent,Mieten,A1
+298,Traum,der,Dream,Träume,A1
+299,Pinnwand,die,Bulletin Board,Pinnwände,A1
+300,Wahl,die,Vote,Wahlen,A1
+301,Zimmer,das,Room,Zimmer,A1
+302,Wohngemeinschaft,die,Shared Apartment,Wohngemeinschaften,A1
+303,Parkbank,die,Park Bench,Parkbanken,A1
+304,Möbel,das,Furniture,Möbeln,A1
+305,Fernseher,der,Television,Fernseher,A1
+306,Schrank,der,Closet,Schränke,A1
+307,Bett,das,Bed,Betten,A1
+308,Kühlschrank,der,Fridge,Kühlschränke,A1
+309,Mikrowelle,die,Microwave,Mikrowellen,A1
+310,Lampe,die,Lamp,Lampen,A1
+311,Klosett,das,Toilet,Klosette,A1
+312,Couch,die,Couch,Couchen,A1
+313,Wohnzimmer,das,Living Room,Wohnzimmer,A1
+314,Schlafzimmer,das,Bedroom,Schlafzimmer,A1
+315,Bad,das,Bath,Bäder,A1
+316,Balkon,der,Balcony,Balkone,A1
+317,Mitte,die,Middle,Mitten,A1
+318,Dunkel,das,Darkness,Dunkels,A1
+319,Luxus,der,Luxury,Luxus,A1
+320,Gastzimmer,das,Guest Room,Gastzimmer,A1
+321,Bäckerei,die,Bakery,Bäckereien,A1
+322,Etage,die,Floor,Etagen,A1
+323,Sonne,die,Sun,Sonnen,A1
+324,Regen,der,Rain,Regen,A1
+325,Schnee,der,Snow,Schnees,A1
+326,Wolke,die,Cloud,Wolken,A1
+327,Temperatur,die,Temperature,Temperaturen,A1
+328,Datum,das,Date,Daten,A1
+329,Wettervorhersage,die,Weather forecast,Wettervorhersagen,A1
+330,Wetter,das,Weather,Wetter,A1
+331,Morgen,der,Morning,Morgen,A1
+332,Vormittag,der,Forenoon,Vormittage,A1
+333,Mittag,der,Noon,Mittage,A1
+334,Nachmittag,der,Afternoon,Nachmittage,A1
+335,Abend,der,Evening,Abende,A1
+336,Nacht,die,Night,Nächte,A1
+337,Norden,der,North,Nordens,A1
+338,Süden,der,South,Südens,A1
+339,Westen,der,West,Westens,A1
+340,Osten,der,East,Ostens,A1
+341,Fahrradkurier,der,Bicycle Courier,Fahrradkuriere,A1
+342,Autobahn,die,Highway,Autobahnen,A1
+343,Geburt,die,Birth,Geburten,A1
+344,Geburtsort,der,Birthplace,Geburtsorte,A1
+345,Geburtsdatum,das,Date of Birth,Geburtsdatumen,A1
+346,Geburtstag,der,Birthday,Geburtstage,A1
+347,Universität,die,University,Universitäten,A1
+348,Praktikant,der,Intern,Praktikanten,A1
+349,Lebenslauf,der,Resume,Lebensläufe,A1
+350,Fremdsprache,die,Foreign Language,Fremdsprachen,A1
+351,Ort,der,Location,Orte,A1
+352,Abitur,das,Abitur,Abiture,A1
+353,Matura,die,High school diploma,Matura,A1
+354,Zug,der,Train,Züge,A1
+355,Umwelt,die,Environment,Umwelten,A1
+356,Flugzeug,das,Airplane,Flugzeuge,A1
+357,Stau,der,Traffic Jam,Staus,A1
+358,Verkehr,der,Traffic,Verkehre,A1
+359,Verkehrsmittel,das,Means of Transportation,Verkehrsmittel,A1
+360,Bushaltestelle,die,Bus Stop,Bushaltestellen,A1
+361,Straßembahn,die,Tram,Straßembahnen,A1
+362,Metro,die,Metro,Metros,A1
+363,Würfel,der,Dice,Würfel,A1
+364,Gleis,das,Track,Gleise,A1
+365,Abfahrt,die,Exit,Abfahrten,A1
+366,Einwohner,der,Resident (M),Einwohner,A1
+367,Einwohnerin,die,Resident (F),Einwohnerinnen,A1
+368,Sehenswürdigkeit,die,Sight,Sehenswürdigkeiten,A1
+369,Hexe,die,Witch,Hexen,A1
+370,Vampir,der,Vampire (M),Vampire,A1
+371,Vampirin,die,Vampire (F),Vampirinnen,A1
+372,Treffpunkt,der,Meeting Point,Treffpunkte,A1
+373,Geheimnis,das,Secret,Geheimnisse,A1
+374,Gasse,die,Alley,Gassen,A1
+375,Rathaus,das,City Hall,Rathäuser,A1
+376,Marktplatz,der,Marketplace,Marktplätze,A1
+377,Pfeil,der,Arrow,Pfeile,A1
+378,Schloss,das,Palace,Schlösser,A1
+379,Strand,der,Beach,Strände,A1
