@@ -90,13 +90,13 @@ Custom quizzes can be saved as named, reusable templates with their own question
 Example:
 ```text
 Grammar Focus
-├── 10 × German → Article
-├── 5 × English → German
-└── 5 × German → Plural
+├── 10 × German -> Article
+├── 5 × English -> German
+└── 5 × German -> Plural
 
 Translation Practice
-├── 10 × German → English
-└── 10 × English → German
+├── 10 × German -> English
+└── 10 × English -> German
 ```
 
 When launching quiz mode, you choose between:
